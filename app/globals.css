@@ -14,8 +14,266 @@
   }
 }
 
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+p {
+  line-height: 1.7;
+}
+
+ul {
+  list-style: none;
+}
+
+li {
+  line-height: 2.2;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: black;
+}
+
+
+.container {
+  /* width: 100%; */
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 20px;
+  text-align: center;
+  align-items: center;
+}
+
+/* .container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+} */
+
+.sign-in-button {
+  width: 45vw; /* 20% of the viewport width */
+  height: 10vh; /* 5% of the viewport height */
+  font-size: 2.1vw; /* 2% of the viewport width */
+  padding: 10px 20px;
+  border: none;
+  border-color: #0a0a0a;
+  border-radius: 5px;
+  background-color: #ffd93c; /* replace with your desired button color */
+  color: black;
+  cursor: pointer;
+  z-index: 1;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+
+}
+
+.sign-in-button:hover {
+  background-color: #fff0b1; /* replace with your desired hover color */
+}
+
+.landing-page-background {
+  background-image: url('/BG_PH_Flag.jpeg');
+  background-size: auto 100%;
+  background-position: center;
+  object-fit: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* opacity: 0.2; */
+  filter: opacity(0.05);
+  position: relative;
+}
+
+.guest button {
+  width: 45vw; /* 20% of the viewport width */
+  height: 20vh; /* 5% of the viewport height */
+  font-size: 3.5vw; /* 2% of the viewport width */
+  padding: 10px 20px;
+  border: none;
+  border-color: #0a0a0a;
+  border-radius: 5px;
+  background-color: #ffd93c; /* replace with your desired button color */
+  color: black;
+  cursor: pointer;
+  z-index: 1;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 2);
+}
+
+.guest:hover  {
+  cursor: pointer;
+}
+
+
+.bottomNavbar {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  z-index: 50;
+  width: 100%;
+  height: 4rem;
+  box-shadow: 0 0px 80px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  --tw-bg-opacity: 1;
+  /* background-color: rgb(173 224 247 / var(--tw-bg-opacity)); */
+  border-top-width: 1px;
+  --tw-border-opacity: 1;
+  border-color: rgb(229 231 235 / var(--tw-border-opacity));
+}
+
+.bottomNavbarBorder {
+  --tw-shadow-color: hsl(var(--border));
+  --tw-shadow: var(--tw-shadow-colored);
+  display: grid;
+  height: 100%;
+  max-width: 32rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: 500;
+}
+
+.bottomNavbarButton {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-left: 1.25rem /* 20px */;
+  padding-right: 1.25rem /* 20px */;
+  color: #FEE117;
+}
+.bottomNavbarButton:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(173 224 247 / var(--tw-bg-opacity));
+}
+
+.bottomNavBarSpan {
+  font-size: 0.875rem /* 14px */;
+  line-height: 1.25rem /* 20px */; 
+  --tw-text-opacity: 1;
+  color: rgb(#000000 / var(--tw-text-opacity, 1));
+}
+
+.loadingSpinnerContainer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 5000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loadingSpinner {
+  width: 64px;
+  height: 64px;
+  border: 8px solid;
+  border-color: #000 transparent #555 transparent;
+  border-radius: 50%;
+  animation: spin 1.2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+
+h1
+.heading {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 50px;
+  padding: 0 20px;
+}
+
+
+.form {
+  width: 70%;
+  margin: 0 auto;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #e6e6e6;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  font-family: inherit;
+}
+
+.form-group label {
+  text-align: left;
+  display: block;
+  margin: 0 0 5px 3px;
+}
+
+
+@media (max-width: 600px) {
+  .boxes {
+    grid-template-columns: 1fr;
+  }
+
+  .form {
+    width: 90%;
+  }
+
+  .ticket-created h2,
+  .heading h1 {
+    font-size: 2rem;
+  }
+
+  .heading p {
+    font-size: 1.5rem;
+  }
+
+
 }
