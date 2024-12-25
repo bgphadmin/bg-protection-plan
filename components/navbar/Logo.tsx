@@ -2,9 +2,9 @@
 
 import Link from "next/link"
 import logo from "@/public/BG_logo4.png"
-// import { Button } from "../ui/button"
+import { Button } from "../ui/button"
 import Image from "next/image"
-// import { Menu, MenuItem } from "@mui/material"
+import { Menu, MenuItem} from "@mui/material"
 import { useState } from "react"
 // import { toast } from "react-toastify"
 
@@ -27,12 +27,11 @@ const Logo = () => {
     };
 
     return (
-        // <Button asChild variant={"ghost"} size={null}>
+        <Button asChild variant={"ghost"} size={null}>
+        
             <div>
-                {/* <Image src={logo} priority={true} alt="logo" width={38} className="rounded-full" onClick={handleClick} /> */}
-                <Image src={logo} priority={true} alt="logo" width={70}  />
-
-                {/* <Menu
+                <Image src={logo} priority={true} alt="logo" width={70} className="rounded-full" onClick={handleClick} />
+                <Menu
                     id="demo-positioned-menu"
                     aria-labelledby="demo-positioned-button"
                     anchorEl={anchorEl}
@@ -47,28 +46,28 @@ const Logo = () => {
                         horizontal: 'left',
                     }}
                 >
-                    {isAdmin
-                        ?
-                        (<div>
+                    {/* {isAdmin
+                        ? */}
+                        <div>
                             <MenuItem onClick={handleClose} >
-                                <Link href="/">Home</Link>
+                                <Link href="/homepage">Home</Link>
                             </MenuItem>
                             <MenuItem onClick={handleClose}>
-                                <Link href="/customers">Customers List</Link>
+                                <Link href="/homepage/customers">Customers List</Link>
                             </MenuItem>
-                            <MenuItem onClick={handleClose} >
+                            {/* <MenuItem onClick={handleClose} >
                                 <Link href="/customers/topCustomers/">Top 25 Customers</Link>
-                            </MenuItem>
-                        </div>)
-                        :
-                        (<MenuItem onClick={handleClose} >
-                            <Link href="/">Home</Link>
-                        </MenuItem>)
-                    }
-                </Menu> */}
+                            </MenuItem> */}
+                        </div>
+                         {/* :
+                         (<MenuItem onClick={handleClose} >
+                             <Link href="/">Home</Link>
+                         </MenuItem>) */}
+                    {/* } */}
+                </Menu>
             </div>
-        // </Button>
-    )
+        </Button>
+    )   
 }
 
 export default Logo
