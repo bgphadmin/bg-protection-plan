@@ -2,46 +2,43 @@
 
 import React from "react";
 import { DataGrid, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarExport, GridToolbarFilterButton } from "@mui/x-data-grid";
-import { Avatar, Container, Typography } from "@mui/material";
-import { User } from "@prisma/client";
+import { Container, Typography } from "@mui/material";
 import { toast } from "react-toastify";
 
 type RowForm = {
     id: string;
-    imageUrl: string | null;
     firstName?: string | null;
     lastName?: string | null;
+    dealershipName?: string | null;
     email: string;
+    mobile: string;
     createdAt: Date;
-    clerkId: string;
-    totalPoints: number
 }
 
-const CustomerGrid = () => {
+const CustomerGrid = ( {customers, error, isAdmin}: { customers?: any, error?: string, isAdmin?: boolean }) => {
 
-    // if (error) {
-    //     toast.error(error);
-    //     return
-    // }
+    if (error) {
+        toast.error(error);
+        return null
+    }
 
-    // const rows = customersTotalPoints?.map((customer): RowForm => ({
-    //     id: customer.totalPoints?.id || '',
-    //     imageUrl: customer.totalPoints?.imageUrl || "",
-    //     firstName: customer.totalPoints?.firstName,
-    //     lastName: customer.totalPoints?.lastName,
-    //     email: customer.totalPoints?.email || '',
-    //     createdAt: customer.totalPoints!.createdAt,
-    //     clerkId: customer.totalPoints?.clerkUserId || '',
-    //     totalPoints: customer.totalPoints?.totalPoints || 0
-    // }));
-
+    const rows = customers?.map((customer: { id: string; fName: string; lName: string; dealership: { name: string; }; email: string; mobile: string; createdAt: Date; }): RowForm => ({
+        id: customer?.id || "",
+        firstName: customer?.fName,
+        lastName: customer?.lName,
+        dealershipName: customer?.dealership?.name,
+        email: customer?.email,
+        mobile: customer?.mobile,
+        createdAt: customer?.createdAt
+    }));
+    
     const columns = [
-        { field: "imageUrl", width: 70, renderHeader: () => <Typography sx={{ color: 'darkblue', }}></Typography>, renderCell: (params: any) => <Avatar sx={{ marginTop: '0.25rem', display: 'flex', justifyContent: 'center' }} src={params.row.imageUrl} />, },
         { field: "firstName", width: 150, renderHeader: () => <Typography sx={{ color: 'darkblue' }}>{'First Name'}</Typography>, },
         { field: "lastName", width: 150, renderHeader: () => <Typography sx={{ color: 'darkblue' }}>{'Last Name'}</Typography>, },
+        { field: "dealershipName", width: 150, renderHeader: () => <Typography sx={{ color: 'darkblue' }}>{'Dealership'}</Typography>, },
         { field: "email", width: 250, renderHeader: () => <Typography sx={{ color: 'darkblue' }}>{'Email'}</Typography>, },
+        { field: "mobile", width: 150, renderHeader: () => <Typography sx={{ color: 'darkblue' }}>{'Mobile'}</Typography>, },
         { field: "createdAt", width: 200, renderHeader: () => <Typography sx={{ color: 'darkblue' }}>{'Date Registered'}</Typography>, },
-        { field: "totalPoints", width: 150, renderHeader: () => <Typography sx={{ color: 'darkblue' }}>{'Total Points'}</Typography>, },
     ];
 
     const handleRowClick = async (params: any) => {
@@ -66,16 +63,16 @@ const CustomerGrid = () => {
     return (
         <Container style={{ height: 400, width: '110%', marginLeft: '-5%', }} >
             <DataGrid
-                // rows={rows}
+                rows={rows}
                 columns={columns}
-                pageSizeOptions={[5, 10, 100]}
+                pageSizeOptions={[10, 20, 100]}
                 density='standard'
                 slots={{
                     toolbar: CustomToolbar,
                 }}
                 initialState={{
                     pagination: {
-                        paginationModel: { pageSize: 5, page: 0 },
+                        paginationModel: { pageSize: 20, page: 0 },
                     },
                 }}
                 className="dark:text-white dark:bg-blue-900 diplay: flex justify-center"

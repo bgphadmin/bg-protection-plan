@@ -1,4 +1,5 @@
-TODO: Create the Customer Form (Note: 1 customer can have 2 or more different accounts on different dealerships)
+TODO: Create the Customer Grid
+Create the Customer Form (Note: 1 customer can have 2 or more different accounts on different dealerships)
 TODO: Within the Customer Form, add Button to add Customer Vehicle Form
 TODO: Depending on the Vehicle information, the system will list all applicable protection plan
 TODO: The list of protection plan will be in mui x-grid, showing all products, coverages and conditions that will be applied to the vehicle. Once approved,
