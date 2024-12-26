@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
-import { ClerkProvider } from "@clerk/nextjs"
+import { ClerkProvider, SignedIn } from "@clerk/nextjs"
+import Navbar from "@/components/navbar/Navbar";
+import BottomNavbar from "@/components/bottomNavbar/BottomNavbar";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const roboto = Roboto({ weight: "400", subsets: ["latin"] });
 
@@ -18,11 +22,18 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en" suppressHydrationWarning>
-        <body className={roboto.className}>
-          <div>
-            {children}
-          </div>
+      <html lang="en">
+        <body className={roboto.className} suppressHydrationWarning>
+          <SignedIn>
+            <div className="container">
+              <Navbar />
+            </div>
+          </SignedIn>
+          {children}
+          <SignedIn>
+            <BottomNavbar />
+          </SignedIn>
+          <ToastContainer />
         </body>
       </html>
     </ClerkProvider>

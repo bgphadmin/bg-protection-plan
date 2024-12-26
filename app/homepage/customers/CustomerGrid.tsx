@@ -4,6 +4,8 @@ import React from "react";
 import { DataGrid, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarExport, GridToolbarFilterButton } from "@mui/x-data-grid";
 import { Container, Typography } from "@mui/material";
 import { toast } from "react-toastify";
+import BreadCrumbs from "./BreadCrumbs";
+import { ClerkLoaded } from "@clerk/nextjs";
 
 type RowForm = {
     id: string;
@@ -15,7 +17,7 @@ type RowForm = {
     createdAt: Date;
 }
 
-const CustomerGrid = ( {customers, error, isAdmin}: { customers?: any, error?: string, isAdmin?: boolean }) => {
+const CustomerGrid = ({ customers, error, isAdmin }: { customers?: any, error?: string, isAdmin?: boolean }) => {
 
     if (error) {
         toast.error(error);
@@ -31,7 +33,7 @@ const CustomerGrid = ( {customers, error, isAdmin}: { customers?: any, error?: s
         mobile: customer?.mobile,
         createdAt: customer?.createdAt
     }));
-    
+
     const columns = [
         { field: "firstName", width: 150, renderHeader: () => <Typography sx={{ color: 'darkblue' }}>{'First Name'}</Typography>, },
         { field: "lastName", width: 150, renderHeader: () => <Typography sx={{ color: 'darkblue' }}>{'Last Name'}</Typography>, },
@@ -48,20 +50,23 @@ const CustomerGrid = ( {customers, error, isAdmin}: { customers?: any, error?: s
 
     const CustomToolbar = () => {
         return (
-            <GridToolbarContainer style={{ marginTop: '0.5rem' }}>
-                <div style={{ flexWrap: 'wrap', flexDirection: 'row', display: 'flex', alignContent: 'center', columnGap: '23rem' }}>
-                    <div style={{ margin: 'auto', color: 'inherit' }} >
-                        <GridToolbarColumnsButton slotProps={{ button: { color: 'inherit' } }} />
-                        <GridToolbarFilterButton slotProps={{ button: { color: 'inherit' } }} />
-                        <GridToolbarExport slotProps={{ button: { color: 'inherit' } }} />
+            <ClerkLoaded>
+                <GridToolbarContainer style={{ marginTop: '0.5rem' }}>
+                    <div style={{ flexWrap: 'wrap', flexDirection: 'row', display: 'flex', alignContent: 'center', columnGap: '23rem' }}>
+                        <div style={{ margin: 'auto', color: 'inherit' }} >
+                            <GridToolbarColumnsButton slotProps={{ button: { color: 'inherit' } }} />
+                            <GridToolbarFilterButton slotProps={{ button: { color: 'inherit' } }} />
+                            <GridToolbarExport slotProps={{ button: { color: 'inherit' } }} />
+                        </div>
                     </div>
-                </div>
-            </GridToolbarContainer>
+                </GridToolbarContainer>
+            </ClerkLoaded>
         )
     }
 
     return (
-        <Container style={{ height: 400, width: '110%', marginLeft: '-5%', }} >
+        <Container style={{ height: 400, width: '100%', }} >
+            <BreadCrumbs />
             <DataGrid
                 rows={rows}
                 columns={columns}

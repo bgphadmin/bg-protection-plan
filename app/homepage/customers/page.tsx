@@ -1,11 +1,9 @@
-import React, { Suspense } from "react";
+
+import React from "react";
 import CustomerGrid from "./CustomerGrid";
-import Spinner from "@/components/Spinner";
-import Navbar from "@/components/navbar/Navbar";
-import BottomNavbar from "@/components/bottomNavbar/BottomNavbar";
-import BreadCrumbs from "./BreadCrumbs";
 import { getCustomersList } from "@/lib/actions";
 import { currentUser } from "@clerk/nextjs/server";
+import { ClerkLoaded } from "@clerk/nextjs";
 
 
 export default async function DataGridPage() {
@@ -17,15 +15,12 @@ export default async function DataGridPage() {
     const { customers, error, isAdmin } = await getCustomersList(user?.id);
 
     return (
-        <div className="container" suppressHydrationWarning>
-            <Navbar />
-            <h1 className="text-2xl font-bold dark:text-blue-200 mt-4 ">CUSTOMERS</h1>
-            <BreadCrumbs />
-            <Suspense fallback={<Spinner />}>
+        <ClerkLoaded>
+            <div className="container" suppressHydrationWarning>
+                <h1 className="text-2xl font-bold mt-4">CUSTOMERS</h1>
                 <CustomerGrid customers={customers} error={error} isAdmin={isAdmin} />
-            </Suspense>
-            <BottomNavbar />
-        </div>
+            </div>
+        </ClerkLoaded>
     )
 }
 

@@ -5,7 +5,7 @@ import { db } from "@/lib/db"
 export const checkUser = async () => {
     // Check for current logged in clerk user
     const user = await currentUser()
-
+    
     if (!user) {
         return null
     }

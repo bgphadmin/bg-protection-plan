@@ -1,15 +1,14 @@
-import React from 'react'
+
 import HomePage from './HomePage'
-import Navbar from '@/components/navbar/Navbar'
-import BottomNavbar from '@/components/bottomNavbar/BottomNavbar'
+import { ClerkLoaded } from '@clerk/nextjs'
 
 const page = () => {
   return (
-    <div className='container'>
-      <Navbar />
-      <HomePage />
-      <BottomNavbar />
-    </div>
+    <ClerkLoaded>
+      <div className='container' suppressHydrationWarning>
+        <HomePage />
+      </div>
+    </ClerkLoaded>
   )
 }
 export default page

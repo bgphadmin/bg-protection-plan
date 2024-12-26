@@ -9,7 +9,7 @@ import Homepage from "./Homepage";
 const Guest = async () => {
   await checkUser();
   return (
-    <div className="guest" style={{ zIndex: 1 }}>
+    <div className="guest" style={{ zIndex: 1 }} >
       <SignedOut>
         <SignInButton>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -19,7 +19,7 @@ const Guest = async () => {
       </SignedOut>
       <SignedIn>
         <div className="container">
-          <Homepage />
+            <Homepage />
         </div>
       </SignedIn>
     </div>

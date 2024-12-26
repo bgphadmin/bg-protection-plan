@@ -1,16 +1,18 @@
 'use client'
 
-// import DarkMode from "./DarkMode"
+import { Suspense } from "react"
 import NavbarLinks from "./NavbarLinks"
 
 const BottomNavbar = () => {
     return (
-        <div className="dark:bg-blue-900 bottomNavbar">
-            <div className="bottomNavbarBorder flex-row items-center">
-                <NavbarLinks />
-                {/* <DarkMode /> */}
+        <Suspense fallback={<>Loading...</>}>
+            <div className="bottomNavbar">
+                <div className="bottomNavbarBorder flex flex-row items-center">
+                    <NavbarLinks />
+                    {/* <DarkMode /> */}
+                </div>
             </div>
-        </div>
+        </Suspense>
     )
 }
 

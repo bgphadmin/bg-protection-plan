@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation';
-import React, { use, useEffect } from 'react'
+import { useEffect } from 'react'
 
 const Homepage = () => {
 

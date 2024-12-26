@@ -1,6 +1,4 @@
-import React from 'react'
-import { UserButton } from "@clerk/nextjs"
-
+'use client'
 const HomePage = () => {
   return (
     <div className='pt-5'>
@@ -9,5 +7,4 @@ const HomePage = () => {
     </div>
   )
 }
-
 export default HomePage

@@ -4,8 +4,9 @@ import Link from "next/link"
 import logo from "@/public/BG_logo4.png"
 import { Button } from "../ui/button"
 import Image from "next/image"
-import { Menu, MenuItem} from "@mui/material"
+import { Menu, MenuItem } from "@mui/material"
 import { useState } from "react"
+import { NestedMenuItem } from "mui-nested-menu"
 // import { toast } from "react-toastify"
 
 // const Logo = ({ isAdmin, error }: { isAdmin?: boolean, error?: string }) => {
@@ -26,9 +27,16 @@ const Logo = () => {
         setAnchorEl(null);
     };
 
+    const handlecustomersList = () => {
+        location.href = "/homepage/customers"
+    }
+
+    const handleAddCustomer = () => {
+        location.href = "/homepage/customers/addCustomer"
+    }
+
     return (
-        <Button asChild variant={"ghost"} size={null}>
-        
+        <Button asChild variant={"ghost"} size={null} className="logo">
             <div>
                 <Image src={logo} priority={true} alt="logo" width={70} className="rounded-full" onClick={handleClick} />
                 <Menu
@@ -48,26 +56,26 @@ const Logo = () => {
                 >
                     {/* {isAdmin
                         ? */}
-                        <div>
-                            <MenuItem onClick={handleClose} >
-                                <Link href="/homepage">Home</Link>
+                    <div>
+                        <MenuItem onClick={handleClose} >
+                            <Link href="/homepage">Home</Link>
+                        </MenuItem>
+                        <NestedMenuItem
+                            label="Customers"
+                            parentMenuOpen={open}
+                        >
+                            <MenuItem onClick={handlecustomersList} >
+                                Customers List
                             </MenuItem>
-                            <MenuItem onClick={handleClose}>
-                                <Link href="/homepage/customers">Customers List</Link>
+                            <MenuItem onClick={handleAddCustomer}>
+                                Add Customer
                             </MenuItem>
-                            {/* <MenuItem onClick={handleClose} >
-                                <Link href="/customers/topCustomers/">Top 25 Customers</Link>
-                            </MenuItem> */}
-                        </div>
-                         {/* :
-                         (<MenuItem onClick={handleClose} >
-                             <Link href="/">Home</Link>
-                         </MenuItem>) */}
-                    {/* } */}
+                        </NestedMenuItem>
+                    </div>
                 </Menu>
             </div>
         </Button>
-    )   
+    )
 }
 
 export default Logo

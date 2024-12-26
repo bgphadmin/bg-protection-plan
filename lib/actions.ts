@@ -70,7 +70,61 @@ export const getCustomersList = async (clerkId?: string): Promise<GetCustomersRe
     }
 }
 
+/** Add a new customer
+ * @param formData 
+ * @returns {Promise<{customer?: Customer, error?: string}>}
+ */
+export const addCustomer = async (formData: FormData): Promise<{customer?: Customer, error?: string}> => {
 
+    try {
+
+        // get the logged in user's clerk ID
+        const {userId } =  await auth()
+
+        if (!userId) {
+            return {error: 'User not found'}    
+        }
+
+        // get the logged in user's dealership ID
+        const dealership = await db.user.findUnique({
+            where: {
+                clerkUserId: userId
+            },
+            select: {
+                dealershipId: true
+            }
+        })
+
+        const firstName = formData.get('firstName') as string;
+        const lastName = formData.get('lastName') as string;
+        const email = formData.get('email') as string;
+        const mobile = formData.get('mobile') as string;
+        const landline = formData.get('landline') as string;
+        const dealershipId = dealership?.dealershipId as string;
+
+        if (!firstName || !lastName || !email || !mobile || !dealershipId) {
+            return { error: 'Missing required fields' }
+        }
+
+        const customer = await db.customer.create({
+            data: {
+                fName: firstName,
+                lName: lastName,
+                email,
+                mobile,
+                landline,
+                dealershipId,
+                userId
+            }
+        })
+
+        revalidatePath('/homepage/customers')
+
+        return {customer}        
+    } catch (error) {
+        return { error: 'Something went wrong while adding customer' }
+    }
+}
 
 // // Get the clerk id for the logged in user
 // export const getClerkIdLoggedIn = async (): Promise<{clerkId?: string, error?: string}> => {

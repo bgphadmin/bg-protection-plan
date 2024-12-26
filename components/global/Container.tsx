@@ -1,3 +1,4 @@
+'use client'
 // Responsible for the alignments of copamonents inside the Container component
 
 import { cn } from "@/lib/utils"
