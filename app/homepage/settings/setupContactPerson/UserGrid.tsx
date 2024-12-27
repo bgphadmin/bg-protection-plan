@@ -8,6 +8,8 @@ import { redirect } from "next/navigation";
 import { Container } from "@mui/material";
 import { use, useEffect } from "react";
 import { toast } from "react-toastify";
+import { ImUsers } from "react-icons/im";
+import HeaderTitle from "@/components/HeaderTitle";
 
 
 const UserGrid = ({ users, error }: { users?: any, error?: string }) => {
@@ -29,8 +31,8 @@ const UserGrid = ({ users, error }: { users?: any, error?: string }) => {
         createdAt: Date;
     }
 
-    const rows = users?.map((user: { clerkUserId: string; firstName: string | null; lastName: string | null; email: string; role: "User" | "Dealership" | "Main" | "Admin"; dealership?:{ name: string;}; createdAt: Date;} ) => ({
-        id: user.clerkUserId,
+    const rows = users?.map((user: { id: string; firstName: string | null; lastName: string | null; email: string; role: "User" | "Dealership" | "Main" | "Admin"; dealership?:{ name: string;}; createdAt: Date;} ) => ({
+        id: user.id,
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
@@ -50,9 +52,9 @@ const UserGrid = ({ users, error }: { users?: any, error?: string }) => {
 
 
     const handleRowClick = async (params: any) => {
-        const id = await params.row.clerkId;
+        const id = await params.row.id;
         // add link to update user
-        // location.href = `/customers/${id}`
+        location.href = `/homepage/settings/setupContactPerson/${id}`
     }
 
     const CustomToolbar = () => {
@@ -73,8 +75,9 @@ const UserGrid = ({ users, error }: { users?: any, error?: string }) => {
 
     return (
         <div>
+            <HeaderTitle Icon={ImUsers} title="Application Users" />
             <Container style={{ height: 400, width: '100%' }} >
-                {/* Add bread crumbs here
+                {/* TODO: Add bread crumbs here
                 <BreadCrumbs /> */}
                 <DataGrid
                     rows={rows}

@@ -6,6 +6,8 @@ import { Container, Typography } from "@mui/material";
 import { toast } from "react-toastify";
 import BreadCrumbs from "./BreadCrumbs";
 import { ClerkLoaded } from "@clerk/nextjs";
+import HeaderTitle from "@/components/HeaderTitle";
+import { FaPeopleGroup } from "react-icons/fa6";
 
 type RowForm = {
     id: string;
@@ -66,6 +68,7 @@ const CustomerGrid = ({ customers, error, isAdmin }: { customers?: any, error?: 
 
     return (
         <Container style={{ height: 400, width: '100%', }} >
+            <HeaderTitle Icon={FaPeopleGroup} title="CUSTOMERS" />
             <BreadCrumbs />
             <DataGrid
                 rows={rows}

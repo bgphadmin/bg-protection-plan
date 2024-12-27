@@ -2,7 +2,7 @@
 
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
-import { Customer, User } from "@prisma/client";
+import { Customer, User, Role, Dealership } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { nanoid } from "nanoid";
 
@@ -167,6 +167,83 @@ export const getUsersList = async (): Promise<{users?: User[], error?: string}> 
         return { error: 'Something went wrong while retrieving user list. PLease try again. ' }  
     }
 }
+
+
+/** Get User by ID
+ * @param id 
+ * @returns {Promise<{user?: User, error?: string}>}
+ */
+
+export const getUserById = async (id: string): Promise<{user?: User, error?: string}> => {
+
+    try {
+        const user = await db.user.findUnique({
+            where: {
+                id
+            },
+            include: {
+                dealership: true
+            }
+        })
+
+        if (!user) {
+            return { error: 'User not found' }
+        }
+        return {user}        
+    } catch (error) {
+        return { error: 'Something went wrong while getting user' }
+    }   
+}
+
+
+/**get roles and dealsheips
+ * @returns {Promise<{roles?: Role[], dealerships?: Dealership[], error?: string}>}
+ */
+
+export const getRolesAndDealerships = async (): Promise<{roles?: Role[], dealerships?: Dealership[], error?: string}> => {
+
+    try {
+        const roles = await db.role.findMany()
+        const dealerships = await db.dealership.findMany()
+        return {roles, dealerships}        
+    } catch (error) {
+        return { error: 'Something went wrong while getting roles and dealerships' }
+    }
+
+}
+
+/**
+ * Update user's role and dealership
+ * @param id 
+ * @param role 
+ * @param dealership 
+ * @returns {Promise<{user?: User, error?: string}>}
+ */
+
+export const updateRoleAndDealership = async (id: string, role: string, dealershipId: string): Promise<{user?: User, error?: string}> => {
+
+    if (!id || !role || !dealershipId) {
+        return { error: 'Missing required fields' }
+    }
+
+    try {
+        const user = await db.user.update({
+            where: {
+                id
+            },
+            data: {
+                role,
+                dealershipId
+            }
+        })
+        revalidatePath('/homepage/settings/setupContactPerson');
+        
+        return {user}        
+    } catch (error) {
+        return { error: 'Something went wrong while updating user' }
+    }
+}
+
 
 // // Get the clerk id for the logged in user
 // export const getClerkIdLoggedIn = async (): Promise<{clerkId?: string, error?: string}> => {

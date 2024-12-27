@@ -18,7 +18,6 @@ export default async function DataGridPage() {
     return (
         <ClerkLoaded>
             <div className="container" suppressHydrationWarning>
-                <h1 className="text-2xl font-bold mt-4">CUSTOMERS</h1>
                 <CustomerGrid customers={customers} error={error} isAdmin={isAdmin} />
             </div>
         </ClerkLoaded>
