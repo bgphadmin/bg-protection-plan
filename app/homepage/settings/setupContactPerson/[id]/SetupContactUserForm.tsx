@@ -24,7 +24,7 @@ const SetupContactUserForm = ({ user, error, roles, dealerships }: { user?: User
     const [dealershipId, setDealershipId] = useState(user?.dealershipId);
     const [firstName] = useState(user?.firstName);
     const [lastName] = useState(user?.lastName);
-    const titleName = `Setup Contact Person for ${firstName} ${lastName}`
+    const titleName = `${firstName} ${lastName}`
 
     const clientAction = async (formData: FormData): Promise<void> => {
         // Add action to update user's role and dealership
