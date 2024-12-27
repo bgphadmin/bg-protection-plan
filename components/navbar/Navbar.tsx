@@ -7,7 +7,7 @@ const Navbar = async () => {
     // const { isRoleAdmin, error } = await isAdmin();
     return (
         <nav className="border-b" >
-            <Container className=" flex flex-row sm:place-content-between justify-between py-3 ">
+            <Container className=" flex flex-row sm:place-content-between justify-between pb-2 pt-4 ">
                 {/* <Logo isAdmin={isRoleAdmin} error={error} /> */}
                 <Logo />
                 <Profile />

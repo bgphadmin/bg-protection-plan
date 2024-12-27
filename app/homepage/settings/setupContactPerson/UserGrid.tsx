@@ -3,13 +3,13 @@
 import { ClerkLoaded } from "@clerk/nextjs";
 import { Typography } from "@mui/material";
 import { DataGrid, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarExport, GridToolbarFilterButton } from "@mui/x-data-grid";
-import { User } from "@prisma/client"
 import { redirect } from "next/navigation";
 import { Container } from "@mui/material";
-import { use, useEffect } from "react";
+import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { ImUsers } from "react-icons/im";
 import HeaderTitle from "@/components/HeaderTitle";
+import BreadCrumbs from "./BreadCrumbs";
 
 
 const UserGrid = ({ users, error }: { users?: any, error?: string }) => {
@@ -31,7 +31,7 @@ const UserGrid = ({ users, error }: { users?: any, error?: string }) => {
         createdAt: Date;
     }
 
-    const rows = users?.map((user: { id: string; firstName: string | null; lastName: string | null; email: string; role: "User" | "Dealership" | "Main" | "Admin"; dealership?:{ name: string;}; createdAt: Date;} ) => ({
+    const rows = users?.map((user: { id: string; firstName: string | null; lastName: string | null; email: string; role: "User" | "Dealership" | "Main" | "Admin"; dealership?: { name: string; }; createdAt: Date; }) => ({
         id: user.id,
         firstName: user.firstName,
         lastName: user.lastName,
@@ -75,10 +75,9 @@ const UserGrid = ({ users, error }: { users?: any, error?: string }) => {
 
     return (
         <div>
-            <HeaderTitle Icon={ImUsers} title="Application Users" />
             <Container style={{ height: 400, width: '100%' }} >
-                {/* TODO: Add bread crumbs here
-                <BreadCrumbs /> */}
+                <HeaderTitle Icon={ImUsers} title="App Users" />
+                <BreadCrumbs />
                 <DataGrid
                     rows={rows}
                     columns={columns}
