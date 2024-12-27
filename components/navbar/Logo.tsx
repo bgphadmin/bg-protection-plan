@@ -35,6 +35,10 @@ const Logo = () => {
         location.href = "/homepage/customers/addCustomer"
     }
 
+    const handleSetupContactPerson = () => {
+        location.href = "/homepage/settings/setupContactPerson"
+    }
+
     return (
         <Button asChild variant={"ghost"} size={null} className="logo">
             <div>
@@ -70,6 +74,17 @@ const Logo = () => {
                             <MenuItem onClick={handleAddCustomer}>
                                 Add Customer
                             </MenuItem>
+                        </NestedMenuItem>
+                        <NestedMenuItem
+                            label="Settings"
+                            parentMenuOpen={open}
+                        >
+                            <MenuItem onClick={handleSetupContactPerson} >
+                                Setup Contact Person
+                            </MenuItem>
+                            {/* <MenuItem onClick={handleAddCustomer}>
+                                Add Customer
+                            </MenuItem> */}
                         </NestedMenuItem>
                     </div>
                 </Menu>

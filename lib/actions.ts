@@ -126,6 +126,48 @@ export const addCustomer = async (formData: FormData): Promise<{customer?: Custo
     }
 }
 
+
+/** Get all users
+ * @returns {Promise<{users?: User[], error?: string}>}
+ */
+export const getUsersList = async (): Promise<{users?: User[], error?: string}> => {
+
+    try {
+
+        const clerkUserId = (await auth()).userId
+
+        if (!clerkUserId) {
+            return { error: 'User not found' }
+        }
+    
+        // Check if logged in user is Admin
+        const user = await db.user.findUnique({
+            where: {
+                clerkUserId
+            },
+            select: {
+                role: true
+            }
+        })
+    
+        if (user?.role !== 'Admin') {
+            return { error: 'User not authorized' }
+        }   
+
+        const users = await db.user.findMany({
+            include: {
+                dealership: true
+            },
+            orderBy: {
+                createdAt:'desc'
+            }
+        })
+        return {users}        
+    } catch (error) {
+        return { error: 'Something went wrong while retrieving user list. PLease try again. ' }  
+    }
+}
+
 // // Get the clerk id for the logged in user
 // export const getClerkIdLoggedIn = async (): Promise<{clerkId?: string, error?: string}> => {
 

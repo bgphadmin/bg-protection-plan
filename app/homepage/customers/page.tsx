@@ -4,6 +4,7 @@ import CustomerGrid from "./CustomerGrid";
 import { getCustomersList } from "@/lib/actions";
 import { currentUser } from "@clerk/nextjs/server";
 import { ClerkLoaded } from "@clerk/nextjs";
+import { toast } from "react-toastify";
 
 
 export default async function DataGridPage() {
@@ -23,5 +24,3 @@ export default async function DataGridPage() {
         </ClerkLoaded>
     )
 }
-
-

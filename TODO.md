@@ -1,4 +1,3 @@
-TODO: Create the Customer Form (Note: 1 customer can have 2 or more different accounts on different dealerships)
 TODO: Within the Customer Form, add Button to add Customer Vehicle Form
 TODO: Create a form so the Admin can update a user to a dealership and update is dealership location
 TODO: Create form to add dealersip
