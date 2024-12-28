@@ -20,7 +20,7 @@ const AddCustomerForm = () => {
     const router = useRouter();
 
     const handleGoBack = () => {
-        router.back
+        router.back();
     };
 
     const clientAction = async (formData: FormData): Promise<void> => {
@@ -32,7 +32,6 @@ const AddCustomerForm = () => {
         } else {
             toast.success('Customer added successfully')
             formRef.current?.reset()
-            // router.push('/homepage/customers')
             redirect('/homepage/customers')
         }
     }

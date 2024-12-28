@@ -2,6 +2,7 @@
 import { PageProps } from "@/.next/types/app/homepage/settings/setupContactPerson/page";
 import { getRolesAndDealerships, getUserById } from "@/lib/actions";
 import SetupContactUserForm from "./SetupContactUserForm";
+import BreadCrumbs from "./BreadCrumbs";
 
 interface SetupContactPersonProps extends PageProps {
     params: Awaited<PageProps['params']>;

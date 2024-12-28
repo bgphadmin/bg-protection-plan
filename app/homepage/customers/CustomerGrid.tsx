@@ -84,7 +84,7 @@ const CustomerGrid = ({ customers, error, isAdmin }: { customers?: any, error?: 
                     },
                 }}
                 className="dark:text-white dark:bg-blue-900 diplay: flex justify-center"
-                onRowClick={handleRowClick}
+                // onRowClick={handleRowClick}
 
             />
         </Container>

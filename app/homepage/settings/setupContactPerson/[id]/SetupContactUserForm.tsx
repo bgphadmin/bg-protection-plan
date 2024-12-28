@@ -3,13 +3,12 @@
 import HeaderTitle from "@/components/HeaderTitle";
 import { updateRoleAndDealership } from "@/lib/actions";
 import { ClerkLoaded } from "@clerk/nextjs";
-import { MenuItem, TextField } from "@mui/material";
 import { Dealership, Role, User } from "@prisma/client"
 import { redirect, useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import { BsPersonFillCheck } from "react-icons/bs";
 import { toast } from "react-toastify"
-import BreadCrumbs from "../BreadCrumbs";
+import BreadCrumbs from "./BreadCrumbs";
 
 const SetupContactUserForm = ({ user, error, roles, dealerships }: { user?: User, error?: string, roles?: Role[], dealerships?: Dealership[] }) => {
 
@@ -32,9 +31,8 @@ const SetupContactUserForm = ({ user, error, roles, dealerships }: { user?: User
         const role = formData.get('role') as string;
         const dealership = formData.get('dealershipId') as string;
 
-
         if (user?.id) {
-            const { error } = await updateRoleAndDealership(user.id, role, dealershipId || '');
+            const { error } = await updateRoleAndDealership(user.id, role, dealership || '');
             if (error) {
                 toast.error(error);
             } else {
@@ -49,51 +47,51 @@ const SetupContactUserForm = ({ user, error, roles, dealerships }: { user?: User
 
     const handleGoBack = () => {
         router.back()
-    };  
+    };
 
     return (
-        <div>
+        <div className="container">
             <ClerkLoaded>
                 <HeaderTitle Icon={BsPersonFillCheck} title={titleName} />
                 <section className="form">
+                <BreadCrumbs />
                     <form ref={formRef} action={clientAction} noValidate>
-                        <div className="form-group">
-                            <TextField
+                        <div className="form-group flex items-center">
+                            <label className="pr-2" htmlFor="role">ROLE:</label>
+                            <select
                                 id="role"
-                                select
-                                label="User Role"
-                                defaultValue=""
-                                helperText="Please select User's Role"
+                                required
+                                className="fom-control"
                                 value={role}
                                 onChange={(e) => setRole(e.target.value)}
                                 name='role'
-                                sx={{ mb: '0.75rem', mr: '0.75rem' }}
                             >
+                                <option value="" disabled>Select a role</option>
                                 {roles!.map((role) => (
-                                    <MenuItem key={role.id} value={role.name}>
+                                    <option key={role.id} value={role.name}>
                                         {role.name}
-                                    </MenuItem>
+                                    </option>
                                 ))}
-                            </TextField>
+                            </select>
                         </div>
-                        <div className="form-group">
-                            <TextField
+                        <div className="form-group flex items-center">
+                            <label className="pr-2" htmlFor="dealershipId">SHOP:</label>
+                            <select
                                 id="dealershipId"
-                                select
-                                label="Dealership Name"
-                                defaultValue=""
-                                helperText="Please select Dealership Name"
-                                value={dealershipId}
+                                required
+                                value={dealershipId ?? ''}
                                 onChange={(e) => setDealershipId(e.target.value)}
                                 name='dealershipId'
-                                sx={{ mb: '0.75rem', mr: '0.75rem' }}
+                                className="fom-control"
+                                
                             >
+                                <option value="" disabled className="text-gray">Select a shop</option>
                                 {dealerships!.map((dealership) => (
-                                    <MenuItem key={dealership.id} value={dealership.id}>
+                                    <option key={dealership.id} value={dealership.id}>
                                         {dealership.id} - {dealership.name}
-                                    </MenuItem>
+                                    </option>
                                 ))}
-                            </TextField>
+                            </select>
                         </div>
                         <div className="form-group gap-4" style={{ display: 'flex', justifyContent: 'space-between' }}>
                             <button onClick={handleGoBack} className="btn btn-block" style={{ backgroundColor: 'black', color: 'white', }} type="reset">
@@ -106,7 +104,6 @@ const SetupContactUserForm = ({ user, error, roles, dealerships }: { user?: User
                     </form>
                 </section>
             </ClerkLoaded>
-
         </div>
     )
 }
