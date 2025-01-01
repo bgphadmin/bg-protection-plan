@@ -80,7 +80,7 @@ const SetupContactUserForm = ({ user, error, roles, dealerships }: { user?: User
                                 id="dealershipId"
                                 required
                                 value={dealershipId ?? ''}
-                                onChange={(e) => setDealershipId(e.target.value)}
+                                onChange={(e) => setDealershipId(Number(e.target.value))}
                                 name='dealershipId'
                                 className="fom-control"
                                 
