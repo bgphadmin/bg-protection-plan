@@ -371,6 +371,85 @@ export const addDealership = async (formData: FormData): Promise<{dealership?: D
     }
 }
 
+export interface CustomerDealership {
+    id: string;
+    fName: string;
+    lName: string;
+    email?: string;
+    mobile: string;
+    landline?: string | null;
+    dealershipId: number;
+    dealership: Dealership; // add this property
+  }
+
+
+/** Get Customer by ID 
+ * @param id
+ * @returns {Promise<{customer?: CustomerDealership, error?: string}>}
+*/
+
+export const getCustomerById = async (id: string): Promise<{customer?: CustomerDealership, error?: string}> => {
+
+    try {
+        const customer = await db.customer.findUnique({
+            where: {
+                id
+            },
+            include: {
+                dealership: true
+            }
+        })
+
+        if (!customer) {
+            return { error: 'Customer not found' }
+        }
+        return {customer: customer as CustomerDealership }        
+    } catch (error) {
+        return { error: 'Something went wrong while getting customer' }
+    }   
+}
+
+
+/** Update Customer 
+ * @param id
+ * @param fName
+ * @param lName
+ * @param email
+ * @param mobile
+ * @param landline
+ * @returns {Promise<{customer?: Customer, error?: string}>}
+ * */
+
+export const updateCustomer = async (id: string, fName: string, lName: string, email: string, mobile: string, landline: string): Promise<{customer?: Customer, error?: string}> => {
+
+    if (!id || !fName || !lName || !email || !mobile ) {
+        return { error: 'Missing required fields' }
+    }
+
+    try {
+        const customer = await db.customer.update({
+            where: {
+                id
+            },
+            data: {
+                fName,
+                lName,
+                email,
+                mobile,
+                landline,
+            }
+        })
+        revalidatePath('/homepage/customers');
+        
+        return {customer}        
+    } catch (error) {
+        return { error: 'Something went wrong while updating customer' }
+    }
+}
+
+
+
+
 // // Get the clerk id for the logged in user
 // export const getClerkIdLoggedIn = async (): Promise<{clerkId?: string, error?: string}> => {
 

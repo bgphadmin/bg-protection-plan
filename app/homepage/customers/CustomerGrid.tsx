@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect } from "react";
-import { DataGrid, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarExport, GridToolbarFilterButton } from "@mui/x-data-grid";
+import { DataGrid, GridRowParams, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarExport, GridToolbarFilterButton } from "@mui/x-data-grid";
 import { Container, Typography } from "@mui/material";
 import { toast } from "react-toastify";
 import BreadCrumbs from "./BreadCrumbs";
@@ -39,6 +39,10 @@ const CustomerGrid = ({ customers, error }: { customers?: any, error?: string, i
         mobile: customer?.mobile,
         createdAt: customer?.createdAt
     }));
+
+    const handleRowClick = (params: GridRowParams) => {
+        redirect(`/homepage/customers/${params.id}`);
+    }
 
     const columns = [
         { field: "firstName", width: 150, renderHeader: () => <Typography sx={{ color: 'darkblue' }}>{'First Name'}</Typography>, },
@@ -84,7 +88,7 @@ const CustomerGrid = ({ customers, error }: { customers?: any, error?: string, i
                     },
                 }}
                 className="dark:text-white dark:bg-blue-900 diplay: flex justify-center"
-            // onRowClick={handleRowClick}
+                onRowClick={handleRowClick}
 
             />
         </Container>
