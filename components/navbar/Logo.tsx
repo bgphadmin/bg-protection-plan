@@ -45,20 +45,6 @@ const Logo = () => {
         checkAdmin();
     }, []);
 
-    // useEffect(() => {
-    //     // if role is not admin, redirect to homepage
-    //     const checkAdmin = async () => {
-
-    //         const { error: AdminError } = await isAdmin()
-    //         if (!AdminError) {
-    //             setIsAdminAccess(true)
-    //         }
-    //     }
-    //     checkAdmin();
-    // }, []);
-
-
-
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
 
