@@ -33,11 +33,6 @@ const Logo = () => {
             }
         }
 
-        checkAdminMainDealership();
-    }, []);
-
-    useEffect(() => {
-        // if role is not admin, redirect to homepage
         const checkAdmin = async () => {
 
             const { error: AdminError } = await isAdmin()
@@ -45,8 +40,22 @@ const Logo = () => {
                 setIsAdminAccess(true)
             }
         }
+
+        checkAdminMainDealership();
         checkAdmin();
     }, []);
+
+    // useEffect(() => {
+    //     // if role is not admin, redirect to homepage
+    //     const checkAdmin = async () => {
+
+    //         const { error: AdminError } = await isAdmin()
+    //         if (!AdminError) {
+    //             setIsAdminAccess(true)
+    //         }
+    //     }
+    //     checkAdmin();
+    // }, []);
 
 
 
