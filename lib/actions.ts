@@ -8,29 +8,37 @@ import { nanoid } from "nanoid";
 // import { isAdmin } from "./utils";
 
 
-export async function isAdmin (): Promise<{error?: string | null}> {
+export async function isAdmin (): Promise<{isUserAdmin?: boolean,  error?: string | null}> {
 
-    const clerkUserId = (await auth()).userId
 
-    if (!clerkUserId) {
-        return { error: 'User not found' }
-    }
+    try {
+        const clerkUserId = (await auth()).userId
 
-    // Check if logged in user is Admin
-    const user = await db.user.findUnique({
-        where: {
-            clerkUserId
-        },
-        select: {
-            role: true
+        if (!clerkUserId) {
+            return { error : 'User not found' }
         }
-    })
-
-    if (user?.role !== 'Admin') {
-        return { error: 'User not authorized' }
-    }
     
-    return {}
+        // Check if logged in user is Admin
+        const user = await db.user.findUnique({
+            where: {
+                clerkUserId
+            },
+            select: {
+                role: true
+            }
+        })
+    
+        if (user?.role !== 'Admin') {
+            return { error: 'User not authorized' }
+        }
+        
+        return {isUserAdmin: true}        
+    } catch (error) {
+        return { error: 'Something went wrong while checking if user is Admin' }
+    }
+
+
+
 }
 
 

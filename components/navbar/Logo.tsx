@@ -7,24 +7,13 @@ import Image from "next/image"
 import { Menu, MenuItem } from "@mui/material"
 import { useEffect, useState } from "react"
 import { NestedMenuItem } from "mui-nested-menu"
-import { isAdmin, isAdminMainDealership } from "@/lib/actions"
-// import { toast } from "react-toastify"
+import { isAdminMainDealership } from "@/lib/actions"
 
-// const Logo = ({ isAdmin, error }: { isAdmin?: boolean, error?: string }) => {
-const Logo = () => {
-
-    // TODO: Add admin check here
-
-    // if (error) {
-    //     toast.error(error)
-    //     return null
-    // }
+const Logo = ({ isAdmin }: { isAdmin?: boolean}) => {
 
     const [isAdminMainDealershipAcess, setIsAdminMainDealershipAccess] = useState(false)
-    const [isAdminAccess, setIsAdminAccess] = useState(false)
 
     useEffect(() => {
-        // if role is not admin, redirect to homepage
         const checkAdminMainDealership = async () => {
 
             const { error: AdminMainDealershipAccessError } = await isAdminMainDealership()
@@ -33,16 +22,7 @@ const Logo = () => {
             }
         }
 
-        const checkAdmin = async () => {
-
-            const { error: AdminError } = await isAdmin()
-            if (!AdminError) {
-                setIsAdminAccess(true)
-            }
-        }
-
         checkAdminMainDealership();
-        checkAdmin();
     }, []);
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -90,8 +70,6 @@ const Logo = () => {
                         horizontal: 'left',
                     }}
                 >
-                    {/* {isAdmin
-                        ? */}
                     <div>
                         <MenuItem onClick={handleClose} >
                             <Link href="/homepage">Home</Link>
@@ -111,7 +89,7 @@ const Logo = () => {
                             </NestedMenuItem>
                         }
 
-                        {isAdminAccess &&
+                        {isAdmin &&
                             <NestedMenuItem
                                 label="Settings"
                                 parentMenuOpen={open}
