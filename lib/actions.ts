@@ -5,6 +5,34 @@ import { auth } from "@clerk/nextjs/server";
 import { Customer, User, Role, Dealership } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { nanoid } from "nanoid";
+// import { isAdmin } from "./utils";
+
+
+export async function isAdmin (): Promise<{error?: string | null}> {
+
+    const clerkUserId = (await auth()).userId
+
+    if (!clerkUserId) {
+        return { error: 'User not found' }
+    }
+
+    // Check if logged in user is Admin
+    const user = await db.user.findUnique({
+        where: {
+            clerkUserId
+        },
+        select: {
+            role: true
+        }
+    })
+
+    if (user?.role !== 'Admin') {
+        return { error: 'User not authorized' }
+    }
+    
+    return {}
+}
+
 
 type GetCustomersResponse = {
     customers?: Customer[];
@@ -84,6 +112,8 @@ export const addCustomer = async (formData: FormData): Promise<{customer?: Custo
         if (!userId) {
             return {error: 'User not found'}    
         }
+        
+        console.log('userId: ', userId)
 
         // get the logged in user's dealership ID
         const dealership = await db.user.findUnique({
@@ -100,7 +130,7 @@ export const addCustomer = async (formData: FormData): Promise<{customer?: Custo
         const email = formData.get('email') as string;
         const mobile = formData.get('mobile') as string;
         const landline = formData.get('landline') as string;
-        const dealershipId = dealership?.dealershipId as string;
+        const dealershipId = dealership?.dealershipId as number;
 
         if (!firstName || !lastName || !email || !mobile || !dealershipId) {
             return { error: 'Missing required fields' }
@@ -134,25 +164,11 @@ export const getUsersList = async (): Promise<{users?: User[], error?: string}> 
 
     try {
 
-        const clerkUserId = (await auth()).userId
+        const {error} = await isAdmin()
 
-        if (!clerkUserId) {
-            return { error: 'User not found' }
+        if (error) {
+            return { error }
         }
-    
-        // Check if logged in user is Admin
-        const user = await db.user.findUnique({
-            where: {
-                clerkUserId
-            },
-            select: {
-                role: true
-            }
-        })
-    
-        if (user?.role !== 'Admin') {
-            return { error: 'User not authorized' }
-        }   
 
         const users = await db.user.findMany({
             include: {
@@ -233,7 +249,7 @@ export const updateRoleAndDealership = async (id: string, role: string, dealersh
             },
             data: {
                 role,
-                dealershipId
+                dealershipId: parseInt(dealershipId)
             }
         })
         revalidatePath('/homepage/settings/setupContactPerson');
@@ -244,6 +260,78 @@ export const updateRoleAndDealership = async (id: string, role: string, dealersh
     }
 }
 
+
+/**
+ * Get all dealerships
+ * @returns {Promise<{dealerships?: Dealership[], error?: string}>}
+ */
+
+export const getDealershipsList = async (): Promise<{dealerships?: Dealership[], error?: string}> => {
+
+    try {
+        const {error} = await isAdmin()
+
+        if (error) {
+            return { error }
+        }
+
+        const dealerships = await db.dealership.findMany({
+            orderBy: {
+                name:'asc'
+            }
+        })
+        return {dealerships}        
+    } catch (error) {
+        return { error: 'Something went wrong while retrieving dealership list. PLease try again. ' }  
+    }
+}
+
+/** Add dealership
+ * @param formData 
+ * @returns {Promise<{dealership?: Dealership, error?: string}>}
+ */
+
+export const addDealership = async (formData: FormData): Promise<{dealership?: Dealership, error?: string}> => {
+
+    try {
+
+        const {error} = await isAdmin()
+
+        if (error) {
+            return { error }
+        }
+
+        const name = formData.get('name') as string;
+        const address1 = formData.get('address1') as string;
+        const address2 = formData.get('address2') as string;
+        const mobile = formData.get('mobile') as string;
+        const landline = formData.get('landline') as string;
+        const contactPerson = formData.get('contactPerson') as string;
+
+        if (!name || !address1 || !mobile) {
+            return { error: 'Missing required fields' }
+        }
+
+    
+
+        const dealership = await db.dealership.create({
+            data: {
+                name,
+                address1,
+                address2,
+                mobile,
+                landline,
+                contactPerson
+            }
+        })
+
+        revalidatePath('/homepage/settings/setupDealership')
+
+        return {dealership}        
+    } catch (error) {
+         return { error: 'Something went wrong while adding dealership: ' + error }
+    }
+}
 
 // // Get the clerk id for the logged in user
 // export const getClerkIdLoggedIn = async (): Promise<{clerkId?: string, error?: string}> => {

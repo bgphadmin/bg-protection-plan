@@ -1,5 +1,3 @@
-import Customers from "@/components/breadcrumbs/Customers"
-import Home from "@/components/breadcrumbs/Home"
 import Settings from "@/components/breadcrumbs/Settings"
 import Users from "@/components/breadcrumbs/Users"
 

@@ -24,7 +24,7 @@ model User {
   isAdmin      Boolean     @default(false)
   role         String      @default("User")
   dealership   Dealership? @relation(fields: [dealershipId], references: [id])
-  dealershipId String?
+  dealershipId Int?
   active       Boolean     @default(true)
   createdAt    DateTime    @default(now())
   updatedAt    DateTime    @updatedAt
@@ -39,7 +39,7 @@ model Customer {
   landline         String?
   customerVehicles CustomerVehicle[]
   dealership       Dealership?             @relation(fields: [dealershipId], references: [id])
-  dealershipId     String?
+  dealershipId     Int?
   protectionPlans  ProtectionPlanAvailed[]
   userId           String // entered by logged in user/contact person
   createdAt        DateTime                @default(now())
@@ -70,7 +70,7 @@ model CustomerVehicle {
 }
 
 model Dealership {
-  id                String                  @id
+  id                Int                     @id @default(autoincrement())
   name              String
   address1          String
   address2          String?
@@ -110,7 +110,7 @@ model ProtectionPlanAvailed {
   CustomerVehicle    CustomerVehicle @relation(fields: [customerVehicleId], references: [id], onDelete: Cascade)
   customerVehicleId  String
   Dealership         Dealership      @relation(fields: [dealershipId], references: [id])
-  dealershipId       String
+  dealershipId       Int
   eneteredBy         String // entered by user logged in
   createdAt          DateTime        @default(now())
   updatedAt          DateTime        @updatedAt

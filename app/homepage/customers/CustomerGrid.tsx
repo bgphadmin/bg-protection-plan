@@ -19,7 +19,7 @@ type RowForm = {
     createdAt: Date;
 }
 
-const CustomerGrid = ({ customers, error, isAdmin }: { customers?: any, error?: string, isAdmin?: boolean }) => {
+const CustomerGrid = ({ customers, error }: { customers?: any, error?: string, isAdmin?: boolean }) => {
 
     if (error) {
         toast.error(error);
@@ -45,10 +45,6 @@ const CustomerGrid = ({ customers, error, isAdmin }: { customers?: any, error?: 
         { field: "createdAt", width: 200, renderHeader: () => <Typography sx={{ color: 'darkblue' }}>{'Date Registered'}</Typography>, },
     ];
 
-    const handleRowClick = async (params: any) => {
-        const id = await params.row.clerkId;
-        location.href = `/customers/${id}`
-    }
 
     const CustomToolbar = () => {
         return (

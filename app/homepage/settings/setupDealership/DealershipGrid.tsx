@@ -1,50 +1,53 @@
 'use client'
 
 import { ClerkLoaded } from "@clerk/nextjs";
-import { Typography } from "@mui/material";
 import { DataGrid, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarExport, GridToolbarFilterButton } from "@mui/x-data-grid";
 import { redirect } from "next/navigation";
-import { Container } from "@mui/material";
+import { Button, Container } from "@mui/material";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
-import { ImUsers } from "react-icons/im";
+import { GiHomeGarage } from "react-icons/gi";
 import HeaderTitle from "@/components/HeaderTitle";
-import BreadCrumbs from "./BreadCrumbs";
+import { Dealership } from "@prisma/client";
+import Link from "next/link";
+// import BreadCrumbs from "./BreadCrumbs";
 
 
-const UserGrid = ({ users, error }: { users?: any, error?: string }) => {
+const DealershiprGrid = ({ dealerships, error }: { dealerships?: Dealership[], error?: string }) => {
 
     useEffect(() => {
         if (error) {
             toast.error(error);
             redirect('/homepage')
         }
-    }, []);
+    }, [error]);
 
-    const rows = users?.map((user: { id: string; firstName: string | null; lastName: string | null; email: string; role: "User" | "Dealership" | "Main" | "Admin"; dealership?: { name: string; }; createdAt: Date; }) => ({
-        id: user.id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        role: user.role,
-        dealership: user.dealership?.name,
-        dateRegistered: user.createdAt
+    const rows = dealerships?.map((dealership: Dealership) => ({
+        id: dealership.id,
+        name: dealership.name,
+        address1: dealership.address1,
+        address2: dealership.address2,
+        mobile: dealership.mobile,
+        landline: dealership.landline,
+        contactPerson: dealership.contactPerson,
     }));
 
     const columns = [
-        { field: "firstName", width: 150, renderHeader: () => <Typography sx={{ color: 'darkblue' }}>{'First Name'}</Typography>, },
-        { field: "lastName", width: 150, renderHeader: () => <Typography sx={{ color: 'darkblue' }}>{'Last Name'}</Typography>, },
-        { field: "email", width: 250, renderHeader: () => <Typography sx={{ color: 'darkblue' }}>{'Email'}</Typography>, },
-        { field: "role", width: 150, renderHeader: () => <Typography sx={{ color: 'darkblue' }}>{'Role'}</Typography>, },
-        { field: "dealership", width: 250, renderHeader: () => <Typography sx={{ color: 'darkblue' }}>{'Dealership'}</Typography>, },
-        { field: "dateRegistered", width: 200, renderHeader: () => <Typography sx={{ color: 'darkblue' }}>{'Date Registered'}</Typography>, },
+        { field: 'id', headerName: 'ID', width: 70 },
+        { field: 'name', headerName: 'Name', width: 130 },
+        { field: 'address1', headerName: 'Address 1', width: 130 },
+        { field: 'address2', headerName: 'Address 2', width: 130 },
+        { field: 'mobile', headerName: 'Mobile', width: 130 },
+        { field: 'landline', headerName: 'Landline', width: 130 },
+        { field: 'contactPerson', headerName: 'Contact Person', width: 130 },
     ];
 
 
     const handleRowClick = async (params: any) => {
         const id = await params.row.id;
-        // add link to update user
-        location.href = `/homepage/settings/setupContactPerson/${id}`
+
+        // add link to update dealership
+        location.href = `/homepage/settings/setupDealership/${id}`
     }
 
     const CustomToolbar = () => {
@@ -66,8 +69,16 @@ const UserGrid = ({ users, error }: { users?: any, error?: string }) => {
     return (
         <div>
             <Container style={{ height: 400, width: '100%' }} >
-                <HeaderTitle Icon={ImUsers} title="App Users" />
-                <BreadCrumbs />
+                <div className="flex justify-between items-center">
+                    <HeaderTitle Icon={GiHomeGarage} title="Dealerships" />
+                    <Button variant="contained" size="medium" className="text-white mb-2">
+                        <Link href={`/homepage/settings/setupDealership/addDealership`} className="flex items-center text-white">
+                            <GiHomeGarage className="mr-2" />
+                            ADD
+                        </Link>
+                    </Button>
+                </div>
+                {/* <BreadCrumbs /> */}
                 <DataGrid
                     rows={rows}
                     columns={columns}
@@ -90,4 +101,4 @@ const UserGrid = ({ users, error }: { users?: any, error?: string }) => {
     )
 }
 
-export default UserGrid
+export default DealershiprGrid

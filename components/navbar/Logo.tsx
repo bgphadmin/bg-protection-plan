@@ -12,10 +12,15 @@ import { NestedMenuItem } from "mui-nested-menu"
 // const Logo = ({ isAdmin, error }: { isAdmin?: boolean, error?: string }) => {
 const Logo = () => {
 
+    // TODO: Add admin check here
+
     // if (error) {
     //     toast.error(error)
     //     return null
     // }
+
+
+
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
@@ -37,6 +42,10 @@ const Logo = () => {
 
     const handleSetupContactPerson = () => {
         location.href = "/homepage/settings/setupContactPerson"
+    }
+
+    const handleSetupDealership = () => {
+        location.href = "/homepage/settings/setupDealership"
     }
 
     return (
@@ -80,11 +89,11 @@ const Logo = () => {
                             parentMenuOpen={open}
                         >
                             <MenuItem onClick={handleSetupContactPerson} >
-                                Setup Contact Person
+                                Contact Person
                             </MenuItem>
-                            {/* <MenuItem onClick={handleAddCustomer}>
-                                Add Customer
-                            </MenuItem> */}
+                            <MenuItem onClick={handleSetupDealership}>
+                                Dealership
+                            </MenuItem>
                         </NestedMenuItem>
                     </div>
                 </Menu>
