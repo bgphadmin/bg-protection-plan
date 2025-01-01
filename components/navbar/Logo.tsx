@@ -5,8 +5,9 @@ import logo from "@/public/BG_logo4.png"
 import { Button } from "../ui/button"
 import Image from "next/image"
 import { Menu, MenuItem } from "@mui/material"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { NestedMenuItem } from "mui-nested-menu"
+import { isAdmin, isAdminMainDealership } from "@/lib/actions"
 // import { toast } from "react-toastify"
 
 // const Logo = ({ isAdmin, error }: { isAdmin?: boolean, error?: string }) => {
@@ -19,6 +20,33 @@ const Logo = () => {
     //     return null
     // }
 
+    const [isAdminMainDealershipAcess, setIsAdminMainDealershipAccess] = useState(false)
+    const [isAdminAccess, setIsAdminAccess] = useState(false)
+
+    useEffect(() => {
+        // if role is not admin, redirect to homepage
+        const checkAdminMainDealership = async () => {
+
+            const { error: AdminMainDealershipAccessError } = await isAdminMainDealership()
+            if (!AdminMainDealershipAccessError) {
+                setIsAdminMainDealershipAccess(true)
+            }
+        }
+
+        checkAdminMainDealership();
+    }, []);
+
+    useEffect(() => {
+        // if role is not admin, redirect to homepage
+        const checkAdmin = async () => {
+
+            const { error: AdminError } = await isAdmin()
+            if (!AdminError) {
+                setIsAdminAccess(true)
+            }
+        }
+        checkAdmin();
+    }, []);
 
 
 
@@ -73,28 +101,34 @@ const Logo = () => {
                         <MenuItem onClick={handleClose} >
                             <Link href="/homepage">Home</Link>
                         </MenuItem>
-                        <NestedMenuItem
-                            label="Customers"
-                            parentMenuOpen={open}
-                        >
-                            <MenuItem onClick={handlecustomersList} >
-                                Customers List
-                            </MenuItem>
-                            <MenuItem onClick={handleAddCustomer}>
-                                Add Customer
-                            </MenuItem>
-                        </NestedMenuItem>
-                        <NestedMenuItem
-                            label="Settings"
-                            parentMenuOpen={open}
-                        >
-                            <MenuItem onClick={handleSetupContactPerson} >
-                                Contact Person
-                            </MenuItem>
-                            <MenuItem onClick={handleSetupDealership}>
-                                Dealership
-                            </MenuItem>
-                        </NestedMenuItem>
+
+                        {isAdminMainDealershipAcess &&
+                            <NestedMenuItem
+                                label="Customers"
+                                parentMenuOpen={open}
+                            >
+                                <MenuItem onClick={handlecustomersList} >
+                                    Customers List
+                                </MenuItem>
+                                <MenuItem onClick={handleAddCustomer}>
+                                    Add Customer
+                                </MenuItem>
+                            </NestedMenuItem>
+                        }
+
+                        {isAdminAccess &&
+                            <NestedMenuItem
+                                label="Settings"
+                                parentMenuOpen={open}
+                            >
+                                <MenuItem onClick={handleSetupContactPerson} >
+                                    Contact Person
+                                </MenuItem>
+                                <MenuItem onClick={handleSetupDealership}>
+                                    Dealership
+                                </MenuItem>
+                            </NestedMenuItem>
+                        }
                     </div>
                 </Menu>
             </div>
