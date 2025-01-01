@@ -43,7 +43,7 @@ export async function isAdmin (): Promise<{isUserAdmin?: boolean,  error?: strin
 
 
 // function to check if user role is Admin or Main or Dealership
-export async function isAdminMainDealership (): Promise<{error?: string | null}> {
+export async function isAdminMainDealership (): Promise<{isUserAdminMainDealership?: boolean,  error?: string | null}> {
     const clerkUserId = (await auth()).userId
 
     if (!clerkUserId) {
@@ -65,7 +65,7 @@ export async function isAdminMainDealership (): Promise<{error?: string | null}>
         return { error: 'User not authorized' }
     }
     
-    return {}
+    return {isUserAdminMainDealership: true}
 }
 
 type GetCustomersResponse = {

@@ -9,21 +9,21 @@ import { useEffect, useState } from "react"
 import { NestedMenuItem } from "mui-nested-menu"
 import { isAdminMainDealership } from "@/lib/actions"
 
-const Logo = ({ isAdmin }: { isAdmin?: boolean}) => {
+const Logo = ({ isAdmin, isAdminMainDealership }: { isAdmin?: boolean, isAdminMainDealership?: boolean }) => {
 
-    const [isAdminMainDealershipAcess, setIsAdminMainDealershipAccess] = useState(false)
+    // const [isAdminMainDealershipAcess, setIsAdminMainDealershipAccess] = useState(false)
 
-    useEffect(() => {
-        const checkAdminMainDealership = async () => {
+    // useEffect(() => {
+    //     const checkAdminMainDealership = async () => {
 
-            const { error: AdminMainDealershipAccessError } = await isAdminMainDealership()
-            if (!AdminMainDealershipAccessError) {
-                setIsAdminMainDealershipAccess(true)
-            }
-        }
+    //         const { error: AdminMainDealershipAccessError } = await isAdminMainDealership()
+    //         if (!AdminMainDealershipAccessError) {
+    //             setIsAdminMainDealershipAccess(true)
+    //         }
+    //     }
 
-        checkAdminMainDealership();
-    }, []);
+    //     checkAdminMainDealership();
+    // }, []);
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
@@ -75,7 +75,7 @@ const Logo = ({ isAdmin }: { isAdmin?: boolean}) => {
                             <Link href="/homepage">Home</Link>
                         </MenuItem>
 
-                        {isAdminMainDealershipAcess &&
+                        {isAdminMainDealership &&
                             <NestedMenuItem
                                 label="Customers"
                                 parentMenuOpen={open}
