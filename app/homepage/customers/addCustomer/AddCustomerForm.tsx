@@ -1,13 +1,21 @@
 'use client'
 
 import { redirect, useRouter } from 'next/navigation'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ClerkLoaded } from '@clerk/nextjs'
 import { toast } from 'react-toastify'
 import { FaUser } from 'react-icons/fa'
 import { addCustomer } from '@/lib/actions'
+import HeaderTitle from '@/components/HeaderTitle'
 
-const AddCustomerForm = () => {
+const AddCustomerForm = ({ error }: { error: String }) => {
+
+    useEffect(() => {
+        if (error) {
+            toast.error(error)
+            redirect('/homepage')
+        }
+    }, [error])
 
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
@@ -38,8 +46,7 @@ const AddCustomerForm = () => {
 
     return (
         <ClerkLoaded>
-
-
+            <HeaderTitle Icon={FaUser} title="Add Customer" />
             <section className="form">
                 <form ref={formRef} action={clientAction} noValidate>
                     <div className="form-group">

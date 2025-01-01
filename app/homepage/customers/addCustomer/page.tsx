@@ -1,15 +1,17 @@
-'use client'
+
 import React from 'react'
 import AddCustomerForm from './AddCustomerForm'
-import { FaUser } from 'react-icons/fa'
-import HeaderTitle from '@/components/HeaderTitle'
+import { isAdminMainDealership } from '@/lib/actions'
 
 
-export default function AddCustomerPage() {
+export default async function AddCustomerPage() {
+
+    // Check if role og logged in user is admin main or dealership
+    const { error } = await isAdminMainDealership()
+
     return (
         <div className="container">
-            <HeaderTitle Icon={FaUser} title="Add Customer" />    
-            <AddCustomerForm />
+            <AddCustomerForm error={error ?? ''} />
         </div>
     )
 }

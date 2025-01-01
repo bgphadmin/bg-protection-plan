@@ -34,6 +34,32 @@ export async function isAdmin (): Promise<{error?: string | null}> {
 }
 
 
+// function to check if user role is Admin or Main or Dealership
+export async function isAdminMainDealership (): Promise<{error?: string | null}> {
+    const clerkUserId = (await auth()).userId
+
+    if (!clerkUserId) {
+        return { error: 'User not found' }
+    }
+
+    // Get the user's role
+    const user = await db.user.findUnique({
+        where: {
+            clerkUserId
+        },
+        select: {
+            role: true
+        }
+    })
+
+    // if role is not Main, Dealer or Admin, return error
+    if ((user?.role !== 'Main' && user?.role !== 'Dealership' && user?.role !== 'Admin')) {
+        return { error: 'User not authorized' }
+    }
+    
+    return {}
+}
+
 type GetCustomersResponse = {
     customers?: Customer[];
     error?: string;
@@ -56,6 +82,13 @@ export const getCustomersList = async (clerkId?: string): Promise<GetCustomersRe
                 role: true
             }
         })
+
+        // if role is not Main, Dealer or Admin, return error
+        // if (user?.role !
+        const {error} = await isAdminMainDealership()
+        if (error) {
+            return { error }
+        }
 
         // if user is Main or Admin, get all customers without filtering
         if (user?.role === 'Admin') {
@@ -113,17 +146,22 @@ export const addCustomer = async (formData: FormData): Promise<{customer?: Custo
             return {error: 'User not found'}    
         }
         
-        console.log('userId: ', userId)
-
         // get the logged in user's dealership ID
         const dealership = await db.user.findUnique({
             where: {
                 clerkUserId: userId
             },
             select: {
-                dealershipId: true
+                dealershipId: true,
+                role: true
             }
         })
+
+        // if role is not Main, Dealer or Admin, return error
+        if (!((dealership?.role === 'Main') || (dealership?.role === 'Dealership') || (dealership?.role === 'Admin'))) {
+            return { error: 'User not authorized' }
+        }
+
 
         const firstName = formData.get('firstName') as string;
         const lastName = formData.get('lastName') as string;

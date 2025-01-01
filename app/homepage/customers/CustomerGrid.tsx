@@ -1,6 +1,6 @@
 'use client'
 
-import React from "react";
+import React, { useEffect } from "react";
 import { DataGrid, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarExport, GridToolbarFilterButton } from "@mui/x-data-grid";
 import { Container, Typography } from "@mui/material";
 import { toast } from "react-toastify";
@@ -8,6 +8,7 @@ import BreadCrumbs from "./BreadCrumbs";
 import { ClerkLoaded } from "@clerk/nextjs";
 import HeaderTitle from "@/components/HeaderTitle";
 import { FaPeopleGroup } from "react-icons/fa6";
+import { redirect } from "next/navigation";
 
 type RowForm = {
     id: string;
@@ -21,10 +22,13 @@ type RowForm = {
 
 const CustomerGrid = ({ customers, error }: { customers?: any, error?: string, isAdmin?: boolean }) => {
 
-    if (error) {
-        toast.error(error);
-        return null
-    }
+    useEffect(() => {
+        if (error) {
+            toast.error(error);
+            redirect('/homepage')
+        }
+    }, [error]);
+
 
     const rows = customers?.map((customer: { id: string; fName: string; lName: string; dealership: { name: string; }; email: string; mobile: string; createdAt: Date; }): RowForm => ({
         id: customer?.id || "",
@@ -80,7 +84,7 @@ const CustomerGrid = ({ customers, error }: { customers?: any, error?: string, i
                     },
                 }}
                 className="dark:text-white dark:bg-blue-900 diplay: flex justify-center"
-                // onRowClick={handleRowClick}
+            // onRowClick={handleRowClick}
 
             />
         </Container>
