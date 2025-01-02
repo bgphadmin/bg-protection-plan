@@ -10,6 +10,7 @@ import { GiHomeGarage } from "react-icons/gi";
 import HeaderTitle from "@/components/HeaderTitle";
 import { Dealership } from "@prisma/client";
 import Link from "next/link";
+import BreadCrumbs from "./BreadCrumbs";
 // import BreadCrumbs from "./BreadCrumbs";
 
 
@@ -78,7 +79,7 @@ const DealershiprGrid = ({ dealerships, error }: { dealerships?: Dealership[], e
                         </Link>
                     </Button>
                 </div>
-                {/* <BreadCrumbs /> */}
+                <BreadCrumbs />
                 <DataGrid
                     rows={rows}
                     columns={columns}
