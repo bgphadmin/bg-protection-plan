@@ -6,7 +6,7 @@ import NavbarLinks from "./NavbarLinks"
 const BottomNavbar = () => {
     return (
         <Suspense fallback={<>Loading...</>}>
-            <div className="bottomNavbar">
+            <div className="bottomNavbar  bg-white fixed bottom-0 w-full z-50">
                 <div className="bottomNavbarBorder flex flex-row items-center">
                     <NavbarLinks />
                     {/* <DarkMode /> */}

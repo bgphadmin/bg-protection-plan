@@ -1,4 +1,4 @@
-TODO: Make the authorization on Customer logo menu use props instead of gettig directly from client sider
+TODO: Remove the logo and menu on the webdeisgn and button at the bottom
 TODO: Add a column Added by on Customers grid
 TODO: Within the Customer Form, add Button to add Customer Vehicle Form
 TODO: Create forms for the other tables e.g. products, protection plan, etc
