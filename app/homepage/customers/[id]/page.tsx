@@ -1,6 +1,6 @@
-import { PageProps } from "@/.next/types/app/homepage/customers/page";
 import { getCustomerById, getRolesAndDealerships } from "@/lib/actions";
 import UpdateCustomerForm from "./UpdateCustomerForm";
+import { PageProps } from "@/.next/types/app/layout";
 
 
 interface UpdateCustomerPageProps extends PageProps {
