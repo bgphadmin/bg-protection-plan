@@ -2,7 +2,7 @@
 
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
-import { Customer, User, Role, Dealership } from "@prisma/client";
+import { Customer, User, Role, Dealership, CustomerVehicle } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
 
@@ -513,5 +513,78 @@ export const updateDealership = async (id: number, name: string, address1: strin
         return {dealership}        
     } catch (error) {
         return { error: 'Something went wrong while updating dealership' }
+    }
+}
+
+
+// declare module '@prisma/client' {
+    export interface ExtendedCustomerVehicle extends CustomerVehicle {
+        customer: {
+            fName: string;
+            lName: string;
+        };
+    }
+// }
+
+
+/** Get all customer vehicle by Customer's ID and User's dealership ID
+ * @param contactPersonId
+ * @returns {Promise<{vehicles?: ExtendedCustomerVehicle[], error?: string}>}
+ */
+
+export const getCustomerVehicles = async (contactPersonId: string): Promise<{vehicles?: ExtendedCustomerVehicle[], error?: string}> => {
+    
+    try {
+
+        const {error} = await isAdminMainDealership()
+        if (error) {
+            return { error }
+        }
+
+
+
+        // Get dealershipId from the contact person's custIdDealershipId
+        const dealershipId = await db.user.findFirst({
+            where: {
+                clerkUserId: contactPersonId
+            },
+            select: {
+                dealershipId: true
+            }
+        })
+
+
+        // return all vehicles if user is Admin or Main Dealership
+
+        const {isUserAdmin} = await isAdmin()
+
+        if (isUserAdmin) {
+            const vehicles = await db.customerVehicle.findMany({
+                include: {
+                    customer: true
+                },
+                orderBy: {
+                    createdAt:'desc'
+                }
+            })
+            return {vehicles}        
+        }   
+
+
+        // Get all vehicles owned by the customers based on the dealershipId
+        const vehicles = await db.customerVehicle.findMany({
+            where: {
+                dealershipId: dealershipId?.dealershipId
+            },
+            include: {
+                customer: true
+            },
+            orderBy: {
+                createdAt:'desc'
+            }
+        })
+        return {vehicles}        
+    } catch (error) {
+        return { error: 'Something went wrong while retrieving customer vehicles. PLease try again. ' }  
     }
 }

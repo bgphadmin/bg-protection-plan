@@ -4,9 +4,10 @@ import { redirect, useRouter } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 import { ClerkLoaded } from '@clerk/nextjs'
 import { toast } from 'react-toastify'
-import { FaUser } from 'react-icons/fa'
+import { FaUserPlus } from "react-icons/fa";
 import { addCustomer } from '@/lib/actions'
 import HeaderTitle from '@/components/HeaderTitle'
+import BreadCrumbs from './BreadCrumbs'
 
 const AddCustomerForm = ({ error }: { error: String }) => {
 
@@ -46,8 +47,9 @@ const AddCustomerForm = ({ error }: { error: String }) => {
 
     return (
         <ClerkLoaded>
-            <HeaderTitle Icon={FaUser} title="Add Customer" />
+            <HeaderTitle Icon={FaUserPlus} title="Add Customer" />
             <section className="form">
+                <BreadCrumbs />
                 <form ref={formRef} action={clientAction} noValidate>
                     <div className="form-group">
                         <input

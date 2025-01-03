@@ -28,6 +28,8 @@ model User {
   active       Boolean     @default(true)
   createdAt    DateTime    @default(now())
   updatedAt    DateTime    @updatedAt
+
+  @@index([dealershipId])
 }
 
 model Customer {
@@ -57,8 +59,10 @@ model CustomerVehicle {
   plateNo         String                  @unique
   registration    String?                 @unique
   transmission    String?
+  mileage         Int?
   fuelEngineType  String
-  dealerships     Dealership[]
+  dealerships     Dealership?             @relation(fields: [dealershipId], references: [id])
+  dealershipId    Int?
   protectionPlans ProtectionPlanAvailed[]
   customer        Customer                @relation(fields: [customerId], references: [id], onDelete: Cascade)
   customerId      String
@@ -66,7 +70,8 @@ model CustomerVehicle {
   createdAt       DateTime                @default(now())
   updatedAt       DateTime                @updatedAt
 
-  // @@index([customerId])
+  @@index([customerId])
+  @@index([dealershipId])
 }
 
 model Dealership {
@@ -78,18 +83,12 @@ model Dealership {
   landline          String?
   contactPerson     String?
   protectionPlans   ProtectionPlanAvailed[]
-  customerVehicle   CustomerVehicle?        @relation(fields: [customerVehicleId], references: [id], onDelete: Cascade)
-  customerVehicleId String?
-  // customer          Customer?               @relation(fields: [customerId], references: [id], onDelete: Cascade)
-  // customerId        String?
+  customerVehicles   CustomerVehicle[]
   customers         Customer[]
   users             User[]
   enteredBy         String? // logged in user when adding dealership record
   createdAt         DateTime?               @default(now())
   updatedAt         DateTime?               @updatedAt
-  // @@index([customerId])
-
-  @@index([customerVehicleId])
 }
 
 model ProtectionPlanAvailed {
@@ -168,6 +167,11 @@ model EngineOil {
   name String
 }
 
+model transmissionType {
+  id   String @id
+  name String
+  description String
+}
 // enum Products {
 //   BG110
 //   BG112

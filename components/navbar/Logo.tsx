@@ -43,6 +43,13 @@ const Logo = ({ isAdmin, isAdminMainDealership }: { isAdmin?: boolean, isAdminMa
         location.href = "/homepage/customers/addCustomer"
     }
 
+    const handleAddVehicle = () => {
+        location.href = "/homepage/customers/addCustomer"
+    }
+    const handleVehicleList = () => {
+        location.href = "/homepage/customers/customerVehicles"
+    }
+
     const handleSetupContactPerson = () => {
         location.href = "/homepage/settings/setupContactPerson"
     }
@@ -80,12 +87,28 @@ const Logo = ({ isAdmin, isAdminMainDealership }: { isAdmin?: boolean, isAdminMa
                                 label="Customers"
                                 parentMenuOpen={open}
                             >
-                                <MenuItem onClick={handlecustomersList} >
-                                    Customers List
-                                </MenuItem>
-                                <MenuItem onClick={handleAddCustomer}>
-                                    Add Customer
-                                </MenuItem>
+                                <NestedMenuItem
+                                    label="Customer Info"
+                                    parentMenuOpen={open}
+                                >
+                                    <MenuItem onClick={handlecustomersList}>
+                                        Customer List
+                                    </MenuItem>
+                                    <MenuItem onClick={handleAddCustomer}>
+                                        Add Customer
+                                    </MenuItem>
+                                </NestedMenuItem>
+                                <NestedMenuItem
+                                    label="Customer Vehicles"
+                                    parentMenuOpen={open}
+                                >
+                                    <MenuItem onClick={handleVehicleList}>
+                                        Vehicle List
+                                    </MenuItem>
+                                    <MenuItem onClick={handleAddVehicle}>
+                                        Add Vehicle
+                                    </MenuItem>
+                                </NestedMenuItem>
                             </NestedMenuItem>
                         }
 
