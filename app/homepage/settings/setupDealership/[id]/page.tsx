@@ -1,6 +1,7 @@
 import { getDealershipById, isAdmin } from "@/lib/actions";
 import UpdateDealershipForm from "./UpdateDealershipForm";
-import { PageProps } from "@/.next/types/app/layout";
+import { PageProps } from "@/.next/types/app/homepage/settings/setupDealership/[id]/page";
+
 
 interface UpdateDealershipProps extends PageProps {
     params: Awaited<PageProps['params']>;
