@@ -5,17 +5,19 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 // TODO: Change the details of description to more specific items used for the Protection Plan Statement
 // TODO: Create customer data and check relationshp with user
+// TODO: Use provider = "mongodb" for the database using mongodb
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
+  // provider = "postgresql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id           String      @id @default(uuid())
+  id           String      @id @default(uuid()) @map("_id") // this is the id of the user
   clerkUserId  String      @unique
   email        String      @unique
   firstName    String
@@ -24,7 +26,7 @@ model User {
   isAdmin      Boolean     @default(false)
   role         String      @default("User")
   dealership   Dealership? @relation(fields: [dealershipId], references: [id])
-  dealershipId Int?
+  dealershipId String?
   active       Boolean     @default(true)
   createdAt    DateTime    @default(now())
   updatedAt    DateTime    @updatedAt
@@ -33,15 +35,15 @@ model User {
 }
 
 model Customer {
-  id               String                  @id @default(uuid())
+  id               String                  @id @default(uuid()) @map("_id")
   fName            String
   lName            String
-  email            String                  // create fake email in case user does not have an email. email can
-  mobile           String                  // it is possible that mobile/email is not unique since can have an account on 2 different dealership
+  email            String // create fake email in case user does not have an email. email can
+  mobile           String // it is possible that mobile/email is not unique since can have an account on 2 different dealership
   landline         String?
   customerVehicles CustomerVehicle[]
   dealership       Dealership?             @relation(fields: [dealershipId], references: [id])
-  dealershipId     Int?
+  dealershipId     String?
   protectionPlans  ProtectionPlanAvailed[]
   userId           String // entered by logged in user/contact person
   createdAt        DateTime                @default(now())
@@ -51,7 +53,7 @@ model Customer {
 }
 
 model CustomerVehicle {
-  id              String                  @id @default(uuid())
+  id              String                  @id @default(uuid()) @map("_id")
   make            String
   model           String?
   year            Int?
@@ -62,7 +64,7 @@ model CustomerVehicle {
   mileage         Int?
   fuelEngineType  String
   dealerships     Dealership?             @relation(fields: [dealershipId], references: [id])
-  dealershipId    Int?
+  dealershipId    String?
   protectionPlans ProtectionPlanAvailed[]
   customer        Customer                @relation(fields: [customerId], references: [id], onDelete: Cascade)
   customerId      String
@@ -75,24 +77,25 @@ model CustomerVehicle {
 }
 
 model Dealership {
-  id                Int                     @id @default(autoincrement())
-  name              String
-  address1          String
-  address2          String?
-  mobile            String                  @unique
-  landline          String?
-  contactPerson     String?
-  protectionPlans   ProtectionPlanAvailed[]
-  customerVehicles   CustomerVehicle[]
-  customers         Customer[]
-  users             User[]
-  enteredBy         String? // logged in user when adding dealership record
-  createdAt         DateTime?               @default(now())
-  updatedAt         DateTime?               @updatedAt
+  id                 String          @id @default(uuid()) @map("_id")
+  // dealershipId     String                  @id @default(uuid()) @map("_id")
+  name             String
+  address1         String
+  address2         String?
+  mobile           String                  @unique
+  landline         String?
+  contactPerson    String?
+  protectionPlans  ProtectionPlanAvailed[]
+  customerVehicles CustomerVehicle[]
+  customers        Customer[]
+  users            User[]
+  enteredBy        String? // logged in user when adding dealership record
+  createdAt        DateTime?               @default(now())
+  updatedAt        DateTime?               @updatedAt
 }
 
 model ProtectionPlanAvailed {
-  id                 String          @id @default(uuid())
+  id                 String          @id @default(uuid()) @map("_id")
   invoice            String          @unique
   receipt            String          @unique
   protectionPlan     ProtectionPlan  @relation(fields: [protectionPlanId], references: [id])
@@ -109,7 +112,7 @@ model ProtectionPlanAvailed {
   CustomerVehicle    CustomerVehicle @relation(fields: [customerVehicleId], references: [id], onDelete: Cascade)
   customerVehicleId  String
   Dealership         Dealership      @relation(fields: [dealershipId], references: [id])
-  dealershipId       Int
+  dealershipId       String
   eneteredBy         String // entered by user logged in
   createdAt          DateTime        @default(now())
   updatedAt          DateTime        @updatedAt
@@ -121,7 +124,7 @@ model ProtectionPlanAvailed {
 }
 
 model ProtectionPlan {
-  id                     String                  @id
+  id                     String                  @id @default(uuid()) @map("_id")
   name                   String
   products               String
   protectionPlanCategory String
@@ -136,42 +139,43 @@ model ProtectionPlan {
 }
 
 model PlanTerms {
-  id             String           @id
+  id             String           @id @default(uuid()) @map("_id")
   name           String
   description    String
   ProtectionPlan ProtectionPlan[]
 }
 
 model Product {
-  id   String @id
+  id   String @id @default(uuid()) @map("_id")
   name String
 }
 
 model ProtectionPlanCategory {
-  id   String @id
+  id   String @id @default(uuid()) @map("_id")
   name String
 }
 
 model FuelEngineType {
-  id   String @id
+  id   String @id @default(uuid()) @map("_id")
   name String
 }
 
 model Role {
-  id   String @id
+  id   String @id @default(uuid()) @map("_id")
   name String
 }
 
 model EngineOil {
-  id   String @id
+  id   String @id @default(uuid()) @map("_id")
   name String
 }
 
 model transmissionType {
-  id   String @id
-  name String
+  id          String @id @default(uuid()) @map("_id")
+  name        String
   description String
 }
+
 // enum Products {
 //   BG110
 //   BG112

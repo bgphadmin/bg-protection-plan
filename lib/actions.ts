@@ -170,7 +170,7 @@ export const addCustomer = async (formData: FormData): Promise<{customer?: Custo
         const email = formData.get('email') as string;
         const mobile = formData.get('mobile') as string;
         const landline = formData.get('landline') as string;
-        const dealershipId = dealership?.dealershipId as number;
+        const dealershipId = dealership?.dealershipId as string;
 
         if (!firstName || !lastName || !email || !mobile || !dealershipId) {
             return { error: 'Missing required fields' }
@@ -289,7 +289,7 @@ export const updateRoleAndDealership = async (id: string, role: string, dealersh
             },
             data: {
                 role,
-                dealershipId: parseInt(dealershipId)
+                dealershipId: dealershipId
             }
         })
         revalidatePath('/homepage/settings/setupContactPerson');
@@ -380,7 +380,7 @@ export interface CustomerDealership {
     email?: string;
     mobile: string;
     landline?: string | null;
-    dealershipId: number;
+    dealershipId: string;
     dealership: Dealership; // add this property
   }
 
@@ -453,7 +453,7 @@ export const updateCustomer = async (id: string, fName: string, lName: string, e
  * @param id
  */
 
-export const getDealershipById = async (id: number): Promise<{dealership?: Dealership, error?: string}> => {
+export const getDealershipById = async (id: string): Promise<{dealership?: Dealership, error?: string}> => {
 
     try {
         const dealership = await db.dealership.findUnique({
@@ -482,7 +482,7 @@ export const getDealershipById = async (id: number): Promise<{dealership?: Deale
  * @returns {Promise<{dealership?: Dealership, error?: string}>}
  * */
 
-export const updateDealership = async (id: number, name: string, address1: string, address2: string, mobile: string, landline: string, contactPerson: string): Promise<{dealership?: Dealership, error?: string}> => {
+export const updateDealership = async (id: string, name: string, address1: string, address2: string, mobile: string, landline: string, contactPerson: string): Promise<{dealership?: Dealership, error?: string}> => {
 
     if (!id || !name || !address1 || !mobile ) {
         return { error: 'Missing required fields' }

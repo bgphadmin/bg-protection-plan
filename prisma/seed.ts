@@ -7,8 +7,8 @@ import { CustomerVehicles } from './seeds/customerVehicles';
 
 
 async function main() {
-  await db.customerVehicle.createMany({
-    data: CustomerVehicles,
+  await db.user.createMany({
+    data: User.map(user => ({ ...user, dealershipId: user.dealershipId?.toString() })),
   })
   .catch((e) => {
     console.error(e);

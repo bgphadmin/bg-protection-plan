@@ -80,7 +80,7 @@ const SetupContactUserForm = ({ user, error, roles, dealerships }: { user?: User
                                 id="dealershipId"
                                 required
                                 value={dealershipId ?? ''}
-                                onChange={(e) => setDealershipId(Number(e.target.value))}
+                                onChange={(e) => setDealershipId(e.target.value)}
                                 name='dealershipId'
                                 className="fom-control"
                                 
@@ -88,7 +88,7 @@ const SetupContactUserForm = ({ user, error, roles, dealerships }: { user?: User
                                 <option value="" disabled className="text-gray">Select a shop</option>
                                 {dealerships!.map((dealership) => (
                                     <option key={dealership.id} value={dealership.id}>
-                                        {dealership.id} - {dealership.name}
+                                        {dealership.name}
                                     </option>
                                 ))}
                             </select>

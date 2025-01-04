@@ -34,9 +34,9 @@ const DealershiprGrid = ({ dealerships, error }: { dealerships?: Dealership[], e
     }));
 
     const columns = [
-        { field: 'id', headerName: 'ID', width: 70 },
-        { field: 'name', headerName: 'Name', width: 130 },
-        { field: 'address1', headerName: 'Address 1', width: 130 },
+        // { field: 'id', headerName: 'ID', width: 70 },
+        { field: 'name', headerName: 'Name', width: 225 },
+        { field: 'address1', headerName: 'Address 1', width: 225 },
         { field: 'address2', headerName: 'Address 2', width: 130 },
         { field: 'mobile', headerName: 'Mobile', width: 130 },
         { field: 'landline', headerName: 'Landline', width: 130 },

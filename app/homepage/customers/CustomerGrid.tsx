@@ -47,7 +47,7 @@ const CustomerGrid = ({ customers, error }: { customers?: any, error?: string, i
     const columns = [
         { field: "firstName", width: 150, renderHeader: () => <Typography sx={{ color: 'darkblue' }}>{'First Name'}</Typography>, },
         { field: "lastName", width: 150, renderHeader: () => <Typography sx={{ color: 'darkblue' }}>{'Last Name'}</Typography>, },
-        { field: "dealershipName", width: 150, renderHeader: () => <Typography sx={{ color: 'darkblue' }}>{'Dealership'}</Typography>, },
+        // { field: "dealershipName", width: 150, renderHeader: () => <Typography sx={{ color: 'darkblue' }}>{'Dealership'}</Typography>, },
         { field: "email", width: 250, renderHeader: () => <Typography sx={{ color: 'darkblue' }}>{'Email'}</Typography>, },
         { field: "mobile", width: 150, renderHeader: () => <Typography sx={{ color: 'darkblue' }}>{'Mobile'}</Typography>, },
         { field: "createdAt", width: 200, renderHeader: () => <Typography sx={{ color: 'darkblue' }}>{'Date Registered'}</Typography>, },

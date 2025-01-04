@@ -10,7 +10,7 @@ export const Dealership = [
     "enteredBy": null,
     "createdAt": "2022-09-27 18:00:00",
     "updatedAt": "2022-09-27 18:00:00",
-    "id": 1
+    "id": "1"
   },
   {
     "name": "PGA Cars, Inc.",
@@ -23,7 +23,7 @@ export const Dealership = [
     "enteredBy": null,
     "createdAt": "2022-09-27 18:00:00",
     "updatedAt": "2022-09-27 18:00:00",
-    "id": 2
+    "id": "2"
   },
   {
     "name": "BG Philippines",
@@ -36,7 +36,7 @@ export const Dealership = [
     "enteredBy": null,
     "createdAt": "2022-09-27 18:00:00",
     "updatedAt": "2022-09-27 18:00:00",
-    "id": 3
+    "id": "3"
   },
   {
     "name": "Toyota Pasig",
@@ -49,7 +49,7 @@ export const Dealership = [
     "enteredBy": null,
     "createdAt": "2024-12-29 18:19:25.929",
     "updatedAt": "2024-12-29 18:19:25.929",
-    "id": 4
+    "id": "4"
   },
   {
     "name": "Park N' Sell",
@@ -62,6 +62,6 @@ export const Dealership = [
     "enteredBy": null,
     "createdAt": "2025-01-01 07:45:59.454",
     "updatedAt": "2025-01-01 07:45:59.454",
-    "id": 5
+    "id": "5"
   }
 ]
