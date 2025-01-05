@@ -1,4 +1,4 @@
-import { PageProps } from "@/.next/types/app/homepage/customers/[id]/customerVehicles/"
+import { PageProps } from "@/.next/types/app/homepage/customers/[id]/customerVehicles/page"
 import { getCustomerVehicles } from "@/lib/actions"
 import { auth } from "@clerk/nextjs/server"
 import CustomerVehicleGrid from "./CustomerVehicleGrid"
