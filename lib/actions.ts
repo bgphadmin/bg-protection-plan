@@ -554,7 +554,19 @@ export const getCustomerVehicles = async (contactPersonId: string, customerId: s
         const {isUserAdmin} = await isAdmin()
 
         if (isUserAdmin) {
+            // const vehicles = await db.customerVehicle.findMany({
+            //     include: {
+            //         customer: true
+            //     },
+            //     orderBy: {
+            //         createdAt:'desc'
+            //     }
+            // })
+            // return {vehicles}   
             const vehicles = await db.customerVehicle.findMany({
+                where: {
+                    customerId
+                },
                 include: {
                     customer: true
                 },
@@ -562,7 +574,7 @@ export const getCustomerVehicles = async (contactPersonId: string, customerId: s
                     createdAt:'desc'
                 }
             })
-            return {vehicles}        
+            return {vehicles}       
         }   
 
 
