@@ -1,0 +1,22 @@
+[
+    {
+        "id": 1,
+        "name": "Admin"
+    },
+    {
+        "id": 2,
+        "name": "User"    
+    },
+    {
+        "id": 3,
+        "name": "Main"    
+    },
+    {
+        "id": 4,
+        "name": "Dealership"
+    },
+    {
+        "id": 5,
+        "name": "Customer"
+    }
+]

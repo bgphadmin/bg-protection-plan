@@ -1,6 +1,6 @@
 import { getCustomerById, getRolesAndDealerships } from "@/lib/actions";
 import UpdateCustomerForm from "./UpdateCustomerForm";
-import { PageProps } from "@/.next/types/app/homepage/customers/[id]/page";
+import { PageProps } from "@/.next/types/app/homepage/customers/[id]/customerVehicles/addVehicle/page";
 
 
 

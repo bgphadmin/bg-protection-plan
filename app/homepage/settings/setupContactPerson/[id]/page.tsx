@@ -15,12 +15,12 @@ const SetupContactPersonPage = async ( { params }: SetupContactPersonProps ) => 
     // get user by id
     const {user, error: userError} = await getUserById(userId.id);
 
-    // get roles and dealerships
-    const { roles, dealerships, error: rolesError } = await getRolesAndDealerships();
+    // get dealerships
+    const { dealerships, error: rolesError } = await getRolesAndDealerships();
 
     return (
         <div>
-            <SetupContactUserForm user={user} roles={roles} dealerships={dealerships} error={userError || rolesError} />
+            <SetupContactUserForm user={user} dealerships={dealerships} error={userError || rolesError} />
         </div>
     )
 }

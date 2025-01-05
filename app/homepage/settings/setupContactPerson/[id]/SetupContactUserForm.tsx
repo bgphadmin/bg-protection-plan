@@ -3,14 +3,15 @@
 import HeaderTitle from "@/components/HeaderTitle";
 import { updateRoleAndDealership } from "@/lib/actions";
 import { ClerkLoaded } from "@clerk/nextjs";
-import { Dealership, Role, User } from "@prisma/client"
+import { Dealership, User } from "@prisma/client"
 import { redirect, useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import { BsPersonFillCheck } from "react-icons/bs";
 import { toast } from "react-toastify"
 import BreadCrumbs from "./BreadCrumbs";
+import roles from "@/data/role.json";
 
-const SetupContactUserForm = ({ user, error, roles, dealerships }: { user?: User, error?: string, roles?: Role[], dealerships?: Dealership[] }) => {
+const SetupContactUserForm = ({ user, error, dealerships }: { user?: User, error?: string, dealerships?: Dealership[] }) => {
 
     if (error) {
         toast.error(error);

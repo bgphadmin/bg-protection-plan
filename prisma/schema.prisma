@@ -59,9 +59,7 @@ model CustomerVehicle {
   year            Int?
   vin             String?                 @unique
   plateNo         String                  @unique
-  registration    String?                 @unique
   transmission    String?
-  mileage         Int?
   fuelEngineType  String
   dealerships     Dealership?             @relation(fields: [dealershipId], references: [id])
   dealershipId    String?
@@ -155,25 +153,9 @@ model ProtectionPlanCategory {
   name String
 }
 
-model FuelEngineType {
-  id   String @id @default(uuid()) @map("_id")
-  name String
-}
-
-model Role {
-  id   String @id @default(uuid()) @map("_id")
-  name String
-}
-
 model EngineOil {
   id   String @id @default(uuid()) @map("_id")
   name String
-}
-
-model transmissionType {
-  id          String @id @default(uuid()) @map("_id")
-  name        String
-  description String
 }
 
 // enum Products {

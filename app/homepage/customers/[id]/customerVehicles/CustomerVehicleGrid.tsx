@@ -3,15 +3,17 @@
 import HeaderTitle from "@/components/HeaderTitle";
 import { ExtendedCustomerVehicle } from "@/lib/actions";
 import { ClerkLoaded } from "@clerk/nextjs";
-import { Container } from "@mui/material";
+import { Button, Container } from "@mui/material";
 import { DataGrid, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarExport, GridToolbarFilterButton } from "@mui/x-data-grid";
 import { redirect } from "next/navigation";
 import { useEffect } from "react";
 import { IoCarSportSharp } from "react-icons/io5";
 import { toast } from "react-toastify";
 import BreadCrumbs from "./BreadCrumbs";
+import Link from "next/link";
+import { FaCar } from "react-icons/fa6";
 
-const CustomerVehicleGrid = ({ vehicles, error }: { vehicles: ExtendedCustomerVehicle[], error: string }) => {
+const CustomerVehicleGrid = ({ vehicles, error, customerId }: { vehicles: ExtendedCustomerVehicle[], error: string, customerId: string }) => {
 
     useEffect(() => {
         if (error) {
@@ -19,6 +21,8 @@ const CustomerVehicleGrid = ({ vehicles, error }: { vehicles: ExtendedCustomerVe
             redirect('/homepage')
         }
     }, [error])
+
+    // const owner = vehicles?.[0]?.customer.fName + ' ' + vehicles?.[0]?.customer.lName
 
     const rows = vehicles?.map((vehicle: ExtendedCustomerVehicle) => ({
         id: vehicle.id,
@@ -28,23 +32,19 @@ const CustomerVehicleGrid = ({ vehicles, error }: { vehicles: ExtendedCustomerVe
         year: vehicle.year,
         vin: vehicle.vin,
         plateNo: vehicle.plateNo,
-        registration: vehicle.registration,
         transmission: vehicle.transmission,
         fuelEngineType: vehicle.fuelEngineType,
-        mileage: vehicle.mileage,
     }))
 
     const columns = [
         { field: "owner", width: 150, headerName: 'Owner' },
         { field: "make", width: 150, headerName: 'Make' },
         { field: "model", width: 150, headerName: 'Model' },
-        { field: "year", width: 150, headerName: 'Year' },
+        { field: "year", width: 75, headerName: 'Year' },
         { field: "vin", width: 150, headerName: 'VIN' },
-        { field: "plateNo", width: 150, headerName: 'Plate No' },
-        { field: "registration", width: 150, headerName: 'Registration' },
+        { field: "plateNo", width: 100, headerName: 'Plate No' },
         { field: "transmission", width: 150, headerName: 'Transmission' },
         { field: "fuelEngineType", width: 150, headerName: 'Fuel/Engine Type' },
-        { field: "mileage", width: 150, headerName: 'Mileage' },
     ]
 
     const CustomToolbar = () => {
@@ -65,7 +65,15 @@ const CustomerVehicleGrid = ({ vehicles, error }: { vehicles: ExtendedCustomerVe
     return (
         <div>
             <Container style={{ height: 400, width: '100%' }} >
-                <HeaderTitle Icon={IoCarSportSharp} title="Vehicles" />
+                <div className="flex justify-between items-center">
+                    <HeaderTitle Icon={IoCarSportSharp} title={`Vehicles`} />
+                    <Button variant="contained" size="medium" className="text-white mb-2">
+                        <Link href={`/homepage/customers/${customerId}/customerVehicles/addVehicle`} className="flex items-center text-white">
+                            <FaCar className="mr-2" />
+                            ADD
+                        </Link>
+                    </Button>
+                </div>
                 <BreadCrumbs />
                 <DataGrid
                     rows={rows}
@@ -81,7 +89,7 @@ const CustomerVehicleGrid = ({ vehicles, error }: { vehicles: ExtendedCustomerVe
                         },
                     }}
                     className="dark:text-white dark:bg-blue-900 diplay: flex justify-center"
-                    // onRowClick={handleRowClick}
+                // onRowClick={handleRowClick}
                 />
             </Container>
 

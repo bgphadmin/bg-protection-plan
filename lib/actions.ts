@@ -2,7 +2,7 @@
 
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
-import { Customer, User, Role, Dealership, CustomerVehicle } from "@prisma/client";
+import { Customer, User, Dealership, CustomerVehicle } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
 
@@ -253,19 +253,17 @@ export const getUserById = async (id: string): Promise<{user?: User, error?: str
 
 
 /**get roles and dealsheips
- * @returns {Promise<{roles?: Role[], dealerships?: Dealership[], error?: string}>}
+ * @returns {Promise<{dealerships?: Dealership[], error?: string}>}
  */
 
-export const getRolesAndDealerships = async (): Promise<{roles?: Role[], dealerships?: Dealership[], error?: string}> => {
+export const getRolesAndDealerships = async (): Promise<{dealerships?: Dealership[], error?: string}> => {
 
     try {
-        const roles = await db.role.findMany()
         const dealerships = await db.dealership.findMany()
-        return {roles, dealerships}        
+        return {dealerships}        
     } catch (error) {
         return { error: 'Something went wrong while getting roles and dealerships' }
     }
-
 }
 
 /**
@@ -520,6 +518,7 @@ export const updateDealership = async (id: string, name: string, address1: strin
 // declare module '@prisma/client' {
     export interface ExtendedCustomerVehicle extends CustomerVehicle {
         customer: {
+            id: string;
             fName: string;
             lName: string;
         };
@@ -532,7 +531,7 @@ export const updateDealership = async (id: string, name: string, address1: strin
  * @returns {Promise<{vehicles?: ExtendedCustomerVehicle[], error?: string}>}
  */
 
-export const getCustomerVehicles = async (contactPersonId: string): Promise<{vehicles?: ExtendedCustomerVehicle[], error?: string}> => {
+export const getCustomerVehicles = async (contactPersonId: string, customerId: string): Promise<{vehicles?: ExtendedCustomerVehicle[], error?: string}> => {
     
     try {
 
@@ -540,8 +539,6 @@ export const getCustomerVehicles = async (contactPersonId: string): Promise<{veh
         if (error) {
             return { error }
         }
-
-
 
         // Get dealershipId from the contact person's custIdDealershipId
         const dealershipId = await db.user.findFirst({
@@ -553,9 +550,7 @@ export const getCustomerVehicles = async (contactPersonId: string): Promise<{veh
             }
         })
 
-
         // return all vehicles if user is Admin or Main Dealership
-
         const {isUserAdmin} = await isAdmin()
 
         if (isUserAdmin) {
@@ -574,7 +569,8 @@ export const getCustomerVehicles = async (contactPersonId: string): Promise<{veh
         // Get all vehicles owned by the customers based on the dealershipId
         const vehicles = await db.customerVehicle.findMany({
             where: {
-                dealershipId: dealershipId?.dealershipId
+                dealershipId: dealershipId?.dealershipId,
+                customerId
             },
             include: {
                 customer: true
@@ -588,3 +584,67 @@ export const getCustomerVehicles = async (contactPersonId: string): Promise<{veh
         return { error: 'Something went wrong while retrieving customer vehicles. PLease try again. ' }  
     }
 }
+
+/** Add a new vehicle
+ * @param formData 
+ * @returns {Promise<{vehicle?: CustomerVehicle, error?: string}>}
+ */
+
+export const addCustomerVehicle = async (formData: FormData, customerId: string): Promise<{vehicle?: CustomerVehicle, error?: string}> => {
+
+    try {
+
+        const enteredBy = (await auth()).userId
+        if (!enteredBy) {
+            return { error: 'User not found' }
+        }
+
+        const {error} = await isAdminMainDealership()
+        if (error) {
+            return { error }
+        }
+
+        const make = formData.get('make') as string;
+        const model = formData.get('model') as string;
+        const year = parseInt(formData.get('year') as string, 10);
+        const vin = formData.get('vin') as string;
+        const plateNo = formData.get('plateNo') as string;
+        const transmission = formData.get('transmission') as string;
+        const fuelType = formData.get('fuelType') as string;
+
+
+        const dealershipId = await db.user.findFirst({
+            where: {
+                clerkUserId: enteredBy
+            },
+            select: {
+                dealershipId: true
+            }
+        })        
+
+
+        if (!make || !model || !year || !vin || !plateNo || !transmission || !fuelType) {
+            return { error: 'Missing required fields' }
+        }
+
+        const vehicle = await db.customerVehicle.create({
+            data: {
+                make,
+                model,
+                year,
+                vin,
+                plateNo,
+                transmission,
+                fuelEngineType: fuelType,
+                enteredBy,
+                customerId,
+                dealershipId: dealershipId?.dealershipId
+            }
+        })
+        return {vehicle}        
+    } catch (error) {
+        return { error: 'Something went wrong while adding new vehicle. PLease try again. ' }  
+    }
+}
+
+ 

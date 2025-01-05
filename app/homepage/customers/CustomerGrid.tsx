@@ -1,14 +1,16 @@
 'use client'
 
 import React, { useEffect } from "react";
-import { DataGrid, GridRowParams, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarExport, GridToolbarFilterButton } from "@mui/x-data-grid";
-import { Container, Typography } from "@mui/material";
+import { DataGrid, GridColDef, GridRowParams, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarExport, GridToolbarFilterButton, } from "@mui/x-data-grid";
+import { Button, Container, Typography } from "@mui/material";
 import { toast } from "react-toastify";
 import BreadCrumbs from "./BreadCrumbs";
 import { ClerkLoaded } from "@clerk/nextjs";
 import HeaderTitle from "@/components/HeaderTitle";
 import { FaPeopleGroup } from "react-icons/fa6";
 import { redirect } from "next/navigation";
+import Link from "next/link";
+import { IoCarSportSharp } from "react-icons/io5";
 
 type RowForm = {
     id: string;
@@ -44,7 +46,39 @@ const CustomerGrid = ({ customers, error }: { customers?: any, error?: string, i
         redirect(`/homepage/customers/${params.id}`);
     }
 
-    const columns = [
+    const columns: GridColDef[] = [
+        {
+            field: "Edit", width: 100,
+            headerAlign: 'center',
+            renderCell: (params: any) => {
+                return (
+                    <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <Button
+                            size="small"
+                            variant="contained"
+                            style={{ backgroundColor: "#FEE321", color: "black" }}
+                            onClick={(event) => {
+                                handleRowClick(params);
+                            }}
+                        >
+                            Edit
+                        </Button>
+                    </div>
+                );
+            },
+
+        },
+        {
+            field: "Vehicle",
+            width: 120,
+            headerAlign: 'center',
+            renderCell: (params: any) =>
+                <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Link href={`/homepage/customers/${params.row.id}/customerVehicles`} style={{ color: 'inherit' }}>
+                        <IoCarSportSharp size={25} />
+                    </Link>
+                </div>
+        },
         { field: "firstName", width: 150, renderHeader: () => <Typography sx={{ color: 'darkblue' }}>{'First Name'}</Typography>, },
         { field: "lastName", width: 150, renderHeader: () => <Typography sx={{ color: 'darkblue' }}>{'Last Name'}</Typography>, },
         // { field: "dealershipName", width: 150, renderHeader: () => <Typography sx={{ color: 'darkblue' }}>{'Dealership'}</Typography>, },
@@ -88,8 +122,6 @@ const CustomerGrid = ({ customers, error }: { customers?: any, error?: string, i
                     },
                 }}
                 className="dark:text-white dark:bg-blue-900 diplay: flex justify-center"
-                onRowClick={handleRowClick}
-
             />
         </Container>
     );
