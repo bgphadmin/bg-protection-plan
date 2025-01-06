@@ -67,31 +67,31 @@ const UpdateVehicleForm = ({ vehicle, error }: { vehicle?: ExtendedCustomerVehic
                 <section className="form">
                     <form ref={formRef} action={clientAction} noValidate>
                         <div className="form-group flex items-center">
-                            <label className="pr-2" htmlFor="make">MAKE: </label>
+                            <label className="pr-2 w-1/4" htmlFor="make">MAKE: </label>
                             <input type="text" name="make" id="make" value={make} onChange={(e) => setMake(e.target.value)} />
                         </div>
                         <div className="form-group flex items-center">
-                            <label className="pr-2" htmlFor="model">MODEL: </label>
+                            <label className="pr-2 w-1/4" htmlFor="model">MODEL: </label>
                             <input type="text" name="model" id="model" value={model || ''} onChange={(e) => setModel(e.target.value)} />
                         </div>
 
                         <div className="form-group flex items-center">
-                            <label className="pr-2" htmlFor="year">YEAR: </label>
+                            <label className="pr-2 w-1/4" htmlFor="year">YEAR: </label>
                             <input type="number" name="year" id="year" value={year || ''} onChange={(e) => setYear(parseInt(e.target.value))} />
                         </div>
 
                         <div className="form-group flex items-center">
-                            <label className="pr-2" htmlFor="vin">VIN: </label>
+                            <label className="pr-2 w-1/4" htmlFor="vin">VIN: </label>
                             <input type="text" name="vin" id="vin" value={vin || ''} onChange={(e) => setVin(e.target.value)} />
                         </div>
 
                         <div className="form-group flex items-center">
-                            <label className="pr-2" htmlFor="plateNo">PLATE-NO: </label>
+                            <label className="pr-2 w-1/4" htmlFor="plateNo">PLATE NO: </label>
                             <input type="text" name="plateNo" id="plateNo" value={plateNo} onChange={(e) => setPlateNo(e.target.value)} />
                         </div>
 
                         <div className="form-group flex items-center">
-                            <label className="pr-2" htmlFor="transmission">TRANSMISSION: </label>
+                            <label className="pr-2 w-1/4" htmlFor="transmission">TRANSMISSION: </label>
                             <select name="transmission" id="transmission" onChange={(e) => setTransmission(e.target.value)} value={transmission || ''}>
                                 <option value="" disabled>Select a role</option>
                                 {transmissionTypes!.map((type) => (
@@ -102,8 +102,8 @@ const UpdateVehicleForm = ({ vehicle, error }: { vehicle?: ExtendedCustomerVehic
                             </select>
                         </div>
 
-                        <div className="form-group items-center">
-                            <label className="pr-2" htmlFor="fuelType">FUEL TYPE: </label>
+                        <div className="form-group flex items-center">
+                            <label className="pr-2 w-1/4" htmlFor="fuelType">FUEL TYPE: </label>
                             <select name="fuelType" id="fuelType" onChange={(e) => setFuelType(e.target.value)} value={fuelType}>
                                 <option value="" disabled>Select fuel type</option>
                                 {fuelTypes!.map((type) => (

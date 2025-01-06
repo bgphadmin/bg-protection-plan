@@ -51,7 +51,8 @@ const AddCustomerForm = ({ error }: { error: String }) => {
             <section className="form">
                 <BreadCrumbs />
                 <form ref={formRef} action={clientAction} noValidate>
-                    <div className="form-group">
+                    <div className="form-group flex items-center">
+                        <label className="pr-2 w-1/4" htmlFor="firstName">FIRST NAME: </label>
                         <input
                             type="text"
                             required
@@ -61,7 +62,8 @@ const AddCustomerForm = ({ error }: { error: String }) => {
                             onChange={(e) => setFirstName(e.target.value)}
                             placeholder="Enter your first name" />
                     </div>
-                    <div className="form-group">
+                    <div className="form-group flex items-center">
+                        <label className="pr-2 w-1/4" htmlFor="lastName">LAST NAME: </label>
                         <input
                             type="text"
                             id="lasttName"
@@ -70,7 +72,8 @@ const AddCustomerForm = ({ error }: { error: String }) => {
                             onChange={(e) => setLastName(e.target.value)}
                             placeholder="Enter your last name" />
                     </div>
-                    <div className="form-group">
+                    <div className="form-group flex items-center">
+                        <label className="pr-2 w-1/4" htmlFor="email">EMAIL: </label>
                         <input
                             type="email"
                             required
@@ -80,7 +83,8 @@ const AddCustomerForm = ({ error }: { error: String }) => {
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="Enter your email" />
                     </div>
-                    <div className="form-group">
+                    <div className="form-group flex items-center">
+                        <label className="pr-2 w-1/4" htmlFor="mobile">MOBILE NO.: </label>
                         <input
                             type="text"
                             required
@@ -90,7 +94,8 @@ const AddCustomerForm = ({ error }: { error: String }) => {
                             onChange={(e) => setMobile(e.target.value)}
                             placeholder="Enter your mobile number" />
                     </div>
-                    <div className="form-group">
+                    <div className="form-group flex items-center">
+                        <label className="pr-2 w-1/4" htmlFor="landline">LANDLINE: </label>
                         <input
                             type="text"
                             id="landline"

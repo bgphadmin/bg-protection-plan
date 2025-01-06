@@ -54,7 +54,7 @@ const UpdateCustomerForm = ({ customer, error }: UpdateCustomerFormProps) => {
                     <BreadCrumbs />
                     <form action={clientAction} noValidate>
                         <div className="form-group flex items-center">
-                            <label className="pr-2" htmlFor="firstName">First Name:</label>
+                            <label className="pr-2 w-1/4" htmlFor="firstName">FIRST NAME:</label>
                             <input
                                 type="text"
                                 name="firstName"
@@ -64,7 +64,7 @@ const UpdateCustomerForm = ({ customer, error }: UpdateCustomerFormProps) => {
                             />
                         </div>
                         <div className="form-group flex items-center">
-                            <label className="pr-2" htmlFor="lastName">Last Name:</label>
+                            <label className="pr-2 w-1/4" htmlFor="lastName">LAST NAME:</label>
                             <input
                                 type="text"
                                 name="lastName"
@@ -74,7 +74,7 @@ const UpdateCustomerForm = ({ customer, error }: UpdateCustomerFormProps) => {
                             />
                         </div>
                         <div className="form-group flex items-center">
-                            <label className="pr-2" htmlFor="email">Email:</label>
+                            <label className="pr-2 w-1/4" htmlFor="email">EMAIL:</label>
                             <input
                                 type="email"
                                 name="email"
@@ -84,7 +84,7 @@ const UpdateCustomerForm = ({ customer, error }: UpdateCustomerFormProps) => {
                             />
                         </div>
                         <div className="form-group flex items-center">
-                            <label className="pr-2" htmlFor="mobile">Mobile:</label>
+                            <label className="pr-2 w-1/4" htmlFor="mobile">MOBILE:</label>
                             <input
                                 type="tel"
                                 name="mobile"
@@ -94,7 +94,7 @@ const UpdateCustomerForm = ({ customer, error }: UpdateCustomerFormProps) => {
                             />
                         </div>
                         <div className="form-group flex items-center">
-                            <label className="pr-2" htmlFor="landline">Landline:</label>
+                            <label className="pr-2 w-1/4" htmlFor="landline">LANDLINE:</label>
                             <input
                                 type="text"
                                 name="landline"

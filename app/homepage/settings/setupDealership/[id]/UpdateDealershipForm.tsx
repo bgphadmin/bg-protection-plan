@@ -57,7 +57,7 @@ const UpdateDealershipForm = ({ dealership, dealershipError, adminError }: { dea
                     <BreadCrumbs />
                     <form ref={formRef} action={clientAction} noValidate>
                         <div className="form-group flex items-center">
-                            <label className="pr-2" htmlFor="name">Name:</label>
+                            <label className="pr-2 w-1/4" htmlFor="name">NAME:</label>
                             <input
                                 type="text"
                                 name="name"
@@ -67,7 +67,7 @@ const UpdateDealershipForm = ({ dealership, dealershipError, adminError }: { dea
                             />
                         </div>
                         <div className="form-group flex items-center">
-                            <label className="pr-2" htmlFor="address1">Address 1:</label>
+                            <label className="pr-2 w-1/4" htmlFor="address1">ADDRESS1:</label>
                             <input
                                 type="text"
                                 name="address1"
@@ -77,7 +77,7 @@ const UpdateDealershipForm = ({ dealership, dealershipError, adminError }: { dea
                             />
                         </div>
                         <div className="form-group flex items-center">
-                            <label className="pr-2" htmlFor="address2">Address 2:</label>
+                            <label className="pr-2 w-1/4" htmlFor="address2">ADDRESS2:</label>
                             <input
                                 type="text"
                                 name="address2"
@@ -86,7 +86,7 @@ const UpdateDealershipForm = ({ dealership, dealershipError, adminError }: { dea
                             />
                         </div>
                         <div className="form-group flex items-center">
-                            <label className="pr-2" htmlFor="landline">Landline:</label>
+                            <label className="pr-2 w-1/4" htmlFor="landline">LANDLINE:</label>
                             <input
                                 type="text"
                                 name="landline"
@@ -95,7 +95,7 @@ const UpdateDealershipForm = ({ dealership, dealershipError, adminError }: { dea
                             />
                         </div>
                         <div className="form-group flex items-center">
-                            <label className="pr-2" htmlFor="mobile">Mobile:</label>
+                            <label className="pr-2 w-1/4" htmlFor="mobile">MOBILE:</label>
                             <input
                                 type="text"
                                 name="mobile"
@@ -104,7 +104,7 @@ const UpdateDealershipForm = ({ dealership, dealershipError, adminError }: { dea
                             />
                         </div>
                         <div className="form-group flex items-center">
-                            <label className="pr-2" htmlFor="contactPerson">Contact:</label>
+                            <label className="pr-2 w-1/4" htmlFor="contactPerson">CONTACT:</label>
                             <input
                                 type="text"
                                 name="contactPerson"

@@ -50,7 +50,8 @@ const AddDealershipForm = () => {
                 <BreadCrumbs />
                 <form ref={formRef} action={clientAction} noValidate>
                     <div>
-                        <div className="form-group">
+                        <div className="form-group flex items-center">
+                            <label className="pr-2 w-1/4" htmlFor="name">NAME:</label>
                             <input
                                 type="text"
                                 required
@@ -60,7 +61,8 @@ const AddDealershipForm = () => {
                                 onChange={(e) => setName(e.target.value)}
                                 placeholder="Enter Dealership name" />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group flex items-center">
+                            <label className="pr-2 w-1/4" htmlFor="adderess1">ADDRESS1:</label>
                             <input
                                 type="text"
                                 required
@@ -70,7 +72,8 @@ const AddDealershipForm = () => {
                                 onChange={(e) => setAddress1(e.target.value)}
                                 placeholder="Enter Dealership address 1" />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group flex items-center">
+                            <label className="pr-2 w-1/4" htmlFor="address2">ADDRESS2:</label>
                             <input
                                 type="text"
                                 id="address2"
@@ -79,7 +82,8 @@ const AddDealershipForm = () => {
                                 onChange={(e) => setAddress2(e.target.value)}
                                 placeholder="Enter Dealership address 2" />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group flex items-center">
+                            <label className="pr-2 w-1/4" htmlFor="contactPerson">CONTACT PERSON:</label>
                             <input
                                 type="text"
                                 required
@@ -89,7 +93,8 @@ const AddDealershipForm = () => {
                                 onChange={(e) => setContactPerson(e.target.value)}
                                 placeholder="Enter contact person" />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group flex items-center">
+                            <label className="pr-2 w-1/4" htmlFor="mobile">MOBILE:</label>
                             <input
                                 type="text"
                                 required
@@ -99,7 +104,8 @@ const AddDealershipForm = () => {
                                 onChange={(e) => setMobile(e.target.value)}
                                 placeholder="Enter Dealership mobile number" />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group flex items-center">
+                        <label className="pr-2 w-1/4" htmlFor="landline">LANDLINE:</label>
                             <input
                                 type="text"
                                 id="landline"

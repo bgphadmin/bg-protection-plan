@@ -13,7 +13,7 @@ import fuelTypes from "@/data/fuelEngineType.json";
 import { addCustomerVehicle } from "@/lib/actions";
 
 
-const AddVehicleForm = ({customerId}: {customerId: string}) => {
+const AddVehicleForm = ({ customerId }: { customerId: string }) => {
 
     const formRef = useRef<HTMLFormElement>(null)
     const router = useRouter();
@@ -41,8 +41,8 @@ const AddVehicleForm = ({customerId}: {customerId: string}) => {
         if (!make || !model || !year || !vin || !plateNo || !transmission || !fuelType) {
             toast.error('All fields are required')
         }
-        
-        const { error } =  await addCustomerVehicle(formData, customerId)
+
+        const { error } = await addCustomerVehicle(formData, customerId)
 
         if (error) {
             toast.error(error)
@@ -63,8 +63,9 @@ const AddVehicleForm = ({customerId}: {customerId: string}) => {
                 <HeaderTitle Icon={BiSolidCarGarage} title="Add Vehicle" />
                 <section className="form">
                     <BreadCrumbs />
-                    <form  ref={formRef} action={clientAction} noValidate>
-                        <div className="form-group">
+                    <form ref={formRef} action={clientAction} noValidate>
+                        <div className="form-group flex items-center">
+                            <label className="pr-2 w-1/4" htmlFor="model">MAKE:</label>
                             <input
                                 type="text"
                                 required
@@ -74,7 +75,8 @@ const AddVehicleForm = ({customerId}: {customerId: string}) => {
                                 onChange={(e) => setMake(e.target.value)}
                                 placeholder="Enter your car make" />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group flex items-center">
+                            <label className="pr-2 w-1/4" htmlFor="model">MODEL:</label>
                             <input
                                 type="text"
                                 required
@@ -84,7 +86,8 @@ const AddVehicleForm = ({customerId}: {customerId: string}) => {
                                 onChange={(e) => setModel(e.target.value)}
                                 placeholder="Enter your car model" />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group flex items-center">
+                            <label className="pr-2 w-1/4" htmlFor="vin">VIN:</label>
                             <input
                                 type="text"
                                 required
@@ -94,7 +97,8 @@ const AddVehicleForm = ({customerId}: {customerId: string}) => {
                                 onChange={(e) => setVin(e.target.value)}
                                 placeholder="Enter your car vin" />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group flex items-center">
+                            <label className="pr-2 w-1/4" htmlFor="transmission">PLATE NO.:</label>
                             <input
                                 type="text"
                                 required
@@ -104,7 +108,8 @@ const AddVehicleForm = ({customerId}: {customerId: string}) => {
                                 onChange={(e) => setPlateNo(e.target.value)}
                                 placeholder="Enter your car plate number" />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group flex items-center">
+                            <label className="pr-2 w-1/4" htmlFor="year">YEAR:</label>
                             <input
                                 type="number"
                                 required
@@ -115,7 +120,7 @@ const AddVehicleForm = ({customerId}: {customerId: string}) => {
                                 placeholder="Enter your car year" />
                         </div>
                         <div className="form-group flex items-center">
-                            <label className="pr-2" htmlFor="transmission">Transmission:</label>
+                            <label className="pr-2 w-1/4" htmlFor="transmission">Transmission:</label>
                             <select
                                 id="transmission"
                                 required
@@ -133,7 +138,7 @@ const AddVehicleForm = ({customerId}: {customerId: string}) => {
                             </select>
                         </div>
                         <div className="form-group flex items-center">
-                            <label className="pr-2" htmlFor="fuelType">Fuel Type:</label>
+                            <label className="pr-2 w-1/4" htmlFor="fuelType">Fuel Type:</label>
                             <select
                                 id="fuelType"
                                 required
