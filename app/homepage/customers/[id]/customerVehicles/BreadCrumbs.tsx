@@ -9,7 +9,7 @@ const BreadCrumbs = () => {
                 <ol className="inline-flex items-center itemsCenter space-x-1 md:space-x-2 rtl:space-x-reverse">
                     <Home />
                     <Customers />
-                    <CustomerVehicles />
+                    {/* <CustomerVehicles /> */}
                 </ol>
             </nav>
         </div>

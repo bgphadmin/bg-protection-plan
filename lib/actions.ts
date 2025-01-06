@@ -528,10 +528,11 @@ export const updateDealership = async (id: string, name: string, address1: strin
 
 /** Get all customer vehicle by Customer's ID and User's dealership ID
  * @param contactPersonId
+ * @param customerId
  * @returns {Promise<{vehicles?: ExtendedCustomerVehicle[], error?: string}>}
  */
 
-export const getCustomerVehicles = async (contactPersonId: string, customerId: string): Promise<{vehicles?: ExtendedCustomerVehicle[], error?: string}> => {
+export const getCustomerVehicles = async (contactPersonId: string, customerId?: string): Promise<{vehicles?: ExtendedCustomerVehicle[], error?: string}> => {
     
     try {
 
@@ -550,19 +551,10 @@ export const getCustomerVehicles = async (contactPersonId: string, customerId: s
             }
         })
 
-        // return all vehicles if user is Admin or Main Dealership
+        // return all vehicles if user is Admin
         const {isUserAdmin} = await isAdmin()
 
         if (isUserAdmin) {
-            // const vehicles = await db.customerVehicle.findMany({
-            //     include: {
-            //         customer: true
-            //     },
-            //     orderBy: {
-            //         createdAt:'desc'
-            //     }
-            // })
-            // return {vehicles}   
             const vehicles = await db.customerVehicle.findMany({
                 where: {
                     customerId
@@ -577,6 +569,21 @@ export const getCustomerVehicles = async (contactPersonId: string, customerId: s
             return {vehicles}       
         }   
 
+        // return all vehicles if customerId is not provided
+        if (!customerId) {
+            const vehicles = await db.customerVehicle.findMany({
+                where: {
+                    dealershipId: dealershipId?.dealershipId
+                },
+                include: {
+                    customer: true
+                },
+                orderBy: {
+                    createdAt:'desc'
+                }
+            })
+            return {vehicles}       
+        }
 
         // Get all vehicles owned by the customers based on the dealershipId
         const vehicles = await db.customerVehicle.findMany({
@@ -659,4 +666,20 @@ export const addCustomerVehicle = async (formData: FormData, customerId: string)
     }
 }
 
- 
+// Get a vehicle by ID
+export const getVehicleById = async (id: string): Promise<{vehicle?: ExtendedCustomerVehicle , error?: string}> => {
+
+    try {
+        const vehicle = await db.customerVehicle.findUnique({
+            where: {
+                id
+            },
+            include: {
+                customer: true
+            }
+        })
+        return { vehicle: vehicle ?? undefined }
+    } catch (error) {
+        return { error: 'Something went wrong while retrieving vehicle. PLease try again. ' }  
+    }
+} 

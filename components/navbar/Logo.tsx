@@ -98,17 +98,9 @@ const Logo = ({ isAdmin, isAdminMainDealership }: { isAdmin?: boolean, isAdminMa
                                         Add Customer
                                     </MenuItem>
                                 </NestedMenuItem>
-                                <NestedMenuItem
-                                    label="Customer Vehicles"
-                                    parentMenuOpen={open}
-                                >
-                                    <MenuItem onClick={handleVehicleList}>
-                                        Vehicle List
-                                    </MenuItem>
-                                    <MenuItem onClick={handleAddVehicle}>
-                                        Add Vehicle
-                                    </MenuItem>
-                                </NestedMenuItem>
+                                <MenuItem onClick={handleVehicleList}>
+                                    Vehicle List
+                                </MenuItem>
                             </NestedMenuItem>
                         }
 

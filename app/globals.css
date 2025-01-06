@@ -384,3 +384,9 @@ h1
 .logo:hover {
   cursor: pointer;
 }
+
+.vehicle-details-list {
+  border: 1px solid black;
+  padding: 10px;
+  margin-bottom: 20px;
+}

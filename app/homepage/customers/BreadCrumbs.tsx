@@ -9,7 +9,7 @@ const BreadCrumbs = () => {
             <nav className="flex" aria-label="Breadcrumb">
                 <ol className="inline-flex items-center itemsCenter space-x-1 md:space-x-2 rtl:space-x-reverse">
                     <Home />
-                    <Customers />
+                    {/* <Customers /> */}
                 </ol>
             </nav>
         </div>

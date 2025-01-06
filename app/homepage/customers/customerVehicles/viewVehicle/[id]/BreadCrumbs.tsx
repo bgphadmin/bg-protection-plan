@@ -1,8 +1,6 @@
 import Customers from "@/components/breadcrumbs/Customers"
-import EditCustomer from "@/components/breadcrumbs/EditCustomer"
+import CustomerVehicles from "@/components/breadcrumbs/CustomersVehicles"
 import Home from "@/components/breadcrumbs/Home"
-
-
 
 const BreadCrumbs = () => {
     return (
@@ -11,7 +9,7 @@ const BreadCrumbs = () => {
                 <ol className="inline-flex items-center itemsCenter space-x-1 md:space-x-2 rtl:space-x-reverse">
                     <Home />
                     <Customers />
-                    {/* <EditCustomer /> */}
+                    <CustomerVehicles />
                 </ol>
             </nav>
         </div>
@@ -19,8 +17,3 @@ const BreadCrumbs = () => {
 }
 
 export default BreadCrumbs
-
-
-
-
-

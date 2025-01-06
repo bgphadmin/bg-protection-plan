@@ -1,7 +1,7 @@
-import Customers from "@/components/breadcrumbs/Customers"
-import EditCustomer from "@/components/breadcrumbs/EditCustomer"
-import Home from "@/components/breadcrumbs/Home"
-
+import ContactUser from "@/components/breadcrumbs/ContactUser"
+import Dealership from "@/components/breadcrumbs/Dealership"
+import Dealerships from "@/components/breadcrumbs/Dealerships"
+import Settings from "@/components/breadcrumbs/Settings"
 
 
 const BreadCrumbs = () => {
@@ -9,9 +9,8 @@ const BreadCrumbs = () => {
         <div className="mb-4">
             <nav className="flex" aria-label="Breadcrumb">
                 <ol className="inline-flex items-center itemsCenter space-x-1 md:space-x-2 rtl:space-x-reverse">
-                    <Home />
-                    <Customers />
-                    {/* <EditCustomer /> */}
+                    <Settings />
+                    <Dealerships />
                 </ol>
             </nav>
         </div>

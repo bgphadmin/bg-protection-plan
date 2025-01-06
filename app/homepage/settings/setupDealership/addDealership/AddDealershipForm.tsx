@@ -6,6 +6,9 @@ import { ClerkLoaded } from '@clerk/nextjs'
 import { toast } from 'react-toastify'
 import { FaUser } from 'react-icons/fa'
 import { addCustomer, addDealership } from '@/lib/actions'
+import { GiHomeGarage } from 'react-icons/gi'
+import HeaderTitle from '@/components/HeaderTitle'
+import BreadCrumbs from './BreadCrumbs'
 
 const AddDealershipForm = () => {
 
@@ -29,7 +32,7 @@ const AddDealershipForm = () => {
     const clientAction = async (formData: FormData): Promise<void> => {
 
         // const { error } = await addCustomer(formData)
-        const { error } = await addDealership(formData)   
+        const { error } = await addDealership(formData)
 
         if (error) {
             toast.error(error)
@@ -42,7 +45,9 @@ const AddDealershipForm = () => {
 
     return (
         <ClerkLoaded>
+            <HeaderTitle Icon={GiHomeGarage} title="Add Dealership" />
             <section className="form">
+                <BreadCrumbs />
                 <form ref={formRef} action={clientAction} noValidate>
                     <div>
                         <div className="form-group">
