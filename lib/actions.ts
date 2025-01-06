@@ -683,3 +683,51 @@ export const getVehicleById = async (id: string): Promise<{vehicle?: ExtendedCus
         return { error: 'Something went wrong while retrieving vehicle. PLease try again. ' }  
     }
 } 
+
+// Update customer vehicle by id
+export const updateCustomerVehicle = async (formData: FormData, id: string): Promise<{error?: string} | undefined> => {
+
+    try {
+
+        const enteredBy = (await auth()).userId
+        if (!enteredBy) {
+            return { error: 'User not found' }
+        }
+
+        const {error} = await isAdminMainDealership()
+        if (error) {
+            return { error }
+        }
+
+        const make = formData.get('make') as string;
+        const model = formData.get('model') as string;
+        const year = parseInt(formData.get('year') as string, 10);
+        const vin = formData.get('vin') as string;
+        const plateNo = formData.get('plateNo') as string;
+        const transmission = formData.get('transmission') as string;
+        const fuelType = formData.get('fuelType') as string;
+
+
+        if (!make || !model || !year || !vin || !plateNo || !transmission || !fuelType) {
+            return { error: 'Missing required fields' }
+        }
+
+        await db.customerVehicle.update({
+            where: {
+                id
+            },
+            data: {
+                make,
+                model,
+                year,
+                vin,
+                plateNo,
+                transmission,
+                fuelEngineType: fuelType,
+                enteredBy
+            }
+        })
+    } catch (error) {
+        return { error: 'Something went wrong while updating vehicle. PLease try again. ' }
+    }
+}

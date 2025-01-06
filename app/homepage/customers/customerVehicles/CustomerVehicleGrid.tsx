@@ -83,7 +83,9 @@ const CustomerVehicleGrid = ({ vehicles, error, customerId }: { vehicles: Extend
                         },
                     }}
                     className="dark:text-white dark:bg-blue-900 diplay: flex justify-center"
-                    onRowClick={handleRowClick}
+                    onRowClick={(params) => {
+                        handleRowClick(params);
+                    }}
                 />
             </Container>
         </div>

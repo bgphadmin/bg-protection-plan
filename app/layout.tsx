@@ -31,7 +31,7 @@ export default function RootLayout({
           </SignedIn>
           {children}
           <SignedIn>
-            <BottomNavbar />
+            {/* <BottomNavbar /> */}
           </SignedIn>
           <ToastContainer />
         </body>

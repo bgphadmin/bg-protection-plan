@@ -4,7 +4,7 @@ import HeaderTitle from "@/components/HeaderTitle";
 import { ExtendedCustomerVehicle } from "@/lib/actions";
 import { ClerkLoaded } from "@clerk/nextjs";
 import { Button, Container } from "@mui/material";
-import { DataGrid, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarExport, GridToolbarFilterButton } from "@mui/x-data-grid";
+import { DataGrid, GridRowParams, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarExport, GridToolbarFilterButton } from "@mui/x-data-grid";
 import { redirect } from "next/navigation";
 import { useEffect } from "react";
 import { IoCarSportSharp } from "react-icons/io5";
@@ -21,8 +21,6 @@ const CustomerVehicleGrid = ({ vehicles, error, customerId }: { vehicles: Extend
             redirect('/homepage')
         }
     }, [error])
-
-    // const owner = vehicles?.[0]?.customer.fName + ' ' + vehicles?.[0]?.customer.lName
 
     const rows = vehicles?.map((vehicle: ExtendedCustomerVehicle) => ({
         id: vehicle.id,
@@ -62,6 +60,11 @@ const CustomerVehicleGrid = ({ vehicles, error, customerId }: { vehicles: Extend
             </ClerkLoaded>
         )
     }
+
+    const handleRowClick = (params: GridRowParams) => {
+        redirect(`/homepage/customers/${customerId}/customerVehicles/updateVehicle/${params.row.id}`);
+    }
+
     return (
         <div>
             <Container style={{ height: 400, width: '100%' }} >
@@ -89,7 +92,7 @@ const CustomerVehicleGrid = ({ vehicles, error, customerId }: { vehicles: Extend
                         },
                     }}
                     className="dark:text-white dark:bg-blue-900 diplay: flex justify-center"
-                // onRowClick={handleRowClick}
+                    onRowClick={handleRowClick}
                 />
             </Container>
 
