@@ -33,7 +33,8 @@ const ViewVehicleForm = ({ vehicle, error }: { vehicle?: ExtendedCustomerVehicle
     };
 
     return (
-        <div className="container">
+        // TODO: Make the details in mui accordion component
+        <div style={{alignItems: 'center', textAlign: 'center'}}>
             <ClerkLoaded>
                 <HeaderTitle Icon={BiSolidCarGarage} title={`Owner: ${vehicle.customer?.fName} ${vehicle.customer.lName}`} />
                 <section className="form">
@@ -67,6 +68,7 @@ const ViewVehicleForm = ({ vehicle, error }: { vehicle?: ExtendedCustomerVehicle
                     </div>
                 </section>
             </ClerkLoaded>
+            
         </div>
     )
 }

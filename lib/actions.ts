@@ -2,7 +2,7 @@
 
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
-import { Customer, User, Dealership, CustomerVehicle } from "@prisma/client";
+import { Customer, User, Dealership, CustomerVehicle, ProtectionPlan } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
 
@@ -75,6 +75,7 @@ type GetCustomersResponse = {
 export const getCustomersList = async (clerkId?: string): Promise<GetCustomersResponse> => {
 
     try {
+
         // Check if logged in user is Admin
         const user = await db.user.findUnique({
             where: {
@@ -97,16 +98,21 @@ export const getCustomersList = async (clerkId?: string): Promise<GetCustomersRe
             const customers = await db.customer.findMany({
                 // Added to include dealership name
                 include: {
-                    dealership: true
+                    dealership: {
+                        select: {
+                            name: true
+                        }
+                    }
                 },
                 orderBy: {
                     createdAt:'desc'
                 }
             })
+
             return {customers, isAdmin: true}        
         } else {
-        // Get the user/contact person's dealership id and filter the customers list based on the dealership id
-            const dealershipId = await db.user.findUnique({
+            // Get the user/contact person's dealership id
+            const dealership = await db.user.findFirst ({
                 where: {
                     clerkUserId: clerkId
                 },
@@ -114,9 +120,12 @@ export const getCustomersList = async (clerkId?: string): Promise<GetCustomersRe
                     dealershipId: true
                 }
             })
+            const { dealershipId } = dealership ?? { dealershipId: null };
+
+            // get all customers based on dealership id
             const customers = await db.customer.findMany({
                 where: {
-                    dealershipId: dealershipId?.dealershipId
+                    dealershipId: dealershipId
                 },
                 // Added to include dealership name
                 include: {
@@ -126,10 +135,10 @@ export const getCustomersList = async (clerkId?: string): Promise<GetCustomersRe
                     createdAt:'desc'
                 }
             })
-            return {customers, isAdmin: false}       
+            return {customers, isAdmin: false}
         }
     } catch (error) {
-        return { error: 'Something went wrong while retrieving customer list. PLease try again. ' }  
+        return { error: 'Something went wrong while retrieving customer list. Please try again. ' }  
     }
 }
 
@@ -163,7 +172,6 @@ export const addCustomer = async (formData: FormData): Promise<{customer?: Custo
         if (!((dealership?.role === 'Main') || (dealership?.role === 'Dealership') || (dealership?.role === 'Admin'))) {
             return { error: 'User not authorized' }
         }
-
 
         const firstName = formData.get('firstName') as string;
         const lastName = formData.get('lastName') as string;
@@ -211,16 +219,26 @@ export const getUsersList = async (): Promise<{users?: User[], error?: string}> 
         }
 
         const users = await db.user.findMany({
-            include: {
-                dealership: true
+          include: {
+            dealership: {
+              select: {
+                name: true,
+              },
             },
-            orderBy: {
-                createdAt:'desc'
-            }
-        })
+          },
+          orderBy: {
+            createdAt: 'desc',
+          },
+        });
+
         return {users}        
     } catch (error) {
         return { error: 'Something went wrong while retrieving user list. PLease try again. ' }  
+        // if (error instanceof Error) {
+        //     return { error: error.message };
+        // } else {
+        //     return { error: 'An unknown error occurred' };
+        // }
     }
 }
 
@@ -731,3 +749,31 @@ export const updateCustomerVehicle = async (formData: FormData, id: string): Pro
         return { error: 'Something went wrong while updating vehicle. PLease try again. ' }
     }
 }
+
+
+/** Get protection plan by customer vehicle id
+ * @param id 
+ * @returns {Promise<{plan?: ProtectionPlan, error?: string}>}
+ */
+
+export const getProtectionPlan = async (id: string): Promise<{plan?: ProtectionPlan[], error?: string}> => {
+
+    try {
+
+        // Admin, dealership and main can view protection plan
+        const {error} = await isAdminMainDealership()
+        if (error) {
+            return { error }
+        }
+
+        const plan = await db.protectionPlan.findMany({
+            where: {
+                customerVehicleId: id
+            }
+        })
+        return { plan: plan ?? undefined }
+    } catch (error) {
+        return { error: 'Something went wrong while retrieving protection plan. PLease try again. ' }
+    }
+}
+

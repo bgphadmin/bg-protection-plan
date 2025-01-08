@@ -1,0 +1,14 @@
+[
+    {
+        "id": "01",
+        "plan": "Plan 1",
+        "odometer": "less than 50,000 miles/80,000 km",
+        "reimbursement": "shall not exceed $4,000"
+    },
+    {
+        "id": "02",
+        "plan": "Plan 2",
+        "odometer": "between 50,001 miles/80,001 km, and 100,000 miles/160,000 km",
+        "reimbursement": "shall not exceed $2,000"
+    }
+]

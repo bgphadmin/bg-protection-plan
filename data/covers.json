@@ -1,0 +1,110 @@
+[
+    {
+        "id": "01",
+        "serviceType": "Engine Oil Service",
+        "products": ["BG110", "BG112"],
+        "description": "Covers only pistons and rings, wrist pins and bushings, rods and rod bearings, camshafts and bearings, push rods, intake valves and guides (grinding adjustments excluded), turbo bearings, crankshaft and bearings, cylinder liners or bores, valve lifters, timing chains (timing belts and damage to engine parts due to broken timing belts excluded), rocker arms and pivots, oil pump, timing gears or sprockets, distributor drive gear."
+    },
+    {
+        "id": "02",
+        "serviceType": "Premier Oil Service A",
+        "products": ["BG110/BG213", "BG110/BG208"],
+        "description": "Covers only pistons and rings, wrist pins and bushings, rods and rod bearings, camshafts and bearings, push rods, intake valves and guides (grinding adjustments excluded), turbo bearings, crankshaft and bearings, cylinder liners or bores, valve lifters, timing chains (timing belts and damage to engine parts due to broken timing belts excluded), rocker arms and pivots, oil pump, timing gears or sprockets, distributor drive gear, oxygen sensors, PCV, injectors, (deposit-related malfunctions only)."
+    },
+    {
+        "id": "03",
+        "serviceType": "Premier Oil Service B",
+        "products": ["BG110/BG213/BG407", "BG110/BG208/BG407"],
+        "description": "Covers only pistons and rings, wrist pins and bushings, rods and rod bearings, camshafts and bearings, push rods, intake valves and guides (grinding adjustments excluded), turbo bearings, crankshaft and bearings, cylinder liners or bores, valve lifters, timing chains (timing belts and damage to engine parts due to broken timing belts excluded), rocker arms and pivots, oil pump, timing gears or sprockets, distributor drive gear, oxygen sensors, PCV, Mass Air Flow sensor (only if BG 407 is used), injectors, (deposit-related malfunctions only)."
+    },
+    {
+        "id": "03",
+        "serviceType": "Engine Oil Plus Service",
+        "products": ["BG109/BG110", "BG109/BG112"],
+        "description": "Covers pistons and rings, wrist pins and bushings, rods and rod bearings, camshafts and bearings, push rods, intake valves and guides (grinding adjustments excluded), turbo bearings, crankshaft and bearings, cylinder liners or bores, valve lifters, timing chains (timing belts and damage to engine parts due to broken timing belts excluded), rocker arms and pivots, oil pump, timing gears or sprockets, distributor drive gear."
+    },
+    {
+        "id": "04",
+        "serviceType": "Performance Oil Service - A",
+        "products": ["BG109/BG110/BG20", "BG109/BG112/BG244", "BG109/BG112/BG245"],
+        "description": "Covers engine and fuel system: Pistons and rings, wrist pins and bushings, rods and rod bearings, camshafts and bearings, push rods, intake valves and guides (grinding adjustments excluded), turbo bearings, crankshaft and bearings, cylinder liners or bores, valve lifters, timing chains (timing belts and damage to engine parts due to broken timing belts excluded), rocker arms and pivots, oil pump, timing gears or sprockets, distributor drive gear, oxygen sensors, PCV, injectors (deposit-related malfunctions only)."
+    },
+    {
+        "id": "05",
+        "serviceType": "Performance Oil Service - B",
+        "products": ["BG109/BG110/BG20/BG407", "BG109/BG112/BG244/BG407", "BG109/BG112/BG245/BG407"],
+        "description": "Covers engine and fuel system: Pistons and rings, wrist pins and bushings, rods and rod bearings, camshafts and bearings, push rods, intake valves and guides (grinding adjustments excluded), turbo bearings, crankshaft and bearings, cylinder liners or bores, valve lifters, timing chains (timing belts and damage to engine parts due to broken timing belts excluded), rocker arms and pivots, oil pump, timing gears or sprockets, distributor drive gear, oxygen sensors, PCV, Mass Air Flow sensor (only if BG 407 is used), injectors (deposit-related malfunctions only)."
+    },
+    {
+        "id": "06",
+        "serviceType": "Engine Oil Service - MOA",
+        "products": ["BG115"],
+        "description": "Covers Pistons and rings, wrist pins and bushings, rods and rod bearings, camshafts and bearings, push rods, intake valves and guides (grinding adjustments excluded), turbo bearings, crankshaft and bearings, cylinder liners or bores, valve lifters, timing chains (timing belts and damage to engine parts due to broken timing belts excluded), rocker arms and pivots, oil pump, timing gears or sprockets, distributor drive gear."
+    },
+    {
+        "id": "07",
+        "serviceType": "Premier Oil Service A - MOA",
+        "products": ["BG115/BG213", "BG115/BG208"],
+        "description": "Covers only pistons and rings, wrist pins and bushings, rods and rod bearings, camshafts and bearings, push rods, intake valves and guides (grinding adjustments excluded), turbo bearings, crankshaft and bearings, cylinder liners or bores, valve lifters, timing chains (timing belts and damage to engine parts due to broken timing belts excluded), rocker arms and pivots, oil pump, timing gears or sprockets, distributor drive gear, oxygen sensors, PCV, injectors, (deposit-related malfunctions only)."
+    },
+    {
+        "id": "08",
+        "serviceType": "Premier Oil Service B - MOA",
+        "products": ["BG115/BG213/BG407", "BG115/BG208/BG407"],
+        "description": "Covers only pistons and rings, wrist pins and bushings, rods and rod bearings, camshafts and bearings, push rods, intake valves and guides (grinding adjustments excluded), turbo bearings, crankshaft and bearings, cylinder liners or bores, valve lifters, timing chains (timing belts and damage to engine parts due to broken timing belts excluded), rocker arms and pivots, oil pump, timing gears or sprockets, distributor drive gear, oxygen sensors, PCV, Mass Air Flow sensor (only if BG 407 is used), injectors, (deposit-related malfunctions only)."
+    },
+    {
+        "id": "09",
+        "serviceType": "Engine Oil Plus Service - MOA",
+        "products": ["BG115/BG109"],
+        "description": "Covers Pistons and rings, wrist pins and bushings, rods and rod bearings, camshafts and bearings, push rods, intake valves and guides (grinding adjustments excluded), turbo bearings, crankshaft and bearings, cylinder liners or bores, valve lifters, timing chains (timing belts and damage to engine parts due to broken timing belts excluded), rocker arms and pivots, oil pump, timing gears or sprockets, distributor drive gear."
+    },
+    {
+        "id": "10",
+        "serviceType": "Performance Oil Service A - MOA",
+        "products": ["BG115/BG109/BG208"],
+        "description": "Covers Pistons and rings, wrist pins and bushings, rods and rod bearings, camshafts and bearings, push rods, intake valves and guides (grinding adjustments excluded), turbo bearings, crankshaft and bearings, cylinder liners or bores, valve lifters, timing chains (timing belts and damage to engine parts due to broken timing belts excluded), rocker arms and pivots, oil pump, timing gears or sprockets, distributor drive gear, oxygen sensors, PCV, injectors (deposit-related malfunctions only)."
+    },
+    {
+        "id": "11",
+        "serviceType": "Performance Oil Service B - MOA",
+        "products": ["BG115/BG109/BG208/BG407"],
+        "description": "Covers Pistons and rings, wrist pins and bushings, rods and rod bearings, camshafts and bearings, push rods, intake valves and guides (grinding adjustments excluded), turbo bearings, crankshaft and bearings, cylinder liners or bores, valve lifters, timing chains (timing belts and damage to engine parts due to broken timing belts excluded), rocker arms and pivots, oil pump, timing gears or sprockets, distributor drive gear, oxygen sensors, PCV, Mass Air Flow sensor (only if BG 407 is used), injectors (deposit-related malfunctions only)."
+    },
+    {
+        "id": "12",
+        "serviceType": "Fuel/Air Induction Service A",
+        "products": ["BG208/BG206/BG211", "BG208/BG206/BG210", "BG208/BG206/BG206", "BG201/BG/260/BG208", "BG260/BG260/BG208"],
+        "description": "Covers only oxygen sensors, PCV, injectors, deposit-related malfunctions only), throttle body."
+    },
+    {
+        "id": "13",
+        "serviceType": "Fuel/Air Induction Service B",
+        "products": ["BG208/BG206/BG211/BG407", "BG208/BG206/BG210/BG407", "BG208/BG206/BG206/BG407", "BG201/BG/260/BG208/BG407", "BG260/BG260/BG208/BG407"],
+        "description": "Covers only oxygen sensors, PCV, Mass Air Flow sensor (only if BG 407 is used), injectors, deposit-related malfunctions only), throttle body."
+    },
+    {
+        "id": "14",
+        "serviceType": "Cooling System Service",
+        "products": ["BG540/BG546"],
+        "description": "Covers only the heater core, water pump, freeze plugs, and radiator. Items not covered are hoses, clamps, thermostats and engine components."
+    },
+    {
+        "id": "15",
+        "serviceType": "Power Steering Service",
+        "products": ["BG108/BG332", "BG108/BG334"],
+        "description": "Covers only the lubricated parts contained within the power steering gear box or rack and power steering pump. Items not covered are hoses, belts, brackets, seals and leaking gaskets."
+    },
+    {
+        "id": "16",
+        "serviceType": "Drive Line Service",
+        "products": ["BG750/BG751/BG752", "BG750/BG751/BG753", "BG750/BG751/BG792"],
+        "description": "Covers only the lubricated parts contained within the differential housing, transfer case or transmission case. Items not covered are the differential housing, transfer case, transmission case, axle(s), pre-packed axle bearing(s), U-joint(s), CV joint(s), CV boot(s), driveshaft(s), case, flywheel, clutch plate, and pressure plate unless damaged due to the failure of a covered part."
+    },
+    {
+        "id": "17",
+        "serviceType": "Brake Service",
+        "products": ["BGBrakeFluid"],
+        "description": "Covers only the lubricated parts contained within the pump, valves, master cylinder, calipers, and metalized hoses when hose failure results from internal corrosion. Items not covered are pads, rotors, shoes, ABS sensors, controller or other electrical parts."
+    }
+]

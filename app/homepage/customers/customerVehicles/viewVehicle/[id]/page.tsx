@@ -13,7 +13,6 @@ const ViewVehiclePage = async ({ params }: { params: ViewVehiclePageProps['param
   const ViewVehiclePageParams = await params
 
   const vehicleId = await ViewVehiclePageParams.id
-  console.log('customerId: ', vehicleId)
 
   // get vehicle by id
   const { vehicle, error } = await getVehicleById(vehicleId)
