@@ -63,7 +63,9 @@ const ViewVehicleForm = ({ vehicle, error }: { vehicle?: ExtendedCustomerVehicle
                             <li className="bg-gray-100">
                                 <strong>Fuel Type:</strong> {vehicle.fuelEngineType}
                             </li>
-
+                            <li>
+                                <strong>Dealership:</strong> {vehicle.dealerships?.name}
+                            </li>
                         </ul>
                     </div>
                 </section>

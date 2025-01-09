@@ -540,8 +540,10 @@ export const updateDealership = async (id: string, name: string, address1: strin
             fName: string;
             lName: string;
         };
+        dealerships?: {
+            name?: string;
+        }
     }
-// }
 
 
 /** Get all customer vehicle by Customer's ID and User's dealership ID
@@ -578,12 +580,18 @@ export const getCustomerVehicles = async (contactPersonId: string, customerId?: 
                     customerId
                 },
                 include: {
-                    customer: true
+                    customer: true,
+                    dealerships: {
+                        select: {
+                            name: true
+                        }
+                    }
                 },
                 orderBy: {
                     createdAt:'desc'
                 }
-            })
+            }) as ExtendedCustomerVehicle[]
+
             return {vehicles}       
         }   
 
@@ -685,18 +693,30 @@ export const addCustomerVehicle = async (formData: FormData, customerId: string)
 }
 
 // Get a vehicle by ID
-export const getVehicleById = async (id: string): Promise<{vehicle?: ExtendedCustomerVehicle , error?: string}> => {
+export const getVehicleById = async (id: string): Promise<{vehicle?: ExtendedCustomerVehicle , error?: string | undefined}> => {
 
     try {
+
+        const {error} = await isAdminMainDealership()
+        if (error) {
+            return { error }
+        }
+
         const vehicle = await db.customerVehicle.findUnique({
             where: {
                 id
             },
             include: {
-                customer: true
+                customer: true,
+                dealerships: {
+                    select: {
+                        name: true
+                    },
+                }
             }
-        })
-        return { vehicle: vehicle ?? undefined }
+        }) as ExtendedCustomerVehicle
+        return {vehicle}
+
     } catch (error) {
         return { error: 'Something went wrong while retrieving vehicle. PLease try again. ' }  
     }
