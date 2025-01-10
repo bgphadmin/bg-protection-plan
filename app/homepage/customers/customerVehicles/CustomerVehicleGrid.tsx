@@ -1,7 +1,7 @@
 'use client';
 
 import HeaderTitle from "@/components/HeaderTitle";
-import { ExtendedCustomerVehicle } from "@/lib/actions";
+import { ExtendedCustomerVehicle, isAdmin } from "@/lib/actions";
 import { ClerkLoaded } from "@clerk/nextjs";
 import { Container } from "@mui/material";
 import { DataGrid, GridRowParams, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarExport, GridToolbarFilterButton } from "@mui/x-data-grid";
@@ -11,7 +11,8 @@ import { IoCarSportSharp } from "react-icons/io5";
 import { toast } from "react-toastify";
 import BreadCrumbs from "./BreadCrumbs";
 
-const CustomerVehicleGrid = ({ vehicles, error, customerId }: { vehicles: ExtendedCustomerVehicle[], error: string, customerId: string }) => {
+// const CustomerVehicleGrid = ({ vehicles, error, customerId }: { vehicles: ExtendedCustomerVehicle[], error: string, customerId: string }) => {
+const CustomerVehicleGrid = ({ vehicles, error, isAdmin }: { vehicles: ExtendedCustomerVehicle[], error: string, isAdmin: boolean }) => {
 
     useEffect(() => {
         if (error) {
@@ -33,16 +34,29 @@ const CustomerVehicleGrid = ({ vehicles, error, customerId }: { vehicles: Extend
         dealerships: vehicle.dealerships?.name
     }))
 
-    const columns = [
-        { field: "owner", width: 150, headerName: 'Owner' },
-        { field: "make", width: 150, headerName: 'Make' },
-        { field: "model", width: 150, headerName: 'Model' },
-        { field: "year", width: 75, headerName: 'Year' },
-        { field: "dealerships", width: 150, headerName: 'Dealership' },
-    ]
+    // check to include dealership column if user is admin
+    let columns: any
+    if (isAdmin) {
+        columns = [
+            { field: "owner", width: 150, headerName: 'Owner' },
+            { field: "make", width: 150, headerName: 'Make' },
+            { field: "model", width: 150, headerName: 'Model' },
+            { field: "year", width: 75, headerName: 'Year' },
+            { field: "dealerships", width: 150, headerName: 'Dealership' },
+        ]
+    } else {
+        columns = [
+            { field: "owner", width: 150, headerName: 'Owner' },
+            { field: "make", width: 150, headerName: 'Make' },
+            { field: "model", width: 150, headerName: 'Model' },
+            { field: "year", width: 75, headerName: 'Year' },
+        ]
+    }
+
 
     const handleRowClick = (params: GridRowParams) => {
-        redirect(`/homepage/customers/customerVehicles/viewVehicle/${params.id}`);
+        console.log('params 58: ', params.row.id)
+        redirect(`/homepage/customers/customerVehicles/${params.row.id}/viewVehicle`);
     }
 
     const CustomToolbar = () => {

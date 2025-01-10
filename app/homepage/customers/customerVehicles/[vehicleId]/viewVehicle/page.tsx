@@ -1,4 +1,4 @@
-import { PageProps } from "@/.next/types/app/homepage/customers/customerVehicles/viewVehicle/[id]/page"
+import { PageProps } from "@/.next/types/app/homepage/customers/customerVehicles/[vehicleId]/viewVehicle/page"
 import AddVehicleForm from "./ViewVehicleForm"
 import { getVehicleById } from "@/lib/actions"
 import ViewVehicleForm from "./ViewVehicleForm"
@@ -12,7 +12,7 @@ const ViewVehiclePage = async ({ params }: { params: ViewVehiclePageProps['param
 
   const ViewVehiclePageParams = await params
 
-  const vehicleId = await ViewVehiclePageParams.id
+  const vehicleId = await ViewVehiclePageParams.vehicleId
 
   // get vehicle by id
   const { vehicle, error } = await getVehicleById(vehicleId)
