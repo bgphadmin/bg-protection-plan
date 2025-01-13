@@ -2,19 +2,15 @@
 
 import HeaderTitle from "@/components/HeaderTitle"
 import { ClerkLoaded } from "@clerk/nextjs"
-import { BiSolidCarGarage } from "react-icons/bi";
 import BreadCrumbs from "./BreadCrumbs";
 import { SyntheticEvent, useRef, useState } from "react";
 import { redirect, useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import { CustomerVehicle } from "@prisma/client";
-import transmissionTypes from "@/data/transmissionType.json";
-import fuelTypes from "@/data/fuelEngineType.json";
-import { addCustomerVehicle, ExtendedCustomerVehicle } from "@/lib/actions";
+import { ExtendedCustomerVehicle } from "@/lib/actions";
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import { MdExpandMore } from "react-icons/md";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import ProtectionPlanGrid from "./ProtectionPlanGrid";
 
 
 const ViewVehicleForm = ({ vehicle, error }: { vehicle?: ExtendedCustomerVehicle, error?: string }) => {
@@ -30,7 +26,6 @@ const ViewVehicleForm = ({ vehicle, error }: { vehicle?: ExtendedCustomerVehicle
     }
 
     const [expanded, setExpanded] = useState<string | false>(false);
-    const formRef = useRef<HTMLFormElement>(null)
     const router = useRouter();
 
     const handleChange =
@@ -97,17 +92,13 @@ const ViewVehicleForm = ({ vehicle, error }: { vehicle?: ExtendedCustomerVehicle
                             </div>
                         </AccordionDetails>
                     </Accordion>
-
                     <Button 
-                        className="bg-amber-200 text-black hover:text-white mt-2 w-full h-12 "
+                        className="bg-amber-200 text-black hover:text-white mt-2 w-11/12 h-12 "
                         onClick={() => redirect(`/homepage/customers/customerVehicles/${vehicle.id}/protectionPlan/addProtectionPlan`)}
                     >
                         Add Protection Plan
                     </Button>
-
-                    {/* Add component for protection plan grid */}
-
-
+                    <ProtectionPlanGrid vehicleId={vehicle.id} />       
                 </section>
             </ClerkLoaded>
 

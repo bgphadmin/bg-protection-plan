@@ -988,3 +988,36 @@ export const addProtectionPlan = async (formData: FormData, customerVehicleId: s
         // return { error: error?.message }   
     }
 }
+
+
+interface GetProtectionPlanResponse {
+    protectionPlans?: ProtectionPlan[];
+    error?: string;
+}
+/**
+ * Get all protection plans by customer vehicle ID
+ * @param customerVehicleId 
+ * @returns {Promise<GetProtectionPlanResponse>}
+ */
+
+export const getProtectionPlansByCustomerVehicleId = async (customerVehicleId: string): Promise<GetProtectionPlanResponse> => {
+
+    try {
+        // get all protection plans by customer vehicle
+        const protectionPlans = await db.protectionPlan.findMany(
+            {
+                where: {
+                    customerVehicleId
+                },
+                orderBy: {
+                    createdAt: 'desc'
+                },
+            }
+        )
+
+        return { protectionPlans };
+    } catch (error) {
+        return { error: 'Something went wrong while getting protection plans' }
+    }
+    
+}
