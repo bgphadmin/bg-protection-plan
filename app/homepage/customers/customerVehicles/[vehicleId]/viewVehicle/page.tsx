@@ -18,7 +18,7 @@ const ViewVehiclePage = async ({ params }: { params: ViewVehiclePageProps['param
   const { vehicle, error } = await getVehicleById(vehicleId)
 
     return (
-    <div>
+    <div className="container">
       <ViewVehicleForm vehicle={vehicle} error={error}  />
     </div>
   )
