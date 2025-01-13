@@ -7,7 +7,6 @@ import BreadCrumbs from "./BreadCrumbs";
 import { useRef, useState } from "react";
 import { redirect, useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import { CustomerVehicle } from "@prisma/client";
 import transmissionTypes from "@/data/transmissionType.json";
 import fuelTypes from "@/data/fuelEngineType.json";
 import { addCustomerVehicle } from "@/lib/actions";

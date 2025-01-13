@@ -32,7 +32,7 @@
     {
         "id": "05",
         "serviceType": "Performance Oil Service - B",
-        "products": ["BG109/BG110/BG20/BG407", "BG109/BG112/BG244/BG407", "BG109/BG112/BG245/BG407"],
+        "products": ["BG109/BG110/BG208/BG407", "BG109/BG112/BG244/BG407", "BG109/BG112/BG245/BG407"],
         "description": "Covers engine and fuel system: Pistons and rings, wrist pins and bushings, rods and rod bearings, camshafts and bearings, push rods, intake valves and guides (grinding adjustments excluded), turbo bearings, crankshaft and bearings, cylinder liners or bores, valve lifters, timing chains (timing belts and damage to engine parts due to broken timing belts excluded), rocker arms and pivots, oil pump, timing gears or sprockets, distributor drive gear, oxygen sensors, PCV, Mass Air Flow sensor (only if BG 407 is used), injectors (deposit-related malfunctions only)."
     },
     {
@@ -74,7 +74,7 @@
     {
         "id": "12",
         "serviceType": "Fuel/Air Induction Service A",
-        "products": ["BG208/BG206/BG211", "BG208/BG206/BG210", "BG208/BG206/BG206", "BG201/BG/260/BG208", "BG260/BG260/BG208"],
+        "products": ["BG208/BG206/BG211", "BG208/BG206/BG210", "BG208/BG206/BG206", "BG201/BG260/BG208", "BG260/BG260/BG208"],
         "description": "Covers only oxygen sensors, PCV, injectors, deposit-related malfunctions only), throttle body."
     },
     {

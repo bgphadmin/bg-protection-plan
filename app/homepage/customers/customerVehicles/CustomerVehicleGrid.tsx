@@ -55,7 +55,6 @@ const CustomerVehicleGrid = ({ vehicles, error, isAdmin }: { vehicles: ExtendedC
 
 
     const handleRowClick = (params: GridRowParams) => {
-        console.log('params 58: ', params.row.id)
         redirect(`/homepage/customers/customerVehicles/${params.row.id}/viewVehicle`);
     }
 

@@ -4,7 +4,9 @@ import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 import { Customer, User, Dealership, CustomerVehicle, ProtectionPlan } from "@prisma/client";
 import { revalidatePath } from "next/cache";
-
+import products from "@/data/products.json";
+import moment from 'moment';
+// import Error from "next/error";
 
 export async function isAdmin (): Promise<{isUserAdmin?: boolean,  error?: string | null}> {
 
@@ -797,3 +799,192 @@ export const getProtectionPlan = async (id: string): Promise<{plan?: ProtectionP
     }
 }
 
+/** Add new protection plan
+ * @param formData 
+ * @returns {Promise<{plan?: ProtectionPlan, error?: string}>}
+ */
+
+// export const addProtectionPlan = async (formData: FormData, customerVehicleId: string): Promise<{plan?: ProtectionPlan, error?: string}> => {
+export const addProtectionPlan = async (formData: FormData, customerVehicleId: string): Promise<{error?: string}> => {
+
+    try {
+        
+        const {error} = await isAdminMainDealership()
+        if (error) {
+            return { error }
+        }
+
+        // Entered by
+        const enteredBy = (await auth()).userId
+        if (!enteredBy) {
+            return { error: 'User not found' }
+        }
+
+        // get dealership id
+        const dealership = await db.customerVehicle.findUnique({
+            where: {
+                id: customerVehicleId
+            },
+            select: {
+                dealershipId: true,
+                customerId: true
+            }
+        })
+
+        // Make isApprovedOil a boolean
+        let approvedOil = false
+        const isApprovedOil = formData.get('isApprovedOil') as string;
+        if (!isApprovedOil) {
+            approvedOil = false
+        } else {
+            approvedOil = true
+        }
+        
+        const productUsed = formData.get('productUsed') as string;
+        const invoice = formData.get('invoice') as string;
+        const serviceDate = formData.get('serviceDate') as string;
+        const odometerFrom = parseInt(formData.get('odometer') as string);
+
+        // convert serviceDate to ISO-8601
+        const isoServiceDate = moment(serviceDate).toISOString();
+
+        // get covers from productsUsed
+        const covers = products.find((product) => product.name === productUsed)?.covers
+
+        if (!covers) {
+            return { error: 'Coverage not found' }
+        }
+
+
+        // This is where all the logic will happen
+        // FOR REIMUBURSMENT
+        // get the service type from the product used
+        let reimbursement = "$0.00"
+        const serviceType = products.find((product) => product.name === productUsed)?.serviceType
+
+        if (serviceType === "Engine Oil Plus Service - MOA" && odometerFrom <= 80000) {
+            reimbursement = "$6,000.00";
+        } else if (serviceType === "Engine Oil Plus Service - MOA" && (odometerFrom > 80000 && odometerFrom <= 160000)) {
+            reimbursement = "$3,000.00"
+        } else if (serviceType === "Performance Oil Service - MOA" && odometerFrom <= 80000) {
+            reimbursement = "$6,000.00"
+        } else if (serviceType === "Performance Oil Service - MOA" && (odometerFrom > 80000 && odometerFrom <= 160000)) {
+            reimbursement = "$3,000.00"
+        } else if (odometerFrom <= 80000) {
+            reimbursement = "$4,000.00"
+        } else if (odometerFrom > 80000 && odometerFrom <= 160000) {
+            reimbursement = "$2,000.00"
+        } else {
+            reimbursement = "$0.00"    
+        }
+
+        // get the odometerTo
+
+        // convert service date to a date format and add 1 year to get expiry date
+        const date = new Date(serviceDate);
+        let expiryDate = date.toLocaleDateString('en-US')
+        if (serviceType === "Cooling System Service" || serviceType === "Power Steering Service" || serviceType === "Drive Line Service" || serviceType === "Brake Service") {
+            const dateIn2Years = new Date(date.getTime() + (365 * 2 * 24 * 60 * 60 * 1000));
+            // expiryDate = dateIn2Years.toLocaleDateString('en-US') //.toISOString().split('T')[0];
+            expiryDate = moment(dateIn2Years).toISOString()
+        } else {
+            const dateIn1Year = new Date(date.getTime() + (365 * 24 * 60 * 60 * 1000));
+            // expiryDate = dateIn1Year.toLocaleDateString('en-US') //.toISOString().split('T')[0];
+            expiryDate = moment(dateIn1Year).toISOString()
+        }
+
+        // get the service intreval based on products and if it is approved oil
+        // as well as the odometerTo
+        let odometerTo = 0
+        let serviceInterval = ""
+        if ((approvedOil && (productUsed === "BG110" || productUsed === "BG112" || productUsed === "BG110/BG213" || productUsed === "BG110/BG208" || productUsed === "BG110/BG213/BG407" || productUsed === "BG110/BG208/BG407")) || (!approvedOil && productUsed === "BG109/BG110") || (! approvedOil && productUsed === "BG109/BG112") || productUsed === "BG115" || (!approvedOil && (productUsed ==="BG115/BG213" || productUsed ==="BG115/BG213/BG407" )) || (!approvedOil && (productUsed === "BG115/BG208" || productUsed === "BG115/BG208/BG407" ))) {
+            serviceInterval = "Coverage will be continued by the performance of the BG Service within 10,000 miles/16,000 km of the previous service or 12 months, whichever comes first. From the date of the Protection Plan enrollment, the vehicle’s engine must be serviced only with the proper grade and weight of engine oil, recommended by the vehicle manufacturer. Timing belt and air and oil filter must be replaced and emission control system maintained in accordance with vehicle manufacturer’s recommendations.";
+            odometerTo = 16000 + odometerFrom;
+        } else if ((!approvedOil && (productUsed === "BG110" || productUsed === "BG112" || productUsed === "BG110/BG213" || productUsed === "BG110/BG208" || productUsed === "BG110/BG213/BG407" || productUsed === "BG110/BG208/BG407")) || (!approvedOil && (productUsed === "BG109/BG110/BG208" || productUsed === "BG109/BG110/BG208/BG407" )) || (!approvedOil && (productUsed === "BG109/BG112/BG244" || productUsed === "BG109/BG112/BG244/BG407")) || (!approvedOil && (productUsed === "BG109/BG112/BG245" || productUsed === "BG109/BG112/BG245/BG407" ))) {
+            serviceInterval = "Coverage will be continued by the performance of the BG Service within 7,500 miles/12,000 km of the previous service or 12 months, whichever comes first. From the date of the Protection Plan enrollment, the vehicle’s engine must be serviced only with the proper grade and weight of engine oil, recommended by the vehicle manufacturer. Timing belt and air and oil filter must be replaced and emission control system maintained in accordance with vehicle manufacturer’s recommendations.";
+            odometerTo = 12000 + odometerFrom;
+        } else if ((approvedOil && (productUsed === "BG109/BG110" || productUsed === "BG109/BG112" || productUsed === "BG109/BG112/BG244" || productUsed === "BG109/BG112/BG244/BG407" || productUsed === "BG109/BG112/BG245" || productUsed === "BG109/BG112/BG245/BG407") || productUsed === "BG109/BG110/BG208" || productUsed === "BG109/BG110/BG208/BG407") || (!approvedOil && productUsed === "BG115/BG109") || (!approvedOil && (productUsed === "BG115/BG109/BG208" || productUsed === "BG115/BG109/BG208/BG407" ))) {
+            serviceInterval = "Coverage will be continued by the performance of the BG Service within 12,500 miles/20,000 km or 12 months, whichever comes firs.t From the date of the Protection Plan enrollment, the vehicles engine must be serviced only with the proper grade and weight of engine oil, recommended by the vehicle manufacturer. Timing belt and air and oil filter must be replaced and emission control system maintained in accordance with vehicle manufacturer’s recommendations.";
+            odometerTo = 20000 + odometerFrom;
+        } else if (approvedOil && (productUsed === "BG115/BG109/BG208" || productUsed === "BG115/BG109/BG208/BG407")) {
+            serviceInterval = "Coverage will be continued by the performance of the BG Service within 15,000 miles/25,000 km if BG 729, BG 737 or OEM approved oil is used or 12 months, whichever comes firs.t From the date of Protection Plan enrollment, the vehicle’s engine must be serviced only with the proper grade and weight of engine oil, recommended by the vehicle manufacturer. The timing belt and air and oil filter must be replaced and emission control system maintained in accordance with the vehicle manufacturer’s recommendations.";
+            odometerTo = 25000 + odometerFrom;
+        } else if (!approvedOil && (productUsed === "BG208/BG206/BG211" || productUsed === "BG208/BG206/BG210" || productUsed === "BG208/BG206/BG206" || productUsed === "BG201/BG260/BG208" || productUsed === "BG260" || productUsed === "BG260/BG208"   || productUsed === "BG208/BG206/BG211/BG407" || productUsed === "BG208/BG206/BG210/BG407" || productUsed === "BG208/BG206/BG206/BG407" || productUsed === "BG201/BG260/BG208/BG407" || productUsed === "BG260/BG407" || productUsed === "BG260/BG208/BG407"   )) {
+            serviceInterval = "Coverage will be continued by the performance of the proper BG Service within 15,000 miles/25,000 km of the previous service or 12 months, whichever comes first";
+            odometerTo = 25000 + odometerFrom;
+        } else if (!approvedOil && productUsed === "BG540/BG546") {
+            serviceInterval = "Coverage will be continued by the performance of a BG Cooling System Service within 30,000 miles/50,000 km of the previous service or 24 months, whichever comes first."
+        } else if (!approvedOil && (productUsed === "BG108/BG332" || productUsed === "BG108/BG334")) {
+            serviceInterval = "Coverage will be continued by the performance of a BG Power Steering Service within 30,000 miles/50,000 km of the previous service or 24 months, whichever comes first.";
+            odometerTo = 50000 + odometerFrom;
+        } else if (!approvedOil && (productUsed === "BG750/BG751/BG752" || productUsed === "BG750/BG751/BG753" || productUsed === "BG750/BG751" || productUsed === "BG750/BG792") ) {
+            serviceInterval = "Coverage will be continued by the performance of a BG Drive Line Service within 30,000 miles/50,000 km of the previous service or 24 months, whichever comes first."
+            odometerTo = 50000 + odometerFrom;
+        } else if (!approvedOil && productUsed === "BG-Brake-Fluid") {
+            serviceInterval = "Coverage will be continued by the performance of a BG Brake Service within 30,000 miles/50,000 km of the previous service or 24 months, whichever comes first."
+            odometerTo = 50000 + odometerFrom;
+        } else {
+            serviceInterval = "Service Interval not found";
+            return { error: 'Service Interval not found' }
+        }
+
+
+        // GET CUSTOMER ID by Vehicle ID
+        const customer = await db.customerVehicle.findUnique({
+            where: {
+                id: customerVehicleId
+            },
+            select: {
+                customerId: true
+            }
+        })
+
+
+
+
+        // GET DEALERSHIP ID by VEHICLE ID
+        const dealershipId = await db.customerVehicle.findUnique({
+            where: {
+                id: customerVehicleId
+            },
+            select: {
+                dealershipId: true
+            }
+        })
+
+        if (!productUsed || !invoice || !serviceDate || !odometerFrom) {
+            return { error: 'Missing required fields' }
+        }
+
+        if (!dealership?.dealershipId) {
+            return { error: 'Dealership ID is required' }
+        }
+
+        await db.protectionPlan.create({
+            data: {
+                productUsed,
+                invoice,
+                serviceDate: isoServiceDate,
+                odometerFrom,
+                odometerTo,
+                enteredBy,
+                customerVehicleId,
+                covers,
+                dealershipId: dealership.dealershipId,
+                customerId: dealership?.customerId,
+                approvedOil,
+                reimbursement,
+                expiryDate,
+                expired: false,
+                serviceInterval,
+                updatedAt: new Date(),
+                createdAt: new Date()
+            } 
+        })
+        return { error: undefined };
+    } catch (error: Error | any) {
+        return { error: 'Something went wrong while adding new protection plan. PLease try again. ' }   
+        // console.log(error.message)
+        // return { error: error?.message }   
+    }
+}

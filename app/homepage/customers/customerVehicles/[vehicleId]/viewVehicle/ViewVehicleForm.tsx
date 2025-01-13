@@ -13,6 +13,9 @@ import fuelTypes from "@/data/fuelEngineType.json";
 import { addCustomerVehicle, ExtendedCustomerVehicle } from "@/lib/actions";
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import { MdExpandMore } from "react-icons/md";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+
 
 const ViewVehicleForm = ({ vehicle, error }: { vehicle?: ExtendedCustomerVehicle, error?: string }) => {
 
@@ -59,7 +62,7 @@ const ViewVehicleForm = ({ vehicle, error }: { vehicle?: ExtendedCustomerVehicle
                                 textAlign: 'center',
 
                             }}>
-                                <HeaderTitle Icon={BiSolidCarGarage} title={`${vehicle.customer?.fName} ${vehicle.customer.lName}`} />
+                                <HeaderTitle title={`${vehicle.customer?.fName} ${vehicle.customer.lName}`} />
                             </div>
                         </AccordionSummary>
                         <AccordionDetails>
@@ -94,6 +97,16 @@ const ViewVehicleForm = ({ vehicle, error }: { vehicle?: ExtendedCustomerVehicle
                             </div>
                         </AccordionDetails>
                     </Accordion>
+
+                    <Button 
+                        className="bg-amber-200 text-black hover:text-white mt-2 w-full h-12 "
+                        onClick={() => redirect(`/homepage/customers/customerVehicles/${vehicle.id}/protectionPlan/addProtectionPlan`)}
+                    >
+                        Add Protection Plan
+                    </Button>
+
+                    {/* Add component for protection plan grid */}
+
 
                 </section>
             </ClerkLoaded>

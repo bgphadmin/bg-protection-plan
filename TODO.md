@@ -1,7 +1,7 @@
+TODO: Cleanup: Use cleanup functions to avoid memory leaks, especially with subscriptions or timers in useEffects
 TODO: Update Customer Vehicles
 TODO: Add a column Added by on Customers and Vehicle grid
 TODO: Add Delete dunctionality where applicable
-TODO: Create forms for the other tables e.g. protection plan, etc
 TODO: Depending on the Vehicle information, the system will list all applicable protection plan
 TODO: The list of protection plan will be in mui x-grid, showing all products, coverages and conditions that will be applied to the vehicle. Once approved,
 TODO: After paying, the contact person will select the the apporiate protection plan and enter the invoice number/picture (possibly using ocr) and submit the invoice/receipt to the system

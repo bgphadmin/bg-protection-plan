@@ -5,7 +5,6 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 // TODO: Change the details of description to more specific items used for the Protection Plan Statement
 // TODO: Create customer data and check relationshp with user
-// TODO: Use provider = "mongodb" for the database using mongodb
 generator client {
   provider = "prisma-client-js"
 }
@@ -94,16 +93,21 @@ model ProtectionPlan {
   productUsed       String
   serviceDate       DateTime
   expired           Boolean         @default(false)
-  dateExpire        DateTime
-  mileageExpire     Int
+  expiryDate        DateTime
+  serviceInterval   String
   invoice           String
-  odometer          Int
+  odometerFrom      Int
+  odometerTo        Int
+  reimbursement     String
+  approvedOil       Boolean
+  covers            String
   customerVehicle   CustomerVehicle @relation(fields: [customerVehicleId], references: [id])
   customerVehicleId String
   customer          Customer        @relation(fields: [customerId], references: [id])
   customerId        String
   dealership        Dealership      @relation(fields: [dealershipId], references: [id])
   dealershipId      String
+  enteredBy         String
   createdAt         DateTime
   updatedAt         DateTime
 

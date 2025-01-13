@@ -1,7 +1,7 @@
 'use client'
 import React from 'react';
 
-const HeaderTitle = ({ Icon, title }: { Icon: React.ElementType, title: string }) => {
+const HeaderTitle = ({ Icon, title }: { Icon?: React.ElementType, title: string }) => {
     return (
         <div className="container flex flex-col items-center justify-center min-w-screen">
             <section className="heading">

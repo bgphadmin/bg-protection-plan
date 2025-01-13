@@ -15,12 +15,8 @@
     "id": "02",
     "name": "Oil Services: 10,000 miles/16,000 km/12 months",
     "products": [
-      "BG110/BG729",
-      "BG110/BG737",
-      "BG110/OEM-Approved",
-      "BG112/BG729",
-      "BG112/BG737",
-      "BG112/OEM-Approved",
+      "BG110/ApprovedOil",
+      "BG112/ApprovedOil",
       "BG109/BG110",
       "BG109/BG112",
       "BG115",
@@ -33,21 +29,11 @@
     "id": "03",
     "name": "Oil Services: 12,500 miles/20,000 km/12 months",
     "products": [
-      "BG109/BG110/BG729",
-      "BG109/BG112/BG729",
-      "BG109/BG110/BG737",
-      "BG109/BG112/BG737",
-      "BG109/BG110/OEM-Approved",
-      "BG109/BG112/OEM-Approved",
-      "BG109/BG110/BG208/BG729",
-      "BG109/BG112/BG244/BG729",
-      "BG109/BG112/BG245/BG729",
-      "BG109/BG110/BG208/BG737",
-      "BG109/BG112/BG244/BG737",
-      "BG109/BG112/BG245/BG737",
-      "BG109/BG110/BG208/OEM-Approved",
-      "BG109/BG112/BG244/OEM-Approved",
-      "BG109/BG112/BG245/OEM-Approved",
+      "BG109/BG110/approvedOil",
+      "BG109/BG112/approvedOil",
+      "BG109/BG112/BG244/approvedOil",
+      "BG109/BG112/BG245/approvedOil",
+      "BG109/BG110/BG208/approvedOil",
       "BG115/BG109",
       "BG115/BG109/BG208"
     ],
@@ -57,9 +43,7 @@
     "id": "04",
     "name": "Oil Services: 15,000 miles/25,000 km/12 months",
     "products": [
-      "BG115/BG109/BG208/BG729",
-      "BG115/BG109/BG208/BG737",
-      "BG115/BG109/BG208/OEM-Approved"
+      "BG115/BG109/BG208/approvedOil"
     ],
     "description": "Coverage will be continued by the performance of the BG Service within 15,000 miles/25,000 km if BG 729, BG 737 or OEM approved oil is used or 12 months, whichever comes firs.t From the date of Protection Plan enrollment, the vehicle’s engine must be serviced only with the proper grade and weight of engine oil, recommended by the vehicle manufacturer. The timing belt and air and oil filter must be replaced and emission control system maintained in accordance with the vehicle manufacturer’s recommendations."
   },
