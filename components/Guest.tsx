@@ -1,5 +1,3 @@
-
-
 import { checkUser } from "@/lib/checkUser";
 import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs"
 import Homepage from "./Homepage";
@@ -19,7 +17,7 @@ const Guest = async () => {
       </SignedOut>
       <SignedIn>
         <div className="container">
-            <Homepage />
+          <Homepage />
         </div>
       </SignedIn>
     </div>

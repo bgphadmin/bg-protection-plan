@@ -3,9 +3,12 @@
 import React, { Suspense } from 'react'
 import Guest from '@/components/Guest'
 import Spinner from '@/components/Spinner'
-import Navbar from '@/components/navbar/Navbar'
+import { emailScheduler } from '@/components/emailScheduler/emailScheduler'
 
 const LandingPage = () => {
+  // TODO: Add the email scheduler here...
+  emailScheduler();
+  
   return (
     <div style={{
       position: 'relative',
