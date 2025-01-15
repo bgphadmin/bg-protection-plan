@@ -6,6 +6,10 @@ import Spinner from '@/components/Spinner'
 import { emailScheduler } from '@/components/emailScheduler/emailScheduler'
 
 const LandingPage = () => {
+
+
+  console.log('before email scheduler');
+
   // TODO: Add the email scheduler here...
   // emailScheduler();
   
