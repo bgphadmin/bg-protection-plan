@@ -10,7 +10,7 @@ export const emailScheduler = () => {
     // suggestion - send an email to the contact person of the dealership and let them check if the protection plan has expired. 
 
     // Schedule a cron job to run every 5 minutes
-    const cronJob = cron.schedule('* * * * *', async () => {
+    const cronJob = cron.schedule('*/5 * * * *', async () => {
         console.log('inside cron job');
         try {
             await sendEmail({
@@ -22,6 +22,9 @@ export const emailScheduler = () => {
             console.log(error.message)
         }
     });
+
+    // Start the cron job
+    cronJob.start();
 }
 
 export default emailScheduler
