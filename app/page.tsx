@@ -7,7 +7,7 @@ import { emailScheduler } from '@/components/emailScheduler/emailScheduler'
 
 const LandingPage = () => {
   // TODO: Add the email scheduler here...
-  emailScheduler();
+  // emailScheduler();
   
   return (
     <div style={{
