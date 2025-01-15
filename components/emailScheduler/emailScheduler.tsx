@@ -21,7 +21,7 @@ export const emailScheduler = () => {
         } catch (error: any) {
             console.log(error.message)
         }
-    }, { timezone: 'Asia/Manila' });
+    }, { timezone: 'US/Eastern' });
 
     // Start the cron job
     cronJob.start();
