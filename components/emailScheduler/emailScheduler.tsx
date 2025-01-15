@@ -11,6 +11,7 @@ export const emailScheduler = () => {
 
     // Schedule a cron job to run every 5 minutes
     const cronJob = cron.schedule('*/30 * * * *', async () => {
+        console.log('inside cron job');
         try {
             await sendEmail({
             to: 'mark_a_capili@outlook.com',
