@@ -28,7 +28,7 @@ export const emailScheduler = async () => {
     // cronJob.start();
 
 
-    schedule.scheduleJob('*/5 * * * *', async () => {
+    schedule.scheduleJob('*/3 * * * *', async () => {
         console.log('inside cron job');
         try {
             await sendEmail({
