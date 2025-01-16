@@ -29,13 +29,14 @@ export const emailScheduler = async () => {
 
 
     // schedule.scheduleJob('*/3 * * * *', async () => {
-    schedule.scheduleJob('2025-01-16T10:24:00.000', async () => {
+    // Make sure that date is in UTC - 8 hours Phlippines time
+    schedule.scheduleJob('2025-01-16T10:35:00.000', async () => {
         console.log('inside cron job');
         try {
             await sendEmail({
             to: 'mark_a_capili@outlook.com',
             subject: 'Protection Plan Expiry Reminder',
-            text: 'Test Email Actual Date'
+            text: 'Test Email Actual Date UTC Time'
             });
         } catch (error: any) {
             console.log(error.message)
