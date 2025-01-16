@@ -11,7 +11,7 @@ const LandingPage = () => {
   console.log('before email scheduler');
 
   // TODO: Add the email scheduler here...
-  // emailScheduler();
+  emailScheduler();
   
   return (
     <div style={{

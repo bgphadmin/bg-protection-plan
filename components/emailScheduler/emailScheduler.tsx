@@ -1,6 +1,6 @@
 import cron from 'node-cron';
 import { sendEmail } from './nodemailer';
-
+const schedule = require('node-schedule');
 
 export const emailScheduler = async () => {
     console.log('emailScheduler in the house');
@@ -11,7 +11,24 @@ export const emailScheduler = async () => {
 
     // Schedule a cron job to run every 5 minutes
     // const cronJob = cron.schedule('*/5 * * * *', async () => {
-    cron.schedule('*/5 * * * *', async () => {
+    // cron.schedule('*/5 * * * *', async () => {
+    //     console.log('inside cron job');
+    //     try {
+    //         await sendEmail({
+    //         to: 'mark_a_capili@outlook.com',
+    //         subject: 'Protection Plan Expiry Reminder',
+    //         text: 'Test email'
+    //         });
+    //     } catch (error: any) {
+    //         console.log(error.message)
+    //     }
+    // }, { timezone: 'Asia/Manila' });
+
+    // Start the cron job
+    // cronJob.start();
+
+
+    schedule.scheduleJob('*/5 * * * *', async () => {
         console.log('inside cron job');
         try {
             await sendEmail({
@@ -22,10 +39,9 @@ export const emailScheduler = async () => {
         } catch (error: any) {
             console.log(error.message)
         }
-    }, { timezone: 'Asia/Manila' });
+    })
 
-    // Start the cron job
-    // cronJob.start();
+
 }
 
 export default emailScheduler
