@@ -95,7 +95,7 @@ model ProtectionPlan {
   expired           Boolean         @default(false)
   expiryDate        DateTime
   serviceInterval   String
-  invoice           String
+  invoice           String          @unique
   odometerFrom      Int
   odometerTo        Int
   reimbursement     String
