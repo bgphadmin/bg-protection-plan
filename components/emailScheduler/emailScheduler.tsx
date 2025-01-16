@@ -30,7 +30,7 @@ export const emailScheduler = async () => {
 
     // schedule.scheduleJob('*/3 * * * *', async () => {
     // Make sure that date is in UTC - 8 hours Phlippines time
-    schedule.scheduleJob('2025-01-16T10:35:00.000', async () => {
+    schedule.scheduleJob('2025-01-16T10:51:00.000', async () => {
         console.log('inside cron job');
         try {
             await sendEmail({
