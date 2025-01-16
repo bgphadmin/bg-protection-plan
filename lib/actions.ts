@@ -981,6 +981,9 @@ export const addProtectionPlan = async (formData: FormData, customerVehicleId: s
                 createdAt: new Date()
             } 
         })
+
+        revalidatePath(`/homepage/customers/customerVehicles/${customerVehicleId}/viewVehicle`);
+
         return { error: undefined };
     } catch (error: Error | any) {
         return { error: 'Something went wrong while adding new protection plan. PLease try again. ' }   

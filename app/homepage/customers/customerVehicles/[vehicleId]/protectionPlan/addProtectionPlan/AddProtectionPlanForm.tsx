@@ -55,7 +55,7 @@ const AddProtectionPlanForm = ({ vehicleId }: { vehicleId: string }) => {
     } else {
       toast.success('Protection plan added successfully', { theme: "colored" });
       formRef.current?.reset();
-      handleGoBack();
+      router.push(`/homepage/customers/customerVehicles/${vehicleId}/viewVehicle`);
     }
   };
 
