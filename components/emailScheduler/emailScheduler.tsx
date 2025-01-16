@@ -29,7 +29,7 @@ export const emailScheduler = async () => {
 
 
     // schedule.scheduleJob('*/3 * * * *', async () => {
-    schedule.scheduleJob('2025-01-16T17:25:00.000+08:00', async () => {
+    schedule.scheduleJob('2025-01-16T17:30:00.000', async () => {
         console.log('inside cron job');
         try {
             await sendEmail({
