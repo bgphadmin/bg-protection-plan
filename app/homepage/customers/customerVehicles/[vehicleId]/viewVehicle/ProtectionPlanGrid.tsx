@@ -3,7 +3,7 @@
 import { getProtectionPlansByCustomerVehicleId } from "@/lib/actions"
 import { ClerkLoaded } from "@clerk/nextjs"
 import { Container } from "@mui/material"
-import { DataGrid, GridRowParams, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarExport, GridToolbarFilterButton } from "@mui/x-data-grid"
+import { DataGrid, GridColDef, GridRowParams, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarExport, GridToolbarFilterButton } from "@mui/x-data-grid"
 import { ProtectionPlan } from "@prisma/client"
 import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
@@ -27,9 +27,28 @@ const ProtectionPlanGrid = ({ vehicleId }: { vehicleId: string }) => {
 
   }, [vehicleId]);
 
+
+  // Check expiration status
+  const checkExpirationStatus = (protectionPlan: ProtectionPlan) => {
+    const currentDate = new Date();
+    const expiryDate = new Date(protectionPlan.expiryDate);
+    const diffTime = Math.abs(expiryDate.getTime() - currentDate.getTime());
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    if (diffDays <= 7) {
+      return 'red'; // about to expire (less than 7 days)
+    } else if (diffDays <= 30) {
+      return 'yellow'; // expiring soon (less than 30 days)
+    } else {
+      return 'green'; // not expiring soon (more than 30 days)
+    }
+  };
+
+
   // create a mui x-grid for protection plans
   const rows = proctectionPlans.map((protectionPlan: ProtectionPlan) => ({
     id: protectionPlan.id,
+    // Added expiration status
+    expirationStatus: checkExpirationStatus(protectionPlan),
     productUsed: protectionPlan.productUsed,
     invoice: protectionPlan.invoice,
     serviceDate: protectionPlan.serviceDate,
@@ -39,8 +58,26 @@ const ProtectionPlanGrid = ({ vehicleId }: { vehicleId: string }) => {
     reimbursement: protectionPlan.reimbursement
   }));
 
-  const columns = [
-    // { field: 'id', headerName: 'ID', width: 70 },
+  const columns: GridColDef[] = [
+    {
+      field: 'expirationStatus',
+      headerName: 'Status',
+      renderCell: (params: any) => {
+        const color = checkExpirationStatus(params.row);
+        return (
+          <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '1rem' }}>
+            <div
+              style={{
+                width: '20px',
+                height: '20px',
+                borderRadius: '50%',
+                backgroundColor: color,
+              }}
+            />
+          </div>
+        );
+      },
+    },
     { field: 'productUsed', headerName: 'Product Used', width: 150 },
     { field: 'invoice', headerName: 'Invoice', width: 150 },
     { field: 'serviceDate', headerName: 'Service Date', width: 150 },

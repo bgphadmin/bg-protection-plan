@@ -1,5 +1,7 @@
-TODO: Auto email 1 week before the expiry date
-TODO: Cleanup: Use cleanup functions to avoid memory leaks, especially with subscriptions or timers in useEffects
+TODO: When vehicle is tapped or clicked, it goes directly to the vehicle page
+TODO: Create a circle column stating if plan is about active, about to expire or expired.
+TODO: Add images!!!!
+TODO: Create a list of all Protection Plan
 TODO: Update Customer Vehicles
 TODO: Add a column Added by on Customers and Vehicle grid
 TODO: Add Delete dunctionality where applicable

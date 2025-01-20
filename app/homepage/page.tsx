@@ -10,7 +10,7 @@ const page = async() => {
   // Check if user is Admin
   const { isUserAdmin } = await isAdmin()
 
-  // Gte the logged in user's clerk ID
+  // Get the logged in user's clerk ID
   const { userId } = await auth()
 
   // Get all customer vehicles by dealership id
