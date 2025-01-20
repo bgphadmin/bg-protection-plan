@@ -32,7 +32,7 @@ const ProtectionPlanGrid = ({ vehicleId }: { vehicleId: string }) => {
   const checkExpirationStatus = (protectionPlan: ProtectionPlan) => {
     const currentDate = new Date();
     const expiryDate = new Date(protectionPlan.expiryDate);
-    const diffTime = Math.abs(expiryDate.getTime() - currentDate.getTime());
+    const diffTime = expiryDate.getTime() - currentDate.getTime();
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     if (diffDays <= 7) {
       return 'red'; // about to expire (less than 7 days)
