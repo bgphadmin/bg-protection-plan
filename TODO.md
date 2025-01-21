@@ -1,6 +1,5 @@
-TODO: When vehicle is tapped or clicked, it goes directly to the vehicle page
-TODO: Create a circle column stating if plan is about active, about to expire or expired.
 TODO: Add images!!!!
+TODO: When vehicle is tapped or clicked, it goes directly to the vehicle 
 TODO: Create a list of all Protection Plan
 TODO: Update Customer Vehicles
 TODO: Add a column Added by on Customers and Vehicle grid

@@ -939,9 +939,6 @@ export const addProtectionPlan = async (formData: FormData, customerVehicleId: s
             }
         })
 
-
-
-
         // GET DEALERSHIP ID by VEHICLE ID
         const dealershipId = await db.customerVehicle.findUnique({
             where: {
@@ -987,8 +984,6 @@ export const addProtectionPlan = async (formData: FormData, customerVehicleId: s
         return { error: undefined };
     } catch (error: Error | any) {
         return { error: 'Something went wrong while adding new protection plan. PLease try again. ' }   
-        // console.log(error.message)
-        // return { error: error?.message }   
     }
 }
 
@@ -1024,3 +1019,116 @@ export const getProtectionPlansByCustomerVehicleId = async (customerVehicleId: s
     }
     
 }
+
+
+export interface ExtendedProtectionPlan extends ProtectionPlan {
+    customer: {
+        fName: string;
+        lName: string;
+    };
+    dealerships?: {
+        name?: string;
+    };
+    customerVehicle: {
+        make: string;
+        model: string | null;
+        plateNo: string;
+    };
+}
+
+
+
+/** Get protection plan by logged in user
+ * @returns {Promise<{plans?: ExtendedProtectionPlan[], error?: string}>}
+ */
+export const getProtectionPlanList = async (): Promise<{plans?: ExtendedProtectionPlan[], error?: string}> => {
+    // Get protection plan list with customer customer vehicle make and model and dealership name
+    try {
+
+        // get logged in user
+        const user = await auth();
+        
+        if (!user) {
+            return { error: 'User not found' }
+        }
+
+        // Check is user is Admin
+        const {isUserAdmin} = await isAdmin();
+
+        if (isUserAdmin) {
+           const plans = await db.protectionPlan.findMany({
+                include: {
+                    customerVehicle: {
+                        select: {
+                            make: true,
+                            model: true,
+                            plateNo: true
+                        }
+                    },
+                    dealership: {
+                        select: {
+                            name: true
+                        }
+                    },
+                    customer: {
+                        select: {
+                            fName: true,
+                            lName: true,
+                        }
+                    }
+                },
+                orderBy: {
+                    expiryDate: 'asc',
+                },
+            })
+            return { plans };
+        } else {
+
+            // get dealership id by logged in user
+            const dealershipId = await db.user.findUnique({
+                where: {
+                    clerkUserId: user?.userId || ''
+                },
+                select: {
+                    dealershipId: true
+                }
+            })
+
+            const plans = await db.protectionPlan.findMany({
+                where: {
+                    dealershipId: dealershipId?.dealershipId as string
+                },
+                include: {
+                    customerVehicle: {
+                        select: {
+                            make: true,
+                            model: true,
+                            plateNo: true
+                        }
+                    },
+                    dealership: {
+                        select: {
+                            name: true
+                        }
+                    },
+                    customer: {
+                        select: {
+                            fName: true,
+                            lName: true,
+                        }
+                    }
+                },
+                orderBy: {
+                    expiryDate: 'asc',
+                },
+            })
+    
+            return { plans };
+        }
+
+    } catch (error) {
+        return { error: 'Something went wrong while getting protection plans' }
+    }
+
+ }
+ 

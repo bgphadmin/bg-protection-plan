@@ -1,25 +1,27 @@
 
-import { ExtendedCustomerVehicle, getCustomerVehicles, isAdmin } from '@/lib/actions'
+import { ExtendedCustomerVehicle, getCustomerVehicles, getProtectionPlanList, isAdmin } from '@/lib/actions'
 // import HomePage from './HomePage'
 import { ClerkLoaded } from '@clerk/nextjs'
 import { auth } from '@clerk/nextjs/server'
-import CustomerVehicleGrid from './CustomerVehicleGrid'
+import ProtectionPlanGrid from './ProtectionPlanGrid'
 
 const page = async() => {
-
-  // Check if user is Admin
-  const { isUserAdmin } = await isAdmin()
 
   // Get the logged in user's clerk ID
   const { userId } = await auth()
 
   // Get all customer vehicles by dealership id
-  const { vehicles, error } = await getCustomerVehicles(userId as string) as { vehicles: ExtendedCustomerVehicle[], error: string };
+  // Not yet used. Just in case this is needed
+  // const { vehicles, error } = await getCustomerVehicles(userId as string) as { vehicles: ExtendedCustomerVehicle[], error: string };
+
+  // Get protection Plan list
+  const { plans, error: protectionPlanError } = await getProtectionPlanList()
 
   return (
     <ClerkLoaded>
       <div className='container' suppressHydrationWarning>
-        <CustomerVehicleGrid vehicles={vehicles ?? []} error={error ?? ''} isAdmin={isUserAdmin ?? false} />
+        {/* <CustomerVehicleGrid vehicles={vehicles ?? []} error={error ?? ''} isAdmin={isUserAdmin ?? false} /> */}
+        <ProtectionPlanGrid plans={plans ?? []} error={protectionPlanError ?? ''} />
         {/* <HomePage /> */}
       </div>
     </ClerkLoaded>

@@ -3,7 +3,6 @@ import { sendEmail } from './nodemailer';
 const schedule = require('node-schedule');
 
 export const emailScheduler = async () => {
-    console.log('emailScheduler in the house');
 
     // TODO: Create a cron job that sends an email everyday at 9:00 AM based on the expiry date of the protection plan
     // What if mileage expires first? email will still be sent on the expiry date
@@ -31,7 +30,6 @@ export const emailScheduler = async () => {
     // schedule.scheduleJob('*/3 * * * *', async () => {
     // Make sure that date is in UTC - 8 hours Phlippines time
     schedule.scheduleJob('2025-01-16T11:00:00.000', async () => {
-        console.log('inside cron job');
         try {
             await sendEmail({
             to: 'mark_a_capili@outlook.com',
