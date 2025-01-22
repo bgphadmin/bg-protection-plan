@@ -805,7 +805,7 @@ export const getProtectionPlan = async (id: string): Promise<{plan?: ProtectionP
  */
 
 // export const addProtectionPlan = async (formData: FormData, customerVehicleId: string): Promise<{plan?: ProtectionPlan, error?: string}> => {
-export const addProtectionPlan = async (formData: FormData, customerVehicleId: string): Promise<{error?: string}> => {
+export const addProtectionPlan = async (formData: FormData, customerVehicleId: string, invoiceUrl: string): Promise<{error?: string}> => {
 
     try {
         
@@ -961,6 +961,7 @@ export const addProtectionPlan = async (formData: FormData, customerVehicleId: s
             data: {
                 productUsed,
                 invoice,
+                invoiceUrl,
                 serviceDate: isoServiceDate,
                 odometerFrom,
                 odometerTo,

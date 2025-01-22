@@ -255,7 +255,7 @@
         "covers": "Covers only the lubricated parts contained within the differential housing, transfer case or transmission case. Items not covered are the differential housing, transfer case, transmission case, axle(s), pre-packed axle bearing(s), U-joint(s), CV joint(s), CV boot(s), driveshaft(s), case, flywheel, clutch plate, and pressure plate unless damaged due to the failure of a covered part."
     },
     {
-        "id": "42",
+        "id": "43",
         "name": "BG-Brake-Fluid",
         "serviceType": "Brake Service",
         "covers": "Covers only the lubricated parts contained within the pump, valves, master cylinder, calipers, and metalized hoses when hose failure results from internal corrosion. Items not covered are pads, rotors, shoes, ABS sensors, controller or other electrical parts."

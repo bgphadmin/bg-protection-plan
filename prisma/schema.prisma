@@ -96,16 +96,17 @@ model ProtectionPlan {
   expiryDate        DateTime
   serviceInterval   String
   invoice           String          @unique
+  invoiceUrl        String          @unique
   odometerFrom      Int
   odometerTo        Int
   reimbursement     String
   approvedOil       Boolean
   covers            String
-  customerVehicle   CustomerVehicle @relation(fields: [customerVehicleId], references: [id])
+  customerVehicle   CustomerVehicle @relation(fields: [customerVehicleId], references: [id], onDelete: Cascade)
   customerVehicleId String
-  customer          Customer        @relation(fields: [customerId], references: [id])
+  customer          Customer        @relation(fields: [customerId], references: [id], onDelete: Cascade )
   customerId        String
-  dealership        Dealership      @relation(fields: [dealershipId], references: [id])
+  dealership        Dealership      @relation(fields: [dealershipId], references: [id], onDelete: Cascade)
   dealershipId      String
   enteredBy         String
   createdAt         DateTime

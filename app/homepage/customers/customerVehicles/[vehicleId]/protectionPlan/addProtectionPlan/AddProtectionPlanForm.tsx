@@ -9,7 +9,10 @@ import { useRouter } from "next/navigation";
 import products from "@/data/products.json"
 import { toast } from "react-toastify";
 import { addProtectionPlan } from "@/lib/actions";
-import { FormControlLabel, Switch } from "@mui/material";
+import { Switch } from "@mui/material";
+import Image from "next/image";
+import { getDownloadURL, ref, uploadString } from "firebase/storage";
+import { storage } from "@/firebase";
 
 const AddProtectionPlanForm = ({ vehicleId }: { vehicleId: string }) => {
 
@@ -23,19 +26,31 @@ const AddProtectionPlanForm = ({ vehicleId }: { vehicleId: string }) => {
   const [odometer, setOdometer] = useState('');
   const [isApprovedOil, setIsApprovedOil] = useState(false);
 
+  const pickerRef = useRef<any>(null);
+  const [pickedImage, setPickedImage] = useState<any>("");
+  const [invoiceUrl, setInvoiceUrl] = useState<any>("");
+
+  // Create a storage reference from our storage service
+  const storageRef = ref(storage, "invoices/" + invoice);
+
+
+
   const handleGoBack = () => {
     router.back()
   };
 
   const clientAction = async (formData: FormData): Promise<void> => {
-    
+
+    const invoiceUrl = await uploadFileToFB();
+
     let approvedOil = false
-    
+
     const productUsed = formData.get('productUsed') as string;
     const invoice = formData.get('invoice') as string;
     const serviceDate = formData.get('serviceDate') as string;
     const odometer = formData.get('odometer') as string;
-    const isApprovedOil = formData.get('isApprovedOil')?.toString() ;
+    const isApprovedOil = formData.get('isApprovedOil')?.toString();
+
 
     if (isApprovedOil === 'on') {
       approvedOil = true;
@@ -48,7 +63,14 @@ const AddProtectionPlanForm = ({ vehicleId }: { vehicleId: string }) => {
       toast.error('All fields are required')
     }
 
-    const { error } = await addProtectionPlan(formData, vehicleId);
+    console.log('67 invoiceUrl: ', invoiceUrl)
+
+    if (!invoiceUrl) {
+      toast.error('Invoice Image is required')
+      return 
+    }
+
+    const { error } = await addProtectionPlan(formData, vehicleId, invoiceUrl);
 
     if (error) {
       toast.error(error, { theme: "colored" });
@@ -58,6 +80,34 @@ const AddProtectionPlanForm = ({ vehicleId }: { vehicleId: string }) => {
       router.push(`/homepage/customers/customerVehicles/${vehicleId}/viewVehicle`);
     }
   };
+
+  const selectImage = (e: any) => {
+    const reader = new FileReader();
+    if (e.target.files[0]) {
+      reader.readAsDataURL(e.target.files[0]);
+    }
+    reader.onload = (readerEvent: any) => {
+      setPickedImage(readerEvent.target.result);
+      console.log("picked image >>>", readerEvent.target.result)
+    };
+  };
+
+
+  const uploadFileToFB = async (): Promise<any> => {
+    // setLoading(true)
+    try {
+      if (pickedImage) {
+        await uploadString(storageRef, pickedImage, 'data_url')
+        const url = await getDownloadURL(storageRef)
+        setInvoiceUrl(url)
+        return url
+      }
+    } catch (error) {
+      toast.error("Something went wrong while uploading image");
+    }
+    // setLoading(false)
+  }
+
 
   // TODO: ApprovedOil will show depending on the products used
   return (
@@ -125,7 +175,26 @@ const AddProtectionPlanForm = ({ vehicleId }: { vehicleId: string }) => {
               />
             </div>
 
-            <div className="form-group gap-4" style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div
+              onClick={() => pickerRef.current.click()}
+              className="relative h-[10rem] w-[10rem] border cursor-pointer flex flex-col items-center justify-center overflow-hidden rounded-lg "
+            >
+              {pickedImage ? (
+                <Image src={pickedImage} fill style={{ objectFit: "cover" }} alt="" />
+              ) : (
+                <p>Select Invoice</p>
+              )}
+            </div>
+
+            <input
+              ref={pickerRef}
+              onChange={(e) => selectImage(e)}
+              type="file"
+              accept=".png, .jpg, .jpeg"
+              hidden
+            />
+
+            <div className="form-group gap-4" style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1.5rem' }}>
               <button onClick={handleGoBack} className="btn btn-block" style={{ backgroundColor: 'black', color: 'white', }} type="reset">
                 Cancel
               </button>
