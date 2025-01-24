@@ -15,6 +15,7 @@ const ViewProtectionPlanDetails = ({ protectionPlan }: { protectionPlan: Extende
                 <section className="form pt-8">
                     {/* <BreadCrumbs /> */}
                     <div>
+                        {/* <h2 className="bg-amber-100" >Protection Plan Details</h2> */}
                         <h1>PROTECTION PLAN DETAILS - {protectionPlan.customerVehicle.make.toUpperCase() + ' ' + protectionPlan.customerVehicle.model?.toUpperCase()}</h1>
                         <ul className="vehicle-details-list">
                             <li className="bg-amber-100">
@@ -56,21 +57,18 @@ const ViewProtectionPlanDetails = ({ protectionPlan }: { protectionPlan: Extende
                             <li>
                                 <div>
                                     <img
-                                        className={`invoiceImg ${fullscreen ? 'fullscreen-image' : ''}`}
+                                        className={`invoiceImg ${enlarged ? 'enlarged' : ''}`}
                                         src={protectionPlan.invoiceUrl}
-                                        alt="invoice"
-                                        onClick={() => setFullscreen(true)}
+                                        alt="invoice" 
+                                        onClick={() => setEnlarged(!enlarged)}
                                     />
-                                    {fullscreen && (
-                                        <div className="fullscreen-overlay" onClick={() => setFullscreen(false)} />
-                                    )}
                                 </div>
                             </li>
                         </ul>
-
                     </div>
                 </section>
             </ClerkLoaded>
+
         </div>
     )
 }
