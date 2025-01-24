@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { IoCarSportSharp } from "react-icons/io5";
 import { toast } from "react-toastify";
 import BreadCrumbs from "./BreadCrumbs";
+import { StripedDataGrid } from "@/lib/utils";
 
 // const CustomerVehicleGrid = ({ vehicles, error, customerId }: { vehicles: ExtendedCustomerVehicle[], error: string, customerId: string }) => {
 const CustomerVehicleGrid = ({ vehicles, error, isAdmin }: { vehicles: ExtendedCustomerVehicle[], error: string, isAdmin: boolean }) => {
@@ -80,7 +81,7 @@ const CustomerVehicleGrid = ({ vehicles, error, isAdmin }: { vehicles: ExtendedC
                     <HeaderTitle Icon={IoCarSportSharp} title={`Vehicles`} />
                 </div>
                 <BreadCrumbs />
-                <DataGrid
+                <StripedDataGrid
                     rows={rows}
                     columns={columns}
                     pageSizeOptions={[10, 20, 100]}
@@ -97,6 +98,9 @@ const CustomerVehicleGrid = ({ vehicles, error, isAdmin }: { vehicles: ExtendedC
                     onRowClick={(params) => {
                         handleRowClick(params);
                     }}
+                    getRowClassName={(params) =>
+                        params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
+                    }
                 />
             </Container>
         </div>

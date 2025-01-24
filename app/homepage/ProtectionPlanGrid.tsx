@@ -9,6 +9,7 @@ import { redirect } from 'next/navigation';
 import React, { useMemo, useState } from 'react'
 import { IoCarSportSharp } from 'react-icons/io5';
 import { toast } from 'react-toastify';
+import { StripedDataGrid } from '@/lib/utils';
 
 const ProtectionPlanGrid = ({ plans, error }: { plans: ExtendedProtectionPlan[], error: string }) => {
 
@@ -51,7 +52,7 @@ const ProtectionPlanGrid = ({ plans, error }: { plans: ExtendedProtectionPlan[],
         if (firstNameMakePlate) {
             // split first name and make and plate no
             const [firstName, lastName, make, plate, invoice] = firstNameMakePlate.split(' ');
-            return plans?.filter((plan) => plan.customer.fName === firstName && plan.customer.lName === lastName  && plan.customerVehicle.make === make && plan.customerVehicle.plateNo === plate && plan.invoice === invoice);
+            return plans?.filter((plan) => plan.customer.fName === firstName && plan.customer.lName === lastName && plan.customerVehicle.make === make && plan.customerVehicle.plateNo === plate && plan.invoice === invoice);
         } else {
             return plans;
         }
@@ -150,7 +151,7 @@ const ProtectionPlanGrid = ({ plans, error }: { plans: ExtendedProtectionPlan[],
             <div className="flex justify-between items-center">
                 <HeaderTitle Icon={IoCarSportSharp} title={`Customer Vehicle Protection Plan`} />
             </div>
-            <DataGrid
+            <StripedDataGrid
                 rows={rows}
                 columns={columns}
                 pageSizeOptions={[10, 20, 100]}
@@ -163,6 +164,9 @@ const ProtectionPlanGrid = ({ plans, error }: { plans: ExtendedProtectionPlan[],
                         paginationModel: { pageSize: 20, page: 0 },
                     },
                 }}
+                getRowClassName={(params) =>
+                    params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
+                }
                 className="dark:text-white dark:bg-blue-900 diplay: flex justify-center"
                 onRowClick={handleRowClick}
             />

@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import { ImUsers } from "react-icons/im";
 import HeaderTitle from "@/components/HeaderTitle";
 import BreadCrumbs from "./BreadCrumbs";
+import { StripedDataGrid } from "@/lib/utils";
 
 
 const UserGrid = ({ users, error }: { users?: any, error?: string }) => {
@@ -68,7 +69,7 @@ const UserGrid = ({ users, error }: { users?: any, error?: string }) => {
             <Container style={{ height: 400, width: '100%' }} >
                 <HeaderTitle Icon={ImUsers} title="App Users" />
                 <BreadCrumbs />
-                <DataGrid
+                <StripedDataGrid
                     rows={rows}
                     columns={columns}
                     pageSizeOptions={[10, 20, 100]}
@@ -83,6 +84,9 @@ const UserGrid = ({ users, error }: { users?: any, error?: string }) => {
                     }}
                     className="dark:text-white dark:bg-blue-900 diplay: flex justify-center"
                     onRowClick={handleRowClick}
+                    getRowClassName={(params) =>
+                        params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
+                    }
                 />
             </Container>
 

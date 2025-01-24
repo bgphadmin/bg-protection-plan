@@ -11,6 +11,7 @@ import { FaPeopleGroup } from "react-icons/fa6";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { IoCarSportSharp } from "react-icons/io5";
+import { StripedDataGrid } from "@/lib/utils";
 
 type RowForm = {
     id: string;
@@ -108,7 +109,7 @@ const CustomerGrid = ({ customers, error }: { customers?: any, error?: string, i
         <Container style={{ height: 400, width: '100%', }} >
             <HeaderTitle Icon={FaPeopleGroup} title="CUSTOMERS" />
             <BreadCrumbs />
-            <DataGrid
+            <StripedDataGrid
                 rows={rows}
                 columns={columns}
                 pageSizeOptions={[10, 20, 100]}
@@ -121,6 +122,9 @@ const CustomerGrid = ({ customers, error }: { customers?: any, error?: string, i
                         paginationModel: { pageSize: 20, page: 0 },
                     },
                 }}
+                getRowClassName={(params) =>
+                    params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
+                }
                 className="dark:text-white dark:bg-blue-900 diplay: flex justify-center"
             />
         </Container>

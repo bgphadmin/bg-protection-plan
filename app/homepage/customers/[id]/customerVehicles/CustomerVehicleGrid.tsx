@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import BreadCrumbs from "./BreadCrumbs";
 import Link from "next/link";
 import { FaCar } from "react-icons/fa6";
+import { StripedDataGrid } from "@/lib/utils";
 
 const CustomerVehicleGrid = ({ vehicles, error, customerId }: { vehicles: ExtendedCustomerVehicle[], error: string, customerId: string }) => {
 
@@ -78,7 +79,7 @@ const CustomerVehicleGrid = ({ vehicles, error, customerId }: { vehicles: Extend
                     </Button>
                 </div>
                 <BreadCrumbs />
-                <DataGrid
+                <StripedDataGrid
                     rows={rows}
                     columns={columns}
                     pageSizeOptions={[10, 20, 100]}
@@ -93,6 +94,9 @@ const CustomerVehicleGrid = ({ vehicles, error, customerId }: { vehicles: Extend
                     }}
                     className="dark:text-white dark:bg-blue-900 diplay: flex justify-center"
                     onRowClick={handleRowClick}
+                    getRowClassName={(params) =>
+                        params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
+                    }
                 />
             </Container>
 

@@ -11,6 +11,7 @@ import HeaderTitle from "@/components/HeaderTitle";
 import { Dealership } from "@prisma/client";
 import Link from "next/link";
 import BreadCrumbs from "./BreadCrumbs";
+import { StripedDataGrid } from "@/lib/utils";
 // import BreadCrumbs from "./BreadCrumbs";
 
 
@@ -80,7 +81,7 @@ const DealershiprGrid = ({ dealerships, error }: { dealerships?: Dealership[], e
                     </Button>
                 </div>
                 <BreadCrumbs />
-                <DataGrid
+                <StripedDataGrid
                     rows={rows}
                     columns={columns}
                     pageSizeOptions={[10, 20, 100]}
@@ -95,6 +96,9 @@ const DealershiprGrid = ({ dealerships, error }: { dealerships?: Dealership[], e
                     }}
                     className="dark:text-white dark:bg-blue-900 diplay: flex justify-center"
                     onRowClick={handleRowClick}
+                    getRowClassName={(params) =>
+                        params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
+                    }
                 />
             </Container>
 
