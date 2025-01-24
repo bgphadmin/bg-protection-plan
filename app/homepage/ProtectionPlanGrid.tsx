@@ -5,7 +5,7 @@ import { ExtendedProtectionPlan } from '@/lib/actions';
 import { ClerkLoaded } from '@clerk/nextjs';
 import { Autocomplete, Container, TextField } from '@mui/material';
 import { DataGrid, GridColDef, GridRowParams, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarExport, GridToolbarFilterButton } from '@mui/x-data-grid';
-import { ProtectionPlan } from '@prisma/client'
+import { redirect } from 'next/navigation';
 import React, { useMemo, useState } from 'react'
 import { IoCarSportSharp } from 'react-icons/io5';
 import { toast } from 'react-toastify';
@@ -142,7 +142,7 @@ const ProtectionPlanGrid = ({ plans, error }: { plans: ExtendedProtectionPlan[],
         )
     }
     const handleRowClick = (params: GridRowParams) => {
-        // TODO: redirec(`/homepage/customers/${customerId}/customerVehicles/updateVehicle/${params.row.id}`);
+        redirect(`/homepage/protectionPlan/${params.id}`);
     }
 
     return (

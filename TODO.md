@@ -1,4 +1,4 @@
-TODO: Add images!!!!
+TODO: Create a view of the Plan with a small image of the invoice
 TODO: When vehicle is tapped or clicked, it goes directly to the vehicle 
 TODO: Create a list of all Protection Plan
 TODO: Update Customer Vehicles

@@ -1133,3 +1133,51 @@ export const getProtectionPlanList = async (): Promise<{plans?: ExtendedProtecti
 
  }
  
+/** Get protection plan by ID
+ * @returns {Promise<{plan?: ExtendedProtectionPlan, error?: string}>}
+ */
+export const getProtectionPlanById = async (planId : string ): Promise<{plan?: ExtendedProtectionPlan, error?: string}> => {
+    // Get protection plan by ID
+    try {
+
+        // get logged in user
+        const user = await auth();
+        
+        if (!user) {
+            return { error: 'User not found' }
+        }
+
+        const plan = await db.protectionPlan.findUnique({
+            where: {
+                id: planId
+            },
+            include: {
+                customerVehicle: {
+                    select: {
+                        make: true,
+                        model: true,
+                        plateNo: true
+                    }
+                },
+                dealership: {
+                    select: {
+                        name: true
+                    }
+                },
+                customer: {
+                    select: {
+                        fName: true,
+                        lName: true,
+                    }
+                }
+            }
+        })
+
+        return plan ? { plan } : { error: 'Protection plan not found' };
+        
+
+    } catch (error) {
+        return { error: 'Something went wrong while getting protection plans' }
+    }
+
+ }
