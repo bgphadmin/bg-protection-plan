@@ -1,6 +1,4 @@
-TODO: Create a view of the Plan with a small image of the invoice
 TODO: When vehicle is tapped or clicked, it goes directly to the vehicle 
-TODO: Create a list of all Protection Plan
 TODO: Update Customer Vehicles
 TODO: Add a column Added by on Customers and Vehicle grid
 TODO: Add Delete dunctionality where applicable

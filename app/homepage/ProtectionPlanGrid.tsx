@@ -124,8 +124,8 @@ const ProtectionPlanGrid = ({ plans, error }: { plans: ExtendedProtectionPlan[],
                                 }}
                                 id="controllable-states-demo"
                                 options={selectedValues}
-                                sx={{ width: 400, mr: 1, ml: 1 }}
-                                renderInput={(params) => <TextField {...params} label="User" />}
+                                sx={{ width: 320, mr: 1, ml: 1 }}
+                                renderInput={(params) => <TextField {...params} label="Search" />}
                                 isOptionEqualToValue={(option, value) => option.valueOf === value.valueOf}
                             />
                         </>
