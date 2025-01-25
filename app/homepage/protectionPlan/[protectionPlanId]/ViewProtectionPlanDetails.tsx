@@ -16,10 +16,13 @@ const ViewProtectionPlanDetails = ({ protectionPlan }: { protectionPlan: Extende
                     {/* <BreadCrumbs /> */}
                     <div>
                         {/* <h2 className="bg-amber-100" >Protection Plan Details</h2> */}
-                        <h1>PROTECTION PLAN DETAILS - {protectionPlan.customerVehicle.make.toUpperCase() + ' ' + protectionPlan.customerVehicle.model?.toUpperCase()}</h1>
+                        <h1>PROTECTION PLAN DETAILS - {protectionPlan.expired ? 'EXPIRED' : 'ACTIVE'}</h1>
                         <ul className="vehicle-details-list">
-                            <li className="bg-amber-100">
+                            <li>
                                 <strong>Owner:</strong> {protectionPlan.customer.fName + ' ' + protectionPlan.customer.lName}
+                            </li>
+                            <li className="bg-amber-100">
+                                <strong>Model/Make:</strong> {protectionPlan.customerVehicle.make + ' ' + protectionPlan.customerVehicle.model}
                             </li>
                             <li>
                                 <strong>Invoice No.:</strong> {protectionPlan.invoice}
