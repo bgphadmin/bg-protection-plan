@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import fuelTypes from '@/data/fuelEngineType.json'
 import transmissionTypes from '@/data/transmissionType.json'
 import { BiSolidCarGarage } from 'react-icons/bi';
+import BreadCrumbs from './BreadCrumbs';
 
 const UpdateVehicleForm = ({ vehicle, error }: { vehicle?: ExtendedCustomerVehicle, error?: string }) => {
 
@@ -31,7 +32,7 @@ const UpdateVehicleForm = ({ vehicle, error }: { vehicle?: ExtendedCustomerVehic
     const [fuelType, setFuelType] = useState(vehicle?.fuelEngineType)
 
     const handleGoBack = () => {
-        router.back()
+        redirect(`/homepage/customers/${vehicle?.customerId}/customerVehicles`);
     };
 
     const clientAction = async (formData: FormData): Promise<void> => {
@@ -61,10 +62,11 @@ const UpdateVehicleForm = ({ vehicle, error }: { vehicle?: ExtendedCustomerVehic
     };
 
     return (
-        <div className="form-container" >
-            <ClerkLoaded>
+        <ClerkLoaded>
+            <div className='container'>
                 <HeaderTitle Icon={BiSolidCarGarage} title="Update Vehicle" />
                 <section className="form">
+                    <BreadCrumbs id={vehicle?.customerId || ''}  />
                     <form ref={formRef} action={clientAction} noValidate>
                         <div className="form-group flex items-center">
                             <label className="pr-2 w-1/4" htmlFor="make">MAKE: </label>
@@ -124,8 +126,8 @@ const UpdateVehicleForm = ({ vehicle, error }: { vehicle?: ExtendedCustomerVehic
                         </div>
                     </form>
                 </section>
-            </ClerkLoaded >
-        </div>
+            </div>
+        </ClerkLoaded >
     )
 }
 

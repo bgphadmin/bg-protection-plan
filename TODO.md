@@ -1,4 +1,3 @@
-TODO: Check the code for EXPIRED protection plan/have the ability to change if plan is expired or active
 TODO: Check and fix all breadcrumbs
 TODO: When vehicle is tapped or clicked, it goes directly to the vehicle 
 TODO: Update Customer Vehicles

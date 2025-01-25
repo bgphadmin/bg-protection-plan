@@ -16,7 +16,7 @@ const UpdateCustomerPage = async ({ params }: UpdateCustomerPageProps) => {
     const { customer, error } = await getCustomerById(customerId.id);
 
     return (
-        <div>
+        <div className="container">
             {customer && (
                 <UpdateCustomerForm customer={customer} error={error} />
             )}
