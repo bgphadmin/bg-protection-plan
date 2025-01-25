@@ -35,13 +35,13 @@ const ProtectionPlanGrid = ({ vehicleId }: { vehicleId: string }) => {
     const diffTime = expiryDate.getTime() - currentDate.getTime();
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     if (diffDays <= 0 || protectionPlan.claimed) {
-        return 'black'; // expired
+      return 'black'; // expired
     } else if (diffDays <= 7) {
-        return 'red'; // about to expire (less than 7 days)
+      return 'red'; // about to expire (less than 7 days)
     } else if (diffDays <= 30) {
-        return 'yellow'; // expiring soon (less than 30 days)
+      return 'yellow'; // expiring soon (less than 30 days)
     } else {
-        return 'green'; // not expiring soon (more than 30 days)
+      return 'green'; // not expiring soon (more than 30 days)
     }
   };
 
@@ -81,7 +81,18 @@ const ProtectionPlanGrid = ({ vehicleId }: { vehicleId: string }) => {
         );
       },
     },
-    { field: 'claimed', headerName: 'Claimed', width: 150 },
+    {
+      field: 'claimed',
+      headerName: 'Claimed',
+      width: 150,
+      renderCell: (params: any) => {
+        return (
+          <div>
+            {params.row.claimed ? 'Yes' : 'No'}
+          </div>
+        )
+      },
+    },
     { field: 'productUsed', headerName: 'Product Used', width: 150 },
     { field: 'invoice', headerName: 'Invoice', width: 150 },
     { field: 'serviceDate', headerName: 'Service Date', width: 150 },

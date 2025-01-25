@@ -1181,3 +1181,29 @@ export const getProtectionPlanById = async (planId : string ): Promise<{plan?: E
     }
 
  }
+
+
+ // Update protection plan claim status
+ export const updateClaimStatus = async (planId: string, claimStatus: boolean): Promise<{ error?: string }> => {
+    try {
+
+        // check if user is logged in
+        const {error} = await isAdminMainDealership();
+        if (error) {
+            return { error };
+        }
+
+        await db.protectionPlan.update({
+            where: {
+                id: planId
+            },
+            data: {
+                claimed: claimStatus
+            }
+        })
+        revalidatePath(`/homepage/protectionPlan/${planId}`);
+        return {};
+    } catch (error) {
+        return { error: 'Something went wrong while updating protection plan claim status' }
+    }
+ }

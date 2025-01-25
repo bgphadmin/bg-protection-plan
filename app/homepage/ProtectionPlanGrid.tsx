@@ -101,7 +101,18 @@ const ProtectionPlanGrid = ({ plans, error }: { plans: ExtendedProtectionPlan[],
                 );
             },
         },
-        { field: 'claimed', headerName: 'Claimed', width: 150 },
+        {
+            field: 'claimed',
+            headerName: 'Claimed',
+            width: 150,
+            renderCell: (params: any) => {
+                return (
+                    <div>
+                        {params.row.claimed ? 'Yes' : 'No'}
+                    </div>
+                )
+            },
+        },
         { field: "owner", width: 150, headerName: 'Owner' },
         { field: 'make', headerName: 'Make', width: 150 },
         { field: 'model', headerName: 'Model', width: 150 },

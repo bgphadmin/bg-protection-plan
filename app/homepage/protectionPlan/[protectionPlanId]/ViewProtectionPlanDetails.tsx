@@ -1,7 +1,8 @@
 'use client'
 
-import { ExtendedProtectionPlan } from '@/lib/actions'
+import { ExtendedProtectionPlan, updateClaimStatus } from '@/lib/actions'
 import { ClerkLoaded } from '@clerk/nextjs'
+import { Button } from '@mui/material'
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 
@@ -13,6 +14,18 @@ const ViewProtectionPlanDetails = ({ protectionPlan, error }: { protectionPlan: 
     }
 
     const [enlarged, setEnlarged] = useState(false);
+    const [claimed, setClaimed] = useState(protectionPlan.claimed);
+
+    // handle onclick of claim button
+    const handleClaim = async () => {
+        const { error } = await updateClaimStatus(protectionPlan.id, !claimed);
+        if (error) {
+            toast.error(error);
+            return;
+        }
+        setClaimed(!claimed);
+        toast.success('Claim status updated successfully');
+    }
 
     // Get value for expiration status of protection plan
     const checkExpirationStatus = (protectionPlan: ExtendedProtectionPlan) => {
@@ -37,7 +50,6 @@ const ViewProtectionPlanDetails = ({ protectionPlan, error }: { protectionPlan: 
                 <section className="form pt-8">
                     {/* <BreadCrumbs /> */}
                     <div>
-                        {/* <h2 className="bg-amber-100" >Protection Plan Details</h2> */}
                         <h1>PROTECTION PLAN DETAILS - {protectionPlan.claimed ? <span style={{ color: 'blue' }}>CLAIMED</span> : checkExpirationStatus(protectionPlan) === 'black' ? <span style={{ color: 'red' }}>EXPIRED</span> : <span style={{ color: 'green' }}> ACTIVE</span>}</h1>
                         <ul className="vehicle-details-list">
                             <li className="bg-amber-100">
@@ -79,7 +91,7 @@ const ViewProtectionPlanDetails = ({ protectionPlan, error }: { protectionPlan: 
                                     {protectionPlan.covers}
                                 </div>
                             </li>
-                            <li>
+                            <li className='mt-3'>
                                 <div>
                                     <img
                                         className={`invoiceImg ${enlarged ? 'enlarged' : ''}`}
@@ -89,11 +101,13 @@ const ViewProtectionPlanDetails = ({ protectionPlan, error }: { protectionPlan: 
                                     />
                                 </div>
                             </li>
+                            <li className='mt-3'>
+                                <Button variant="contained" className='w-full' onClick={handleClaim}>{claimed ? 'UNCLAIM' : 'CLAIM'}</Button>
+                            </li>
                         </ul>
                     </div>
                 </section>
             </ClerkLoaded>
-
         </div>
     )
 }
