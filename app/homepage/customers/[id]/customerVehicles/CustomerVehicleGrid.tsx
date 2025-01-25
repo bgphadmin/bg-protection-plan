@@ -4,7 +4,7 @@ import HeaderTitle from "@/components/HeaderTitle";
 import { ExtendedCustomerVehicle } from "@/lib/actions";
 import { ClerkLoaded } from "@clerk/nextjs";
 import { Button, Container } from "@mui/material";
-import { DataGrid, GridRowParams, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarExport, GridToolbarFilterButton } from "@mui/x-data-grid";
+import { GridRowParams, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarExport, GridToolbarFilterButton } from "@mui/x-data-grid";
 import { redirect } from "next/navigation";
 import { useEffect } from "react";
 import { IoCarSportSharp } from "react-icons/io5";
@@ -36,7 +36,7 @@ const CustomerVehicleGrid = ({ vehicles, error, customerId }: { vehicles: Extend
     }))
 
     const columns = [
-        { field: "owner", width: 150, headerName: 'Owner' },
+        // { field: "owner", width: 150, headerName: 'Owner'},
         { field: "make", width: 150, headerName: 'Make' },
         { field: "model", width: 150, headerName: 'Model' },
         { field: "year", width: 75, headerName: 'Year' },
@@ -70,7 +70,7 @@ const CustomerVehicleGrid = ({ vehicles, error, customerId }: { vehicles: Extend
         <div>
             <Container style={{ height: 400, width: '100%' }} >
                 <div className="flex justify-between items-center">
-                    <HeaderTitle Icon={IoCarSportSharp} title={`Vehicles`} />
+                    <HeaderTitle Icon={IoCarSportSharp} title={vehicles[0].customer.fName + ' ' + vehicles[0].customer.lName} />
                     <Button variant="contained" size="medium" className="text-white mb-2">
                         <Link href={`/homepage/customers/${customerId}/customerVehicles/addVehicle`} className="flex items-center text-white">
                             <FaCar className="mr-2" />
@@ -99,7 +99,6 @@ const CustomerVehicleGrid = ({ vehicles, error, customerId }: { vehicles: Extend
                     }
                 />
             </Container>
-
         </div>
     )
 }

@@ -11,7 +11,7 @@ const VehiclesCustomer = ({id}: {id: string}) => {
                 </svg>
                 <Link href={`/homepage/customers/${id}/customerVehicles`} className="flex items-center ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-blue-200 dark:hover:text-white">
                     <TbCarSuvFilled className="homeIcon dark:text-blue-200  group-hover:text-gray-600 dark:group-hover:text-blue-500" size='1rem' />
-                    <span className='ml-1'>Customers</span>
+                    <span className='ml-1'>Customers Vehicles</span>
                 </Link>
             </div>
         </li>
