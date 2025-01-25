@@ -93,6 +93,7 @@ model ProtectionPlan {
   productUsed       String
   serviceDate       DateTime
   expired           Boolean         @default(false)
+  claimed           Boolean         @default(false)
   expiryDate        DateTime
   serviceInterval   String
   invoice           String          @unique
@@ -104,7 +105,7 @@ model ProtectionPlan {
   covers            String
   customerVehicle   CustomerVehicle @relation(fields: [customerVehicleId], references: [id], onDelete: Cascade)
   customerVehicleId String
-  customer          Customer        @relation(fields: [customerId], references: [id], onDelete: Cascade )
+  customer          Customer        @relation(fields: [customerId], references: [id], onDelete: Cascade)
   customerId        String
   dealership        Dealership      @relation(fields: [dealershipId], references: [id], onDelete: Cascade)
   dealershipId      String

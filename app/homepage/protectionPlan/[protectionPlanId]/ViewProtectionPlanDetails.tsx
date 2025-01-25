@@ -3,11 +3,33 @@
 import { ExtendedProtectionPlan } from '@/lib/actions'
 import { ClerkLoaded } from '@clerk/nextjs'
 import React, { useState } from 'react'
+import { toast } from 'react-toastify'
 
-const ViewProtectionPlanDetails = ({ protectionPlan }: { protectionPlan: ExtendedProtectionPlan, error?: string }) => {
+const ViewProtectionPlanDetails = ({ protectionPlan, error }: { protectionPlan: ExtendedProtectionPlan, error?: string }) => {
+
+    if (error) {
+        toast.error(error);
+        return;
+    }
 
     const [enlarged, setEnlarged] = useState(false);
-    const [fullscreen, setFullscreen] = useState(false);
+
+    // Get value for expiration status of protection plan
+    const checkExpirationStatus = (protectionPlan: ExtendedProtectionPlan) => {
+        const currentDate = new Date();
+        const expiryDate = new Date(protectionPlan.expiryDate);
+        const diffTime = expiryDate.getTime() - currentDate.getTime();
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        if (diffDays <= 0) {
+            return 'black'; // expired
+        } else if (diffDays <= 7) {
+            return 'red'; // about to expire (less than 7 days)
+        } else if (diffDays <= 30) {
+            return 'yellow'; // expiring soon (less than 30 days)
+        } else {
+            return 'green'; // not expiring soon (more than 30 days)
+        }
+    };
 
     return (
         <div style={{ alignItems: 'center', textAlign: 'center' }}>
@@ -16,44 +38,44 @@ const ViewProtectionPlanDetails = ({ protectionPlan }: { protectionPlan: Extende
                     {/* <BreadCrumbs /> */}
                     <div>
                         {/* <h2 className="bg-amber-100" >Protection Plan Details</h2> */}
-                        <h1>PROTECTION PLAN DETAILS - {protectionPlan.expired ? 'EXPIRED' : 'ACTIVE'}</h1>
+                        <h1>PROTECTION PLAN DETAILS - {protectionPlan.claimed ? <span style={{ color: 'blue' }}>CLAIMED</span> : checkExpirationStatus(protectionPlan) === 'black' ? <span style={{ color: 'red' }}>EXPIRED</span> : <span style={{ color: 'green' }}> ACTIVE</span>}</h1>
                         <ul className="vehicle-details-list">
-                            <li>
+                            <li className="bg-amber-100">
                                 <strong>Owner:</strong> {protectionPlan.customer.fName + ' ' + protectionPlan.customer.lName}
                             </li>
-                            <li className="bg-amber-100">
+                            <li>
                                 <strong>Model/Make:</strong> {protectionPlan.customerVehicle.make + ' ' + protectionPlan.customerVehicle.model}
                             </li>
-                            <li>
+                            <li className="bg-amber-100">
                                 <strong>Invoice No.:</strong> {protectionPlan.invoice}
                             </li>
-                            <li className="bg-amber-100">
+                            <li>
                                 <strong>BG Product:</strong> {protectionPlan.productUsed}
                             </li>
-                            <li>
+                            <li className="bg-amber-100">
                                 <strong>Service Date:</strong> {protectionPlan.serviceDate && new Date(protectionPlan.serviceDate).toLocaleDateString()}
                             </li>
-                            <li className="bg-amber-100">
+                            <li>
                                 <strong>Expiry Date:</strong> {protectionPlan.expiryDate && new Date(protectionPlan.expiryDate).toLocaleDateString()}
                             </li>
-                            <li>
+                            <li className="bg-amber-100">
                                 <strong>Odometer Initial Reading: </strong> {protectionPlan.odometerFrom}
                             </li>
-                            <li className="bg-amber-100">
+                            <li>
                                 <strong>Odometer Expiry Reading: </strong> {protectionPlan.odometerTo}
                             </li>
-                            <li >
+                            <li className="bg-amber-100">
                                 <strong>Reimubursement: </strong> Up to {protectionPlan.reimbursement}
                             </li>
                             <li>
-                                <strong className="bg-amber-100">Service Interval: </strong>
-                                <div>
+                                <strong>Service Interval: </strong>
+                                <div className="bg-amber-100">
                                     {protectionPlan.serviceInterval}
                                 </div>
                             </li>
                             <li>
-                                <strong className="bg-amber-100">Coverage: </strong>
-                                <div>
+                                <strong>Coverage: </strong>
+                                <div className="bg-amber-100">
                                     {protectionPlan.covers}
                                 </div>
                             </li>
@@ -62,7 +84,7 @@ const ViewProtectionPlanDetails = ({ protectionPlan }: { protectionPlan: Extende
                                     <img
                                         className={`invoiceImg ${enlarged ? 'enlarged' : ''}`}
                                         src={protectionPlan.invoiceUrl}
-                                        alt="invoice" 
+                                        alt="invoice"
                                         onClick={() => setEnlarged(!enlarged)}
                                     />
                                 </div>

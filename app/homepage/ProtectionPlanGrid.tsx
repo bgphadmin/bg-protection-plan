@@ -18,13 +18,15 @@ const ProtectionPlanGrid = ({ plans, error }: { plans: ExtendedProtectionPlan[],
         return;
     }
 
+    const [expired, setExpired] = useState(false);
+
     // Check expiration status
     const checkExpirationStatus = (protectionPlan: ExtendedProtectionPlan) => {
         const currentDate = new Date();
         const expiryDate = new Date(protectionPlan.expiryDate);
         const diffTime = expiryDate.getTime() - currentDate.getTime();
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        if (diffDays <= 0) {
+        if (diffDays <= 0 || protectionPlan.claimed) {
             return 'black'; // expired
         } else if (diffDays <= 7) {
             return 'red'; // about to expire (less than 7 days)
@@ -64,6 +66,7 @@ const ProtectionPlanGrid = ({ plans, error }: { plans: ExtendedProtectionPlan[],
         id: plan.id,
         // Added expiration status
         expirationStatus: checkExpirationStatus(plan),
+        claimed: plan.claimed,
         owner: plan.customer.fName + ' ' + plan.customer.lName,
         make: plan.customerVehicle.make,
         model: plan.customerVehicle.model,
@@ -72,7 +75,7 @@ const ProtectionPlanGrid = ({ plans, error }: { plans: ExtendedProtectionPlan[],
         invoice: plan.invoice,
         serviceDate: plan.serviceDate,
         odometerTo: plan.odometerTo,
-        expired: plan.expired,
+        expired: checkExpirationStatus(plan) === 'black' ? true : false,
         expiryDate: plan.expiryDate,
         reimbursement: plan.reimbursement
     }));
@@ -98,6 +101,7 @@ const ProtectionPlanGrid = ({ plans, error }: { plans: ExtendedProtectionPlan[],
                 );
             },
         },
+        { field: 'claimed', headerName: 'Claimed', width: 150 },
         { field: "owner", width: 150, headerName: 'Owner' },
         { field: 'make', headerName: 'Make', width: 150 },
         { field: 'model', headerName: 'Model', width: 150 },
