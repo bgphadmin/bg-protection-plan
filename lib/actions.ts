@@ -1078,9 +1078,15 @@ export const getProtectionPlanList = async (): Promise<{plans?: ExtendedProtecti
                         }
                     }
                 },
-                orderBy: {
-                    expiryDate: 'asc',
-                },
+                orderBy: 
+                    [
+                        {
+                            claimed: 'asc'
+                        },
+                        {
+                            expiryDate: 'asc'
+                        },
+                    ],
             })
             return { plans };
         } else {
