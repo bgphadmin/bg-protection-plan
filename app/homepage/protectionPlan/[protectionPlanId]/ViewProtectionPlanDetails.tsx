@@ -3,6 +3,7 @@
 import { ExtendedProtectionPlan, updateClaimStatus } from '@/lib/actions'
 import { ClerkLoaded } from '@clerk/nextjs'
 import { Button } from '@mui/material'
+import Image from 'next/image'
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 
@@ -93,12 +94,15 @@ const ViewProtectionPlanDetails = ({ protectionPlan, error }: { protectionPlan: 
                             </li>
                             <li className='mt-3'>
                                 <div>
-                                    <img
+                                    <Image
                                         className={`invoiceImg ${enlarged ? 'enlarged' : ''}`}
                                         src={protectionPlan.invoiceUrl}
                                         alt="invoice"
+                                        width={500}
+                                        height={500}
                                         onClick={() => setEnlarged(!enlarged)}
-                                    />
+                                        loading='lazy'
+                                    />      
                                 </div>
                             </li>
                             <li className='mt-3'>
