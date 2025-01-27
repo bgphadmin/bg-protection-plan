@@ -1,16 +1,11 @@
-import Settings from "@/components/breadcrumbs/Settings"
-import Users from "@/components/breadcrumbs/Users"
-
-
-
+import Home from "@/components/breadcrumbs/Home"
 
 const BreadCrumbs = () => {
     return (
         <div className="mb-4">
             <nav className="flex" aria-label="Breadcrumb">
                 <ol className="inline-flex items-center itemsCenter space-x-1 md:space-x-2 rtl:space-x-reverse">
-                    <Settings />
-                    {/* <Users /> */}
+                    <Home />
                 </ol>
             </nav>
         </div>

@@ -3,7 +3,6 @@
 import { PageProps } from "@/.next/types/app/homepage/protectionPlan/[protectionPlanId]/page";
 import { ExtendedProtectionPlan, getProtectionPlanById } from "@/lib/actions";
 import { ClerkLoaded } from "@clerk/nextjs";
-import { toast } from "react-toastify";
 import ViewProtectionPlanDetails from "./ViewProtectionPlanDetails";
 
 interface ViewProtectionPlanPageProps extends PageProps {

@@ -1,5 +1,4 @@
-import ContactUser from "@/components/breadcrumbs/ContactUser"
-import Settings from "@/components/breadcrumbs/Settings"
+import Home from "@/components/breadcrumbs/Home"
 import Users from "@/components/breadcrumbs/Users"
 
 const BreadCrumbs = () => {
@@ -7,9 +6,8 @@ const BreadCrumbs = () => {
         <div className="mb-4">
             <nav className="flex" aria-label="Breadcrumb">
                 <ol className="inline-flex items-center itemsCenter space-x-1 md:space-x-2 rtl:space-x-reverse">
-                    <Settings />
+                    <Home />
                     <Users />
-                    <ContactUser />
                 </ol>
             </nav>
         </div>

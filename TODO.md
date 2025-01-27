@@ -1,4 +1,7 @@
 TODO: Check and fix all breadcrumbs
+TODO: Check Cascading rules
+TODO: Add Dashboard for Settings
+TODO: Check all Delete and Updates functionality
 TODO: When vehicle is tapped or clicked, it goes directly to the vehicle 
 TODO: Update Customer Vehicles
 TODO: Add a column Added by on Customers and Vehicle grid
