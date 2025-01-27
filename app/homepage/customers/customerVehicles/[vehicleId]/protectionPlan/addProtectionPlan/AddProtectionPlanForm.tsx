@@ -4,7 +4,6 @@ import HeaderTitle from "@/components/HeaderTitle";
 import { ClerkLoaded } from "@clerk/nextjs";
 import { useRef, useState } from "react";
 import { BiSolidCarGarage } from "react-icons/bi";
-import BreadCrumbs from "../../../BreadCrumbs";
 import { useRouter } from "next/navigation";
 import products from "@/data/products.json"
 import { toast } from "react-toastify";
@@ -13,6 +12,7 @@ import { Switch } from "@mui/material";
 import Image from "next/image";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import { storage } from "@/firebase";
+import BreadCrumbs from "./BreadCrumbs";
 
 const AddProtectionPlanForm = ({ vehicleId }: { vehicleId: string }) => {
 
@@ -116,7 +116,7 @@ const AddProtectionPlanForm = ({ vehicleId }: { vehicleId: string }) => {
         {/* TODO: Change Icon to Document */}
         <HeaderTitle Icon={BiSolidCarGarage} title="Add Protection Plan" />
         <section className="form">
-          <BreadCrumbs />
+          <BreadCrumbs vehicleId={vehicleId} />
           <form ref={formRef} action={clientAction} noValidate>
             <div className="form-group flex items-center">
               <label className="pr-2 w-1/4" htmlFor="productUsed">Product Used</label>
