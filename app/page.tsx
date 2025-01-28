@@ -9,7 +9,7 @@ const LandingPage = () => {
 
 
   // TODO: Add the email scheduler here...
-  emailScheduler();
+  // emailScheduler();
   
   return (
     <div style={{
