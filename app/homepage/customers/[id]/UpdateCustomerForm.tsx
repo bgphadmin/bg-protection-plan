@@ -2,7 +2,7 @@
 
 import HeaderTitle from "@/components/HeaderTitle";
 import { ClerkLoaded } from "@clerk/nextjs";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { FaUserGear } from "react-icons/fa6";
 import { CustomerDealership, updateCustomer } from "@/lib/actions";
@@ -18,6 +18,8 @@ const UpdateCustomerForm = ({ customer, error }: UpdateCustomerFormProps) => {
         toast.error(error);
         redirect('/homepage')
     }
+    
+    const router = useRouter();
 
     const handleGoBack = () => {
         redirect('/homepage/customers')

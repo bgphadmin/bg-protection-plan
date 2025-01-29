@@ -3,7 +3,6 @@
 import HeaderTitle from "@/components/HeaderTitle";
 import { ClerkLoaded } from "@clerk/nextjs";
 import { useRef, useState } from "react";
-import { BiSolidCarGarage } from "react-icons/bi";
 import { useRouter } from "next/navigation";
 import products from "@/data/products.json"
 import { toast } from "react-toastify";
@@ -13,6 +12,7 @@ import Image from "next/image";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import { storage } from "@/firebase";
 import BreadCrumbs from "./BreadCrumbs";
+import { IoDocumentTextOutline } from "react-icons/io5";
 
 const AddProtectionPlanForm = ({ vehicleId }: { vehicleId: string }) => {
 
@@ -63,8 +63,6 @@ const AddProtectionPlanForm = ({ vehicleId }: { vehicleId: string }) => {
       toast.error('All fields are required')
     }
 
-    console.log('67 invoiceUrl: ', invoiceUrl)
-
     if (!invoiceUrl) {
       toast.error('Invoice Image is required')
       return 
@@ -88,7 +86,6 @@ const AddProtectionPlanForm = ({ vehicleId }: { vehicleId: string }) => {
     }
     reader.onload = (readerEvent: any) => {
       setPickedImage(readerEvent.target.result);
-      console.log("picked image >>>", readerEvent.target.result)
     };
   };
 
@@ -113,8 +110,7 @@ const AddProtectionPlanForm = ({ vehicleId }: { vehicleId: string }) => {
   return (
     <div className="container">
       <ClerkLoaded>
-        {/* TODO: Change Icon to Document */}
-        <HeaderTitle Icon={BiSolidCarGarage} title="Add Protection Plan" />
+        <HeaderTitle Icon={IoDocumentTextOutline} title="Add Protection Plan" />
         <section className="form">
           <BreadCrumbs vehicleId={vehicleId} />
           <form ref={formRef} action={clientAction} noValidate>

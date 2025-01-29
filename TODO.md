@@ -1,4 +1,4 @@
-TODO: Check Cascading rules
+TODO: Delete Cascade Rules
 TODO: Check all Delete and Updates functionality
 TODO: Add Dashboard for Settings
 TODO: Update Customer Vehicles

@@ -57,7 +57,7 @@ const ViewVehicleForm = ({ vehicle, error }: { vehicle?: ExtendedCustomerVehicle
                                 textAlign: 'center',
 
                             }}>
-                                <HeaderTitle title={`${vehicle.customer?.fName} ${vehicle.customer.lName}`} />
+                                <HeaderTitle title={`${vehicle.customer?.fName} ${vehicle.customer.lName} - ${vehicle.make} ${vehicle.model}`} />
                             </div>
                         </AccordionSummary>
                         <AccordionDetails>

@@ -6,6 +6,7 @@ import { Button } from '@mui/material'
 import Image from 'next/image'
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
+import BreadCrumbs from './BreadCrumbs'
 
 const ViewProtectionPlanDetails = ({ protectionPlan, error }: { protectionPlan: ExtendedProtectionPlan, error?: string }) => {
 
@@ -46,10 +47,10 @@ const ViewProtectionPlanDetails = ({ protectionPlan, error }: { protectionPlan: 
     };
 
     return (
-        <div style={{ alignItems: 'center', textAlign: 'center' }}>
+        <div className='container' style={{ alignItems: 'center', textAlign: 'center' }}>
             <ClerkLoaded>
                 <section className="form pt-8">
-                    {/* <BreadCrumbs /> */}
+                    <BreadCrumbs />
                     <div>
                         <h1>PROTECTION PLAN DETAILS - {protectionPlan.claimed ? <span style={{ color: 'blue' }}>CLAIMED</span> : checkExpirationStatus(protectionPlan) === 'black' ? <span style={{ color: 'red' }}>EXPIRED</span> : <span style={{ color: 'green' }}> ACTIVE</span>}</h1>
                         <ul className="vehicle-details-list">

@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect } from "react";
-import { DataGrid, GridColDef, GridRowParams, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarExport, GridToolbarFilterButton, } from "@mui/x-data-grid";
+import { GridColDef, GridRowParams, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarExport, GridToolbarFilterButton, } from "@mui/x-data-grid";
 import { Button, Container, Typography } from "@mui/material";
 import { toast } from "react-toastify";
 import BreadCrumbs from "./BreadCrumbs";
@@ -67,7 +67,6 @@ const CustomerGrid = ({ customers, error }: { customers?: any, error?: string, i
                     </div>
                 );
             },
-
         },
         {
             field: "Vehicle",

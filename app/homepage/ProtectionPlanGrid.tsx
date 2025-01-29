@@ -3,8 +3,8 @@
 import HeaderTitle from '@/components/HeaderTitle';
 import { ExtendedProtectionPlan } from '@/lib/actions';
 import { ClerkLoaded } from '@clerk/nextjs';
-import { Autocomplete, Container, TextField } from '@mui/material';
-import { DataGrid, GridColDef, GridRowParams, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarExport, GridToolbarFilterButton } from '@mui/x-data-grid';
+import { Autocomplete, Button, Container, TextField } from '@mui/material';
+import { GridColDef, GridRowParams, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarExport, GridToolbarFilterButton } from '@mui/x-data-grid';
 import { redirect } from 'next/navigation';
 import React, { useMemo, useState } from 'react'
 import { IoCarSportSharp } from 'react-icons/io5';
@@ -80,11 +80,19 @@ const ProtectionPlanGrid = ({ plans, error }: { plans: ExtendedProtectionPlan[],
         reimbursement: plan.reimbursement
     }));
 
+    const handleEditClick = (params: GridRowParams) => {
+        redirect(`/homepage/protectionPlan/${params.id}/updateProtectionPlan`);
+    }
+
+    const handleViewClick = (params: GridRowParams) => {
+        redirect(`/homepage/protectionPlan/${params.id}`);
+    }
 
     const columns: GridColDef[] = [
         {
             field: 'expirationStatus',
             headerName: 'Status',
+            headerAlign: 'center',
             renderCell: (params: any) => {
                 const color = checkExpirationStatus(params.row);
                 return (
@@ -102,12 +110,55 @@ const ProtectionPlanGrid = ({ plans, error }: { plans: ExtendedProtectionPlan[],
             },
         },
         {
-            field: 'claimed',
-            headerName: 'Claimed',
-            width: 150,
+            field: "View", width: 100,
+            headerAlign: 'center',
             renderCell: (params: any) => {
                 return (
-                    <div>
+                    <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <Button
+                            size="small"
+                            variant="contained"
+                            style={{ backgroundColor: "#FEE321", color: "black" }}
+                            onClick={(event) => {
+                                handleViewClick(params);
+                            }}
+                            >
+                            View
+                        </Button>
+                    </div>
+                );
+            },
+            
+        },
+        {
+            field: "Edit", width: 100,
+            headerAlign: 'center',
+            renderCell: (params: any) => {
+                return (
+                    <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <Button
+                            size="small"
+                            variant="contained"
+                            style={{ backgroundColor: "#FEE321", color: "black" }}
+                            onClick={(event) => {
+                                handleEditClick(params);
+                            }}
+                            >
+                            Edit
+                        </Button>
+                    </div>
+                );
+            },
+            
+        },
+        {
+            field: 'claimed',
+            headerName: 'Claimed',
+            headerAlign: 'center',
+            width: 100,
+            renderCell: (params: any) => {
+                return (
+                    <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         {params.row.claimed ? 'Yes' : 'No'}
                     </div>
                 )
@@ -157,9 +208,6 @@ const ProtectionPlanGrid = ({ plans, error }: { plans: ExtendedProtectionPlan[],
             </ClerkLoaded>
         )
     }
-    const handleRowClick = (params: GridRowParams) => {
-        redirect(`/homepage/protectionPlan/${params.id}`);
-    }
 
     return (
         <Container style={{ height: 400, width: '100%', marginTop: '2rem' }} >
@@ -183,7 +231,6 @@ const ProtectionPlanGrid = ({ plans, error }: { plans: ExtendedProtectionPlan[],
                     params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
                 }
                 className="dark:text-white dark:bg-blue-900 diplay: flex justify-center"
-                onRowClick={handleRowClick}
             />
         </Container>
     )
