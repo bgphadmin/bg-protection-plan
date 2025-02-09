@@ -14,12 +14,12 @@ import Link from "next/link";
 import { FaCar } from "react-icons/fa6";
 import { StripedDataGrid } from "@/lib/utils";
 
-const CustomerVehicleGrid = ({ vehicles, error, customerId }: { vehicles: ExtendedCustomerVehicle[], error: string, customerId: string }) => {
+const CustomerVehicleGrid = ({ vehicles, error, customerId, customer }: { vehicles: ExtendedCustomerVehicle[], error: string, customerId: string, customer: { fName: string, lName: string } }) => {
 
     useEffect(() => {
         if (error) {
             toast.error(error)
-            redirect('/homepage')
+            redirect('/homepage/customers')
         }
     }, [error])
 
@@ -70,7 +70,7 @@ const CustomerVehicleGrid = ({ vehicles, error, customerId }: { vehicles: Extend
         <div>
             <Container style={{ height: 400, width: '100%' }} >
                 <div className="flex justify-between items-center">
-                    <HeaderTitle Icon={IoCarSportSharp} title={vehicles[0].customer.fName + ' ' + vehicles[0].customer.lName} />
+                    <HeaderTitle Icon={IoCarSportSharp} title={customer.fName + ' ' + customer.lName} />
                     <Button variant="contained" size="medium" className="text-white mb-2">
                         <Link href={`/homepage/customers/${customerId}/customerVehicles/addVehicle`} className="flex items-center text-white">
                             <FaCar className="mr-2" />

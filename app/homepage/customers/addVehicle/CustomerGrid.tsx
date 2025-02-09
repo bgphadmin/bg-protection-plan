@@ -49,7 +49,7 @@ const CustomerGrid = ({ customers, error }: { customers?: any, error?: string, i
 
     const columns: GridColDef[] = [
         {
-            field: "Vehicle",
+            field: "Add Vehicle",
             width: 120,
             headerAlign: 'center',
             renderCell: (params: any) =>
