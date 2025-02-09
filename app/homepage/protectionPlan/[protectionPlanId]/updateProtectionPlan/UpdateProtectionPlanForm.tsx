@@ -164,38 +164,39 @@ const UpdateProtectionPlanForm = ({ protectionPlan, error }: { protectionPlan: E
                             />
                         </div>
 
-                        <div
-                            onClick={() => pickerRef.current.click()}
-                            className="relative h-[10rem] w-[10rem] border cursor-pointer flex flex-col items-center justify-center overflow-hidden rounded-lg "
-                        >
-                            {pickedImage ? (
-                                <Image
-                                    src={pickedImage}
-                                    fill
-                                    style={{ objectFit: "cover" }}
-                                    alt=""
-                                    sizes="100%"
-                                />
-                            ) : (
-                                <p>Select Invoice</p>
-                            )}
-                        </div>
+                        <div className="form-group gap-4" style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
+                            <div
+                                onClick={() => pickerRef.current.click()}
+                                className="relative h-[10rem] w-[10rem] border cursor-pointer flex flex-col items-center justify-center overflow-hidden rounded-lg "
+                            >
+                                {pickedImage ? (
+                                    <Image
+                                        src={pickedImage}
+                                        fill
+                                        style={{ objectFit: "cover" }}
+                                        alt=""
+                                        sizes="100%"
+                                    />
+                                ) : (
+                                    <p>Select Invoice</p>
+                                )}
+                            </div>
 
-                        <input
-                            ref={pickerRef}
-                            onChange={(e) => selectImage(e)}
-                            type="file"
-                            accept=".png, .jpg, .jpeg"
-                            hidden
-                        />
-
-                        <div className="form-group gap-4" style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1.5rem' }}>
-                            <button onClick={handleGoBack} className="btn btn-block" style={{ backgroundColor: 'black', color: 'white', }} type="reset">
-                                Cancel
-                            </button>
-                            <button className="btn btn-block" type="submit">
-                                Submit
-                            </button>
+                            <input
+                                ref={pickerRef}
+                                onChange={(e) => selectImage(e)}
+                                type="file"
+                                accept=".png, .jpg, .jpeg"
+                                hidden
+                            />
+                            <div className="form-group gap-4" style={{ display: 'flex', justifyContent: 'space-between', marginTop: '2.5rem' }}>
+                                <button onClick={handleGoBack} className="btn btn-block" style={{ backgroundColor: 'black', color: 'white', height: '2.5rem', width: '12rem' }} type="reset">
+                                    Cancel
+                                </button>
+                                <button className="btn btn-block" type="submit" style={{ height: '2.5rem', width: '12rem' }}>
+                                    Submit
+                                </button>
+                            </div>
                         </div>
                     </form>
                 </section>
