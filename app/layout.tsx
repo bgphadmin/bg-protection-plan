@@ -3,9 +3,9 @@ import { Roboto } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider, SignedIn } from "@clerk/nextjs"
 import Navbar from "@/components/navbar/Navbar";
-import BottomNavbar from "@/components/bottomNavbar/BottomNavbar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import BottomNavigation from "@/components/bottomNavbar/BottomNavigaton";
 
 const roboto = Roboto({ weight: "400", subsets: ["latin"] });
 
@@ -30,12 +30,12 @@ export default function RootLayout({
             </div>
           </SignedIn>
           {children}
-          <SignedIn>
-            {/* <BottomNavbar /> */}
-          </SignedIn>
+            <SignedIn>
+              <BottomNavigation />
+            </SignedIn>
           <ToastContainer />
         </body>
       </html>
-    </ClerkProvider>
+    </ClerkProvider >
   );
 }

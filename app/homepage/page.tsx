@@ -1,11 +1,11 @@
 
-import { ExtendedCustomerVehicle, getCustomerVehicles, getProtectionPlanList, isAdmin } from '@/lib/actions'
+import { getProtectionPlanList } from '@/lib/actions'
 // import HomePage from './HomePage'
 import { ClerkLoaded } from '@clerk/nextjs'
 import { auth } from '@clerk/nextjs/server'
 import ProtectionPlanGrid from './ProtectionPlanGrid'
 
-const page = async() => {
+const page = async () => {
 
   // Get the logged in user's clerk ID
   const { userId } = await auth()
@@ -20,9 +20,7 @@ const page = async() => {
   return (
     <ClerkLoaded>
       <div className='container' suppressHydrationWarning>
-        {/* <CustomerVehicleGrid vehicles={vehicles ?? []} error={error ?? ''} isAdmin={isUserAdmin ?? false} /> */}
         <ProtectionPlanGrid plans={plans ?? []} error={protectionPlanError ?? ''} />
-        {/* <HomePage /> */}
       </div>
     </ClerkLoaded>
   )

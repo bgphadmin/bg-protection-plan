@@ -1,6 +1,6 @@
+TODO: When adding customers, add a button is user wants to add
 TODO: Delete Cascade Rules
 TODO: Check all Delete and Updates functionality
-TODO: Add Dashboard for Settings
 TODO: Update Customer Vehicles
 TODO: Add a column Added by on Customers and Vehicle grid
 TODO: Add Delete functionality where applicable

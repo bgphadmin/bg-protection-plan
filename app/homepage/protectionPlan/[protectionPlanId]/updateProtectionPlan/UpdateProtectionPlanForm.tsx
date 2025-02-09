@@ -174,6 +174,7 @@ const UpdateProtectionPlanForm = ({ protectionPlan, error }: { protectionPlan: E
                                     fill
                                     style={{ objectFit: "cover" }}
                                     alt=""
+                                    sizes="100%"
                                 />
                             ) : (
                                 <p>Select Invoice</p>
