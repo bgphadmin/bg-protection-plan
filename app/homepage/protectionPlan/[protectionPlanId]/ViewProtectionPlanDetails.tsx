@@ -93,19 +93,19 @@ const ViewProtectionPlanDetails = ({ protectionPlan, error }: { protectionPlan: 
                                     {protectionPlan.covers}
                                 </div>
                             </li>
-                            <li className='mt-3'>
-                                <Image
-                                    className={`invoiceImg ${enlarged ? 'enlarged' : ''}`}
-                                    src={protectionPlan.invoiceUrl}
-                                    alt="invoice"
-                                    width={500}
-                                    height={500}
-                                    onClick={() => setEnlarged(!enlarged)}
-                                    loading='lazy'
-                                />
-                            </li>
-                            <li className='mt-3'>
-                                <Button variant="contained" className='w-full' onClick={handleClaim}>{claimed ? 'UNCLAIM' : 'CLAIM'}</Button>
+                            <li className='mt-3 mb-12 '>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
+                                    <Image
+                                        className={`invoiceImg ${enlarged ? 'enlarged' : ''}`}
+                                        src={protectionPlan.invoiceUrl}
+                                        alt="invoice"
+                                        width={500}
+                                        height={500}
+                                        onClick={() => setEnlarged(!enlarged)}
+                                        loading='lazy'
+                                    />
+                                    <Button className='w-full mr-4' variant="contained" onClick={handleClaim}>{claimed ? 'UNCLAIM' : 'CLAIM'}</Button>
+                                </div>
                             </li>
                         </ul>
                     </div>

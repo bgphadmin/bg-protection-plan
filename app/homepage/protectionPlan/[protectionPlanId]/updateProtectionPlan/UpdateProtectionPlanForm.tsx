@@ -154,7 +154,7 @@ const UpdateProtectionPlanForm = ({ protectionPlan, error }: { protectionPlan: E
                             // onChange={(e) => setOdometer(e.target.value)}
                             />
                         </div>
-                        <div className="form-group flex items-center my-auto">
+                        {/* <div className="form-group flex items-center my-auto">
                             <label className="pr-2 w-2/3" htmlFor="approvedOil">Approved OEM or BG729 or BG737 is used?</label>
                             <Switch
                                 id="isApprovedOil"
@@ -162,7 +162,7 @@ const UpdateProtectionPlanForm = ({ protectionPlan, error }: { protectionPlan: E
                                 checked={protectionPlan.approvedOil}
                             // onChange={(e) => setIsApprovedOil(e.target.checked)}
                             />
-                        </div>
+                        </div> */}
 
                         <div className="form-group gap-4" style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
                             <div
