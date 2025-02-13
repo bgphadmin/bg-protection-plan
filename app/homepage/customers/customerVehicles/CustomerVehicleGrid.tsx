@@ -1,10 +1,10 @@
 'use client';
 
 import HeaderTitle from "@/components/HeaderTitle";
-import { ExtendedCustomerVehicle, isAdmin } from "@/lib/actions";
+import { ExtendedCustomerVehicle } from "@/lib/actions";
 import { ClerkLoaded } from "@clerk/nextjs";
-import { Container } from "@mui/material";
-import { DataGrid, GridRowParams, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarExport, GridToolbarFilterButton } from "@mui/x-data-grid";
+import { Container, Typography } from "@mui/material";
+import { GridRowParams, GridToolbarContainer, GridToolbarFilterButton } from "@mui/x-data-grid";
 import { redirect } from "next/navigation";
 import { useEffect } from "react";
 import { IoCarSportSharp } from "react-icons/io5";
@@ -63,11 +63,12 @@ const CustomerVehicleGrid = ({ vehicles, error, isAdmin }: { vehicles: ExtendedC
         return (
             <ClerkLoaded>
                 <GridToolbarContainer style={{ marginTop: '0.5rem' }}>
-                    <div style={{ flexWrap: 'wrap', flexDirection: 'row', display: 'flex', alignContent: 'center', columnGap: '23rem' }}>
+                    <div style={{ flexWrap: 'nowrap', flexDirection: 'row', display: 'flex', alignContent: 'center', columnGap: '23rem' }}>
+                        <Typography marginLeft={3} variant='body1' style={{ color: 'red' }} >
+                            * Select the vehicle to add Protection Plan
+                        </Typography>
                         <div style={{ margin: 'auto', color: 'inherit' }} >
-                            <GridToolbarColumnsButton slotProps={{ button: { color: 'inherit' } }} />
                             <GridToolbarFilterButton slotProps={{ button: { color: 'inherit' } }} />
-                            <GridToolbarExport slotProps={{ button: { color: 'inherit' } }} />
                         </div>
                     </div>
                 </GridToolbarContainer>

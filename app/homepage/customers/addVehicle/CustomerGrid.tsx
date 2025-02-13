@@ -2,12 +2,11 @@
 
 import React, { useEffect } from "react";
 import { GridColDef, GridRowParams, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarExport, GridToolbarFilterButton, } from "@mui/x-data-grid";
-import { Button, Container, Typography } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import { toast } from "react-toastify";
 import BreadCrumbs from "./BreadCrumbs";
 import { ClerkLoaded } from "@clerk/nextjs";
 import HeaderTitle from "@/components/HeaderTitle";
-import { FaPeopleGroup } from "react-icons/fa6";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { IoCarSportSharp } from "react-icons/io5";
@@ -44,7 +43,7 @@ const CustomerGrid = ({ customers, error }: { customers?: any, error?: string, i
     }));
 
     const handleRowClick = (params: GridRowParams) => {
-        redirect(`/homepage/customers/${params.id}`);
+        redirect(`/homepage/customers/${params.row.id}/customerVehicles`);
     }
 
     const columns: GridColDef[] = [
@@ -73,10 +72,14 @@ const CustomerGrid = ({ customers, error }: { customers?: any, error?: string, i
             <ClerkLoaded>
                 <GridToolbarContainer style={{ marginTop: '0.5rem' }}>
                     <div style={{ flexWrap: 'wrap', flexDirection: 'row', display: 'flex', alignContent: 'center', columnGap: '23rem' }}>
+                        <Typography marginLeft={3} variant='body1' style={{ color: 'red' }} >
+                            * Select the Customer to add vehicle
+                        </Typography>
                         <div style={{ margin: 'auto', color: 'inherit' }} >
                             <GridToolbarColumnsButton slotProps={{ button: { color: 'inherit' } }} />
                             <GridToolbarFilterButton slotProps={{ button: { color: 'inherit' } }} />
-                            <GridToolbarExport slotProps={{ button: { color: 'inherit' } }} />
+                            {/* <GridToolbarExport slotProps={{ button: { color: 'inherit' } }} /> */}
+
                         </div>
                     </div>
                 </GridToolbarContainer>
@@ -104,6 +107,7 @@ const CustomerGrid = ({ customers, error }: { customers?: any, error?: string, i
                 getRowClassName={(params) =>
                     params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
                 }
+                onRowClick={handleRowClick}
                 className="dark:text-white dark:bg-blue-900 diplay: flex justify-center"
             />
         </Container>
