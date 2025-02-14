@@ -18,11 +18,11 @@ const page = async () => {
   const { plans, error: protectionPlanError } = await getProtectionPlanList()
 
   return (
-    <ClerkLoaded>
+    // <ClerkLoaded>
       <div className='container' suppressHydrationWarning>
         <ProtectionPlanGrid plans={plans ?? []} error={protectionPlanError ?? ''} />
       </div>
-    </ClerkLoaded>
+    // </ClerkLoaded>
   )
 }
 export default page

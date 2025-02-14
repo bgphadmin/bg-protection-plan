@@ -1,3 +1,4 @@
+TODO: Remove clerkloaded
 TODO: When adding customers, add a button is user wants to add
 TODO: Add Date claimed in the fields.
 TODO: Delete Cascade Rules
