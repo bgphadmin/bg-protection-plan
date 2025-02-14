@@ -63,9 +63,9 @@ const CustomerVehicleGrid = ({ vehicles, error, isAdmin }: { vehicles: ExtendedC
         return (
             <ClerkLoaded>
                 <GridToolbarContainer style={{ marginTop: '0.5rem' }}>
-                    <div style={{ flexWrap: 'nowrap', flexDirection: 'row', display: 'flex', alignContent: 'center', columnGap: '23rem' }}>
+                    <div style={{ flexWrap: 'wrap', flexDirection: 'row', display: 'flex', alignContent: 'center', columnGap: '3rem' }}>
                         <Typography marginLeft={3} variant='body1' style={{ color: 'red' }} >
-                            * Select the vehicle to add Protection Plan
+                            * Pick vehicle to add Protection Plan
                         </Typography>
                         <div style={{ margin: 'auto', color: 'inherit' }} >
                             <GridToolbarFilterButton slotProps={{ button: { color: 'inherit' } }} />
