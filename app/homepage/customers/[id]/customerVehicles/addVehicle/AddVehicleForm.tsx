@@ -119,7 +119,7 @@ const AddVehicleForm = ({ customerId }: { customerId: string }) => {
                                 placeholder="Enter your car year" />
                         </div>
                         <div className="form-group flex items-center">
-                            <label className="pr-2 w-1/4" htmlFor="transmission">Transmission:</label>
+                            <label className="pr-2 w-1/4" htmlFor="transmission">TRANSMISSION:</label>
                             <select
                                 id="transmission"
                                 required
@@ -137,7 +137,7 @@ const AddVehicleForm = ({ customerId }: { customerId: string }) => {
                             </select>
                         </div>
                         <div className="form-group flex items-center">
-                            <label className="pr-2 w-1/4" htmlFor="fuelType">Fuel Type:</label>
+                            <label className="pr-2 w-1/4" htmlFor="fuelType">FUEL TYPE:</label>
                             <select
                                 id="fuelType"
                                 required
