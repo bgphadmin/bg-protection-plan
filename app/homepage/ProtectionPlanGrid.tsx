@@ -122,13 +122,13 @@ const ProtectionPlanGrid = ({ plans, error }: { plans: ExtendedProtectionPlan[],
                             onClick={(event) => {
                                 handleViewClick(params);
                             }}
-                            >
+                        >
                             View
                         </Button>
                     </div>
                 );
             },
-            
+
         },
         {
             field: "Edit", width: 100,
@@ -143,13 +143,13 @@ const ProtectionPlanGrid = ({ plans, error }: { plans: ExtendedProtectionPlan[],
                             onClick={(event) => {
                                 handleEditClick(params);
                             }}
-                            >
+                        >
                             Edit
                         </Button>
                     </div>
                 );
             },
-            
+
         },
         {
             field: 'claimed',
@@ -211,9 +211,6 @@ const ProtectionPlanGrid = ({ plans, error }: { plans: ExtendedProtectionPlan[],
 
     return (
         <Container style={{ height: 400, width: '100%', marginTop: '2rem' }} >
-            <div className="flex justify-between items-center">
-                <HeaderTitle Icon={IoCarSportSharp} title={`Customer Vehicle Protection Plan`} />
-            </div>
             <StripedDataGrid
                 rows={rows}
                 columns={columns}
