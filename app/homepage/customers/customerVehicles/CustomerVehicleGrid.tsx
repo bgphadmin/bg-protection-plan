@@ -2,7 +2,6 @@
 
 import HeaderTitle from "@/components/HeaderTitle";
 import { ExtendedCustomerVehicle } from "@/lib/actions";
-import { ClerkLoaded } from "@clerk/nextjs";
 import { Container, Typography } from "@mui/material";
 import { GridRowParams, GridToolbarContainer, GridToolbarFilterButton } from "@mui/x-data-grid";
 import { redirect } from "next/navigation";
@@ -54,25 +53,19 @@ const CustomerVehicleGrid = ({ vehicles, error, isAdmin }: { vehicles: ExtendedC
         ]
     }
 
-
     const handleRowClick = (params: GridRowParams) => {
         redirect(`/homepage/customers/customerVehicles/${params.row.id}/viewVehicle`);
     }
 
     const CustomToolbar = () => {
         return (
-            <ClerkLoaded>
-                <GridToolbarContainer style={{ marginTop: '0.5rem' }}>
-                    <div style={{ flexWrap: 'wrap', flexDirection: 'row', display: 'flex', alignContent: 'center', columnGap: '29rem' }}>
-                        <Typography marginLeft={3} variant='body1' style={{ color: 'red' }} >
-                            * Pick vehicle to add Protection Plan
-                        </Typography>
-                        <div style={{ margin: 'auto', color: 'inherit' }} >
-                            <GridToolbarFilterButton slotProps={{ button: { color: 'inherit' } }} />
-                        </div>
+            <GridToolbarContainer style={{ marginTop: '0.5rem' }}>
+                <div style={{ flexWrap: 'wrap', flexDirection: 'row', display: 'flex', alignContent: 'center', columnGap: '29rem' }}>
+                    <div style={{ margin: 'auto', color: 'inherit' }} >
+                        <GridToolbarFilterButton slotProps={{ button: { color: 'inherit' } }} />
                     </div>
-                </GridToolbarContainer>
-            </ClerkLoaded>
+                </div>
+            </GridToolbarContainer>
         )
     }
     return (
@@ -82,6 +75,9 @@ const CustomerVehicleGrid = ({ vehicles, error, isAdmin }: { vehicles: ExtendedC
                     <HeaderTitle Icon={IoCarSportSharp} title={`Vehicles`} />
                 </div>
                 <BreadCrumbs />
+                <Typography mb={1} textAlign={'left'} variant='body1' style={{ color: 'maroon' }} >
+                    * Pick vehicle to add Protection Plan
+                </Typography>
                 <StripedDataGrid
                     rows={rows}
                     columns={columns}
