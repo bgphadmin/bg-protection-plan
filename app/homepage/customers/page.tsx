@@ -15,10 +15,11 @@ export default async function DataGridPage() {
     const { customers, error, isAdmin } = await getCustomersList(user?.id);
 
     return (
-        <ClerkLoaded>
-            <div className="container" suppressHydrationWarning>
-                <CustomerGrid customers={customers} error={error} isAdmin={isAdmin} />
+        <div className="container" suppressHydrationWarning>
+            <div className="items-center mt-4 font-bold text-gray-800">
+                Customers
             </div>
-        </ClerkLoaded>
+            <CustomerGrid customers={customers} error={error} isAdmin={isAdmin} />
+        </div>
     )
 }

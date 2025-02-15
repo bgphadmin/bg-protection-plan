@@ -6,10 +6,7 @@ import { Button, Container, Typography } from "@mui/material";
 import { toast } from "react-toastify";
 import BreadCrumbs from "./BreadCrumbs";
 import { ClerkLoaded } from "@clerk/nextjs";
-import HeaderTitle from "@/components/HeaderTitle";
-import { FaPeopleGroup } from "react-icons/fa6";
 import { redirect } from "next/navigation";
-import Link from "next/link";
 import { IoCarSportSharp } from "react-icons/io5";
 import { StripedDataGrid } from "@/lib/utils";
 
@@ -47,6 +44,9 @@ const CustomerGrid = ({ customers, error }: { customers?: any, error?: string, i
         redirect(`/homepage/customers/${params.id}`);
     }
 
+    const handleAddVehicleClick = (params: GridRowParams) => {
+        redirect(`/homepage/customers/${params.row.id}/customerVehicles`)
+    }
     const columns: GridColDef[] = [
         {
             field: "Edit", width: 100,
@@ -58,7 +58,7 @@ const CustomerGrid = ({ customers, error }: { customers?: any, error?: string, i
                             size="small"
                             variant="contained"
                             style={{ backgroundColor: "#FEE321", color: "black" }}
-                            onClick={(event) => {
+                            onClick={() => {
                                 handleRowClick(params);
                             }}
                         >
@@ -74,15 +74,20 @@ const CustomerGrid = ({ customers, error }: { customers?: any, error?: string, i
             headerAlign: 'center',
             renderCell: (params: any) =>
                 <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <Link href={`/homepage/customers/${params.row.id}/customerVehicles`} style={{ color: 'inherit' }}>
-                        <IoCarSportSharp size={25} />
-                    </Link>
+                    <Button size="small"
+                        variant="contained"
+                        style={{ backgroundColor: "#FEE321", color: "black" }}
+                        endIcon={<IoCarSportSharp size={22} />}
+                        onClick={() => handleAddVehicleClick(params)}
+                    >
+                        +
+                    </Button>
                 </div>
         },
         { field: "firstName", width: 150, renderHeader: () => <Typography sx={{ color: 'darkblue' }}>{'First Name'}</Typography>, },
         { field: "lastName", width: 150, renderHeader: () => <Typography sx={{ color: 'darkblue' }}>{'Last Name'}</Typography>, },
         { field: "dealershipName", width: 150, renderHeader: () => <Typography sx={{ color: 'darkblue' }}>{'Dealership'}</Typography>, },
-        { field: "email", width: 250, renderHeader: () => <Typography sx={{ color: 'darkblue' }}>{'Email'}</Typography>, },
+        // { field: "email", width: 250, renderHeader: () => <Typography sx={{ color: 'darkblue' }}>{'Email'}</Typography>, },
         { field: "mobile", width: 150, renderHeader: () => <Typography sx={{ color: 'darkblue' }}>{'Mobile'}</Typography>, },
         { field: "createdAt", width: 200, renderHeader: () => <Typography sx={{ color: 'darkblue' }}>{'Date Registered'}</Typography>, },
     ];
@@ -106,7 +111,6 @@ const CustomerGrid = ({ customers, error }: { customers?: any, error?: string, i
 
     return (
         <Container style={{ height: 400, width: '100%', }} >
-            <HeaderTitle Icon={FaPeopleGroup} title="CUSTOMERS" />
             <BreadCrumbs />
             <StripedDataGrid
                 rows={rows}
